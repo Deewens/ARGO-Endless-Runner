@@ -121,7 +121,6 @@ public class RunnerPlayer : MonoBehaviour
         if (sliding && slideTimer > 0)
         {
             slideTimer -= Time.deltaTime;
-            Debug.Log(slideTimer);
         }
         else
         {
