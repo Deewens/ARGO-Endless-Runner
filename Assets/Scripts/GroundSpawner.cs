@@ -9,16 +9,20 @@ public class GroundSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 15; i++)
         {
-            SpawnTile();
+            GameObject _temp = Instantiate(_groundTile, _nextSpawnPos, Quaternion.identity);
+            _nextSpawnPos = _temp.transform.GetChild(1).transform.position;
         }
     }
 
     public void SpawnTile()
     {
-        GameObject _temp = Instantiate(_groundTile, _nextSpawnPos, Quaternion.identity);
+        Debug.Log( "This : " + _nextSpawnPos.z);
+        GameObject _temp = Instantiate(_groundTile, _nextSpawnPos - new Vector3(0, 0, 10), Quaternion.identity);
         _nextSpawnPos = _temp.transform.GetChild(1).transform.position;
+        //Debug.Log("Next : " + _nextSpawnPos.z);
+
     }
 
 
