@@ -1,7 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+[DefaultExecutionOrder(-1)]
 public class InputManager : Singleton<InputManager>
 {
     #region Events
@@ -36,12 +37,26 @@ public class InputManager : Singleton<InputManager>
 
     private void StartTouchPrimary(InputAction.CallbackContext context)
     {
+        StartCoroutine(WaitStartTouch(context));
+    }
+
+    private IEnumerator WaitStartTouch(InputAction.CallbackContext context)
+    {
+        yield return new WaitForEndOfFrame();
+
+        var position = runnerController.Touch.PrimaryPosition.ReadValue<Vector2>();
+        if (position.x == 0 && position.y == 0)
+        {
+            yield return null;
+        }
+
+        Vector2 temp = runnerController.Touch.PrimaryPosition.ReadValue<Vector2>();
         if (OnStartTouch != null) OnStartTouch(Utils.ScreenToWorld(camera, runnerController.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
     }
 
     private void EndTouchPrimary(InputAction.CallbackContext context)
     {
-        if (OnEndTouch != null) OnStartTouch(Utils.ScreenToWorld(camera, runnerController.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
+        if (OnEndTouch != null) OnEndTouch(Utils.ScreenToWorld(camera, runnerController.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
     }
 
     public Vector2 PrimaryPosition()
