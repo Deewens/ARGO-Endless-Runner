@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RunnerPlayer : MonoBehaviour
@@ -25,6 +26,7 @@ public class RunnerPlayer : MonoBehaviour
     [Header("Refrences")]
     public Transform orientation;
     public Transform playerObj;
+    /// The Rigidbody of the Runner - Used to apply the force for actions.
     private Rigidbody rb;
 
     [Header("Sliding")]
@@ -40,7 +42,17 @@ public class RunnerPlayer : MonoBehaviour
     [Header("Input")]
     public KeyCode slideKey = KeyCode.LeftControl;
 
+
+    /// The amount of force applied to the Runner in order to get them off the ground.
+    float jumpForce = 80.0f;
+    /// Bool that keeps track of whether the Runner is on the ground or not.
+    bool grounded = false;
+    /// How hard the User has to swipe up before the Runner jumps.
+    float swipeIntensity = 70.0f;
+
     bool sliding;
+
+    
 
     void Awake()
     {
@@ -97,6 +109,13 @@ public class RunnerPlayer : MonoBehaviour
 		{
 			StartSlide();
 		}
+
+        //if (Vector2.Dot(Vector2.up, direction) > directionThreshold)
+        //{
+        //    Jump();
+        //}
+
+
         if (currentLane > 1)
 		{
 			if (Vector2.Dot(Vector2.left, direction) > directionThreshold)
@@ -126,7 +145,10 @@ public class RunnerPlayer : MonoBehaviour
         {
             StopSlide();
         }
+
+        //transform.LookAt(transform.forward);
     }
+
     private void StartSlide()
     {
         sliding = true;
@@ -143,4 +165,50 @@ public class RunnerPlayer : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         playerObj.localScale = playerScale;
     }
+
+    private void Jump()
+    {
+        if (grounded && !sliding)
+        {
+            rb.AddForce(transform.up * jumpForce * 10);
+            grounded = false;
+        }
+    }
+
+    /// <summary>
+    /// A check to see whether the Runner has landed back on the ground.
+    /// </summary>
+    /// <param name="collision">The object the Runner has collided with.</param>
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Ground"))
+        {
+            Land();
+        }
+    }
+
+    /// <summary>
+    /// What happens when the Runner is on the ground again.
+    /// </summary>
+    void Land()
+    {
+        grounded = true;
+    }
+
+    /// <summary>
+    /// Called every frame to update physics. is used for the swipe check.
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if (Input.touchCount == 1)
+        {
+            var touch = Input.GetTouch(0);
+
+            if (touch.deltaPosition.y > swipeIntensity)
+            {
+                Jump();
+            }
+        }
+    }
+
 }
