@@ -22,10 +22,37 @@ public class RunnerPlayer : MonoBehaviour
     private Vector2 endPosition;
     private float endTime;
 
+    [Header("Refrences")]
+    public Transform orientation;
+    public Transform playerObj;
+    private Rigidbody rb;
+
+    [Header("Sliding")]
+    public float maxSlideTime = 1.0f;
+    public float slideForce;
+    private float slideTimer;
+
+    public float slideYScale;
+    public float slideZScale;
+
+    private Vector3 playerScale;
+
+    [Header("Input")]
+    public KeyCode slideKey = KeyCode.LeftControl;
+
+    bool sliding;
+
     void Awake()
     {
         inputManager = InputManager.Instance;
         currentLane = Mathf.Ceil(laneCount / 2);
+    }
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        playerScale = playerObj.localScale;
     }
 
     void OnEnable()
@@ -82,5 +109,39 @@ public class RunnerPlayer : MonoBehaviour
                 currentLane++;
             }
         }
+
+        if(Vector2.Dot(Vector2.down, direction) > directionThreshold)
+        {
+            StartSlide();
+        } 
+    }
+
+    private void Update()
+    {
+        if (sliding && slideTimer > 0)
+        {
+            slideTimer -= Time.deltaTime;
+            Debug.Log(slideTimer);
+        }
+        else
+        {
+            StopSlide();
+        }
+    }
+    private void StartSlide()
+    {
+        sliding = true;
+
+        playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, slideZScale);
+        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+
+        slideTimer = maxSlideTime;
+    }
+
+    private void StopSlide()
+    {
+        sliding = false;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        playerObj.localScale = playerScale;
     }
 }
