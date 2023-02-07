@@ -71,5 +71,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-/[Aa]ssets/[Ss]enes/PersonalScenes/*
-!/[Aa]ssets/[Ss]enes/PersonalScenes/.gitkeep
+/[Aa]ssets/[Ss]cenes/PersonalScenes/*
+!/[Aa]ssets/[Ss]cenes/PersonalScenes/.gitkeep
