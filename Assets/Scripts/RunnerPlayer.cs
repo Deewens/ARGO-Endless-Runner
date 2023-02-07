@@ -11,7 +11,10 @@ public class RunnerPlayer : MonoBehaviour
     private float directionThreshold = .7f;
     [SerializeField]
     private float laneSize = 1;
+    [SerializeField]
+    private float laneCount = 3;
 
+    private float currentLane;
     private InputManager inputManager;
 
     private Vector2 startPosition;
@@ -22,6 +25,7 @@ public class RunnerPlayer : MonoBehaviour
     void Awake()
     {
         inputManager = InputManager.Instance;
+        currentLane = Mathf.Ceil(laneCount / 2);
     }
 
     void OnEnable()
@@ -62,13 +66,21 @@ public class RunnerPlayer : MonoBehaviour
 
     private void SwipeDirection(Vector2 direction)
     {
-        if (Vector2.Dot(Vector2.left, direction) > directionThreshold)
+        if (currentLane > 1)
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+            if (Vector2.Dot(Vector2.left, direction) > directionThreshold)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+                currentLane--;
+            }
         }
-        if (Vector2.Dot(Vector2.right, direction) > directionThreshold)
+        if (currentLane < laneCount)
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+            if (Vector2.Dot(Vector2.right, direction) > directionThreshold)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+                currentLane++;
+            }
         }
     }
 }
