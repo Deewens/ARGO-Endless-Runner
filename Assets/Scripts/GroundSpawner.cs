@@ -19,7 +19,7 @@ public class GroundSpawner : MonoBehaviour
     public void SpawnTile()
     {
         Debug.Log( "This : " + _nextSpawnPos.z);
-        GameObject _temp = Instantiate(_groundTile, _nextSpawnPos - new Vector3(0, 0, 10), Quaternion.identity);
+        GameObject _temp = Instantiate(_groundTile, _nextSpawnPos, Quaternion.identity);
         _nextSpawnPos = _temp.transform.GetChild(1).transform.position;
         //Debug.Log("Next : " + _nextSpawnPos.z);
 
