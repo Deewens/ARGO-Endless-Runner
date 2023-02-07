@@ -33,7 +33,7 @@ public partial class @RunnerController : IInputActionCollection2, IDisposable
                     ""id"": ""0fc2f2a9-6ee5-44a1-a39f-0dfce8f7efd7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -42,7 +42,7 @@ public partial class @RunnerController : IInputActionCollection2, IDisposable
                     ""id"": ""50f5552c-681e-45c4-9031-45b6ccd55e46"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
