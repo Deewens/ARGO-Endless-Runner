@@ -93,14 +93,19 @@ public class RunnerPlayer : MonoBehaviour
 
     private void SwipeDirection(Vector2 direction)
     {
+		if (Vector2.Dot(Vector2.down, direction) > directionThreshold)
+		{
+			StartSlide();
+		}
         if (currentLane > 1)
-        {
-            if (Vector2.Dot(Vector2.left, direction) > directionThreshold)
-            {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                currentLane--;
-            }
-        }
+		{
+			if (Vector2.Dot(Vector2.left, direction) > directionThreshold)
+			{
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+				currentLane--;
+			}
+			
+		}
         if (currentLane < laneCount)
         {
             if (Vector2.Dot(Vector2.right, direction) > directionThreshold)
@@ -109,11 +114,6 @@ public class RunnerPlayer : MonoBehaviour
                 currentLane++;
             }
         }
-
-        if(Vector2.Dot(Vector2.down, direction) > directionThreshold)
-        {
-            StartSlide();
-        } 
     }
 
     private void Update()
@@ -121,7 +121,6 @@ public class RunnerPlayer : MonoBehaviour
         if (sliding && slideTimer > 0)
         {
             slideTimer -= Time.deltaTime;
-            Debug.Log(slideTimer);
         }
         else
         {
