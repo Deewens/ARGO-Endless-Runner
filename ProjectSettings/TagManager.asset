@@ -9,6 +9,10 @@ TagManager:
   - SlideObstacle
   - Inpenetrable
   - Runner
+  - Ground
+  - JumpObstacle
+  - SlideObstacle
+  - Inpenetrable
   layers:
   - Default
   - TransparentFX
