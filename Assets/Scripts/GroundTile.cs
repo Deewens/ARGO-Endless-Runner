@@ -12,7 +12,7 @@ public class GroundTile : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Runner")
         {
             _groundSpawner.SpawnTile();
             Destroy(gameObject, 2);

@@ -14,7 +14,7 @@ public class SideObject : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Runner")
         {
             _sideObjectSpawner.SpawnTile();
             Destroy(gameObject, 2);
