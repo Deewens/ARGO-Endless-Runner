@@ -13,6 +13,9 @@ TagManager:
   - JumpObstacle
   - SlideObstacle
   - Inpenetrable
+  - AnalyticsManager
+  - Zeus
+  - Poseidon
   layers:
   - Default
   - TransparentFX
