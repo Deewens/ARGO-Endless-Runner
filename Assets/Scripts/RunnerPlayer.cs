@@ -143,32 +143,4 @@ public class RunnerPlayer : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         playerObj.localScale = playerScale;
     }
-
-    private void Update()
-    {
-        if (sliding && slideTimer > 0)
-        {
-            slideTimer -= Time.deltaTime;
-        }
-        else
-        {
-            StopSlide();
-        }
-    }
-    private void StartSlide()
-    {
-        sliding = true;
-
-        playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, slideZScale);
-        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-
-        slideTimer = maxSlideTime;
-    }
-
-    private void StopSlide()
-    {
-        sliding = false;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        playerObj.localScale = playerScale;
-    }
 }
