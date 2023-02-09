@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject GameOverMenu;
     public GameObject _runner;
     public Button _toggleAIButton;
     bool _aiOnOff;
@@ -24,6 +25,46 @@ public class UIManager : MonoBehaviour
     {
         Application.OpenURL(
             "https://docs.google.com/forms/d/e/1FAIpQLScP_TMz7UApxi89AMviheraT5H10M79u2_8E2bpfZZvgiWpZw/viewform?usp=sf_link");
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void StartLevel()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    public void Quitgame()
+    {
+        #if UNITY_STANDALONE
+          Application.Quit();
+        #endif
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    private void OnEnable()
+    {
+        ObstacleCollision.OnPlayerDeath += EnableGameOvermenu;
+    }
+
+    private void OnDisable()
+    {
+        ObstacleCollision.OnPlayerDeath -= EnableGameOvermenu;
+    }
+
+    public void EnableGameOvermenu()
+    {
+        GameOverMenu.SetActive(true);
     }
 
     public void ToggleAIButton()
