@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2607f22f7be94b9fa9b2ed7e2459b174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAI: 0
+  isAI: 1
   attackCooldownTime: 5
 --- !u!4 &1485262145
 Transform:
