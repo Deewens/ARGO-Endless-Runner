@@ -16,6 +16,7 @@ TagManager:
   - AnalyticsManager
   - Zeus
   - Poseidon
+  - BehindPlayer
   layers:
   - Default
   - TransparentFX

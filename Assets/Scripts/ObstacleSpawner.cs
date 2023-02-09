@@ -27,7 +27,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     public IEnumerator SpawnObstacle()
     {
-        Debug.Log("Here");
+        //Debug.Log("Here");
         _randomNumber = Random.Range(1, 4);
         //_randomNumber = 1;
         yield return new WaitForSeconds(2.0f);
