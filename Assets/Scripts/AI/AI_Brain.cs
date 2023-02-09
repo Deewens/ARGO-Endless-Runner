@@ -13,6 +13,25 @@ public class AI_Brain : MonoBehaviour
     /// Bool that keeps track of whether the Runner is on the ground or not.
     bool grounded = false;
 
+    [Header("AI_Sliding")]
+    /// Maximum slide time 
+    public float maxSlideTime = 1.0f;
+    /// How much force is applied to gameobject when sliding  
+    public float slideForce;
+    /// Timer to check how long the gameobject is sliding for before going back to running 
+    private float slideTimer;
+
+    /// The scale will be half of what the gameobject is to show that it is currently sliding 
+    public float slideYScale;
+    /// The scale will be double of what the gameobject is to show that it is currently sliding
+    public float slideZScale;
+
+    private Vector3 AIScale;
+
+    public Transform orientation;
+    public Transform AIObj;
+
+    bool sliding;
     /// <summary>
     /// Controller of how the AI Runner reacts, once it sees an obstacle.
     /// </summary>
@@ -26,7 +45,7 @@ public class AI_Brain : MonoBehaviour
 
         if (t_seenObstacle.CompareTag("SlideObstacle"))
         {
-            // Slide under
+            StartSlide();
         }
 
         if (t_seenObstacle.CompareTag("Inpenetrable"))
@@ -41,6 +60,8 @@ public class AI_Brain : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        AIScale = AIObj.localScale;
     }
 
     /// <summary>
@@ -75,4 +96,32 @@ public class AI_Brain : MonoBehaviour
         }
     }
 
+    private void StartSlide()
+    {
+        sliding = true;
+
+        AIObj.localScale = new Vector3(AIObj.localScale.x, slideYScale, slideZScale);
+        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+
+        slideTimer = maxSlideTime;
+    }
+
+    private void StopSlide()
+    {
+        sliding = false;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        AIObj.localScale = AIScale;
+    }
+
+    private void Update()
+    {
+        if (sliding && slideTimer > 0)
+        {
+            slideTimer -= Time.deltaTime;
+        }
+        else
+        {
+            StopSlide();
+        }
+    }
 }
