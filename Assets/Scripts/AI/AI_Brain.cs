@@ -31,6 +31,15 @@ public class AI_Brain : MonoBehaviour
     public Transform orientation;
     public Transform AIObj;
 
+    /// How much the runner moves when changing lanes
+    private int laneSize = 2;
+
+    /// max amount of lanes
+    private int laneCount = 3;
+
+    /// current lane occupied by runner
+    private int currentLane = 2;
+
     bool sliding;
     /// <summary>
     /// Controller of how the AI Runner reacts, once it sees an obstacle.
@@ -38,19 +47,52 @@ public class AI_Brain : MonoBehaviour
     /// <param name="t_seenObstacle">The obstacle it sees ahead.</param>
     public void React(Collider t_seenObstacle)
     {
-        if (t_seenObstacle.CompareTag("JumpObstacle"))
-        {
-            Jump();
-        }
-
-        if (t_seenObstacle.CompareTag("SlideObstacle"))
-        {
-            StartSlide();
-        }
+        bool solved = false;
 
         if (t_seenObstacle.CompareTag("Inpenetrable"))
         {
-            // Move left or right
+            ///If in the middle lane, randomise left or right
+            float lane = laneCount / 2.0f;
+            if (currentLane == Mathf.Ceil(lane))
+            {
+                int rand = Random.Range(1, 3);
+                if (rand == 1)
+                {
+                    gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+                    currentLane--;
+                    solved = true;
+                }
+                else if (rand == 2)
+                {
+                    gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+                    currentLane++;
+                    solved = true;
+                }
+            }
+            else if (currentLane > 1 && !solved)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+                currentLane--;
+                solved = true;
+            }
+            else if (currentLane < laneCount && !solved)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+                currentLane++;
+                solved = true;
+            }
+        }
+
+        else if (t_seenObstacle.CompareTag("JumpObstacle") && !solved)
+        {
+            Jump();
+            solved = true;
+        }
+
+        else if (t_seenObstacle.CompareTag("SlideObstacle") && !solved)
+        {
+            StartSlide();
+            solved =true;
         }
     }
 
