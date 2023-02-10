@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A class that spawns obstacles of different types at random
+/// locations on the track.
+/// </summary>
 public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] private Transform _runner;
@@ -13,7 +17,10 @@ public class ObstacleSpawner : MonoBehaviour
     Vector3 _offset;
     int _randomNumber;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Sets up the original offset between the player and the spawner and starts the
+    /// spawning coroutine
+    /// </summary>
     void Start()
     {
         _obstaclesPlaced = 0;
@@ -21,12 +28,18 @@ public class ObstacleSpawner : MonoBehaviour
         StartCoroutine(SpawnObstacle());
     }
 
+    /// <summary>
+    /// Updates the position of the spawner to always be in front of the player
+    /// </summary>
     private void LateUpdate()
     {
         Vector3 newPos = _runner.position + _offset;
         transform.position = new Vector3(transform.position.x, transform.position.y, newPos.z);
     }
 
+    /// <summary>
+    /// Coroutine that handles spawning obstacles of three different types
+    /// </summary>
     public IEnumerator SpawnObstacle()
     {
         //Debug.Log("Here");

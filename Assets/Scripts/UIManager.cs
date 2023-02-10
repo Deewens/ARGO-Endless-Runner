@@ -67,11 +67,17 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    /// <summary>
+    /// Toggles the gameover screen
+    /// </summary>
     private void OnEnable()
     {
         ObstacleCollision.OnPlayerDeath += EnableGameOvermenu;
     }
 
+    /// <summary>
+    /// Toggle sthe game over screen
+    /// </summary>
     private void OnDisable()
     {
         ObstacleCollision.OnPlayerDeath -= EnableGameOvermenu;

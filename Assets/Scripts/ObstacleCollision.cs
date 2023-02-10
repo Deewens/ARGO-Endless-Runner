@@ -4,16 +4,29 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// A class that checks for collision with the player.
+/// Determines wheter an obstacle has hit the player 
+/// or has gone offscreen
+/// </summary>
 public class ObstacleCollision : MonoBehaviour
 {
     GameObject _runner;
     public static event Action OnPlayerDeath;
 
+    /// <summary>
+    /// Finds the runner in the scene
+    /// </summary>
     private void Start()
     {
         _runner = GameObject.FindGameObjectWithTag("Runner");
     }
 
+    /// <summary>
+    /// Checks for collision with the player directly
+    /// and an offscreen collider to determine if the player 
+    /// avoided or hit an obstacle
+    /// </summary>
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Runner")

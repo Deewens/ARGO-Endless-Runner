@@ -4,6 +4,9 @@ using System.Net;
 using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// A class that defines player data
+/// </summary>
 public class Data
 {
     public int playerID = 0;
@@ -16,6 +19,9 @@ public class Data
     public double timePlayed = 0;
 }
 
+/// <summary>
+/// Receives, stores, packs and sends player data to an external database hosted on anvil
+/// </summary>
 public class AnalyticsManager : MonoBehaviour
 {
     public GameObject _runner;
@@ -33,6 +39,9 @@ public class AnalyticsManager : MonoBehaviour
 
     bool _dataSent;
 
+    /// <summary>
+    /// Sets default values for data
+    /// </summary>
     void Start()
     {
         _endTime = 0;
@@ -44,12 +53,18 @@ public class AnalyticsManager : MonoBehaviour
         _poseidonData.playerID = Random.Range(1, 100000000);
     }
 
+    /// <summary>
+    /// Sends data when the player dies
+    /// </summary>
     void Update()
     {
-        if(!_dataSent && _runner.gameObject.activeSelf == false)
+        if(!_dataSent && _runner.transform.GetChild(0).gameObject.activeSelf == false)
             sendData();
     }
 
+    /// <summary>
+    /// Packs player data and calls a coroutine that will send the data to an external database on anvil
+    /// </summary>
     public void sendData()
     {
         _endTime = System.DateTimeOffset.Now.ToUnixTimeSeconds();
@@ -96,6 +111,9 @@ public class AnalyticsManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Sends the data to an external database hosted on anvil
+    /// </summary>
     public static IEnumerator PostMethod(string jsonData)
     {
         string url = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/metric";
