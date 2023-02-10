@@ -27,26 +27,18 @@ public class AnalyticsManager : MonoBehaviour
     Data _zeusData = new Data(); //initialise all data
     Data _poseidonData = new Data(); //initialise all data
 
-    bool _dataSent;
 
     void Start()
     {
-        _dataSent= false;
         _runnerData.playerID = Random.Range(1, 100000000);
         _zeusData.playerID = Random.Range(1, 100000000);
         _poseidonData.playerID = Random.Range(1, 100000000);
     }
 
-    void Update()
-    {
-        if(!_dataSent && _runner.gameObject.activeSelf == false)
-            sendData();
-    }
 
     public void sendData()
     {
-        Debug.Log("Sending Data");
-        _dataSent = true;
+        Debug.Log("Here");
         if (_runner.tag == "Runner")
         {
             _runnerData.role = "Runner";
@@ -83,7 +75,6 @@ public class AnalyticsManager : MonoBehaviour
             string jsonData = JsonUtility.ToJson(_poseidonData);
             StartCoroutine(PostMethod(jsonData));
         }
-
     }
 
     public static IEnumerator PostMethod(string jsonData)
