@@ -12,6 +12,7 @@ public class MoveForward : MonoBehaviour
     int _startingPos;
     int _increaseWhen;
     AnalyticsManager _analyticsManager;
+    public int _obstaclesAvoided;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class MoveForward : MonoBehaviour
         _speed = 8.0f;
         _maxSpeed = 30.0f;
         _startingPos = (int)transform.position.z;
+        _obstaclesAvoided= 0;
     }
 
     void Update()

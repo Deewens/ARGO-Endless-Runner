@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     public void StartLevel()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("MainScene");
     }
 
     public void Quitgame()
@@ -45,6 +45,7 @@ public class UIManager : MonoBehaviour
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #endif
+        Application.Quit();
     }
 
     public void GoToMainMenu()
@@ -78,6 +79,7 @@ public class UIManager : MonoBehaviour
             _runner.transform.GetChild(1).gameObject.SetActive(true);
             _runner.GetComponent<AI_Brain>().enabled = true;
             _runner.GetComponent<RunnerPlayer>().enabled = false;
+            _runner.GetComponent<RunnerJumping>().enabled = false;
 
         }
         else
@@ -87,8 +89,7 @@ public class UIManager : MonoBehaviour
             _runner.transform.GetChild(1).gameObject.SetActive(false);
             _runner.GetComponent<AI_Brain>().enabled = false;
             _runner.GetComponent<RunnerPlayer>().enabled = true;
-
-
+            _runner.GetComponent<RunnerJumping>().enabled = true;
         }
     }
 

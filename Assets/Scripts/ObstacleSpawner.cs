@@ -8,6 +8,7 @@ public class ObstacleSpawner : MonoBehaviour
     public GameObject _obstacleWide;
     public GameObject _obstacleHigh;
     public GameObject _obstacleSmall;
+    public int _obstaclesPlaced;
 
     Vector3 _offset;
     int _randomNumber;
@@ -15,6 +16,7 @@ public class ObstacleSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _obstaclesPlaced = 0;
         _offset = transform.position - _runner.position;
         StartCoroutine(SpawnObstacle());
     }
@@ -40,15 +42,17 @@ public class ObstacleSpawner : MonoBehaviour
             else if (_randomXPos == 3)
                 _randomXPos = 0;
             GameObject _temp = Instantiate(_obstacleSmall, new Vector3(_randomXPos,1,newPos.z), Quaternion.identity);
+            _obstaclesPlaced += 1;
         }
         else if(_randomNumber == 2)
         {
             GameObject _temp = Instantiate(_obstacleHigh, new Vector3(0, 2, newPos.z), Quaternion.identity);
-
+            _obstaclesPlaced += 1;
         }
         else if(_randomNumber == 3)
         {
             GameObject _temp = Instantiate(_obstacleWide, new Vector3(0, 1, newPos.z), Quaternion.identity);
+            _obstaclesPlaced += 1;
         }
         StartCoroutine(SpawnObstacle());
     }

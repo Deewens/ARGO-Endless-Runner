@@ -6,7 +6,13 @@ using UnityEngine;
 
 public class ObstacleCollision : MonoBehaviour
 {
+    GameObject _runner;
     public static event Action OnPlayerDeath;
+
+    private void Start()
+    {
+        _runner = GameObject.FindGameObjectWithTag("Runner");
+    }
 
     private void OnTriggerExit(Collider other)
     {
@@ -19,7 +25,16 @@ public class ObstacleCollision : MonoBehaviour
         }
         if (other.tag == "BehindPlayer")
         {
-            Debug.Log("Avoided");
+
+            if (_runner != null)
+            {
+                Debug.Log("Avoided");
+                _runner.GetComponent<MoveForward>()._obstaclesAvoided += 1;
+            }
+            else
+            {
+                _runner = GameObject.FindGameObjectWithTag("Runner");
+            }
             Destroy(gameObject, 2);
         }
         
