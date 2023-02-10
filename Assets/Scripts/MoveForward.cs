@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 
+/// <summary>
+/// A class that moves the player forward and tracks the distance they have travelled
+/// </summary>
 public class MoveForward : MonoBehaviour
 {
     public float _speed;
@@ -11,13 +14,13 @@ public class MoveForward : MonoBehaviour
     public int _distanceTravelled;
     int _startingPos;
     int _increaseWhen;
-    AnalyticsManager _analyticsManager;
     public int _obstaclesAvoided;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Sets up default values
+    /// </summary>
     void Start()
     {
-        _analyticsManager = GameObject.FindObjectOfType<AnalyticsManager>();
         _increaseWhen = 100;
         _speed = 8.0f;
         _maxSpeed = 30.0f;
@@ -25,20 +28,12 @@ public class MoveForward : MonoBehaviour
         _obstaclesAvoided= 0;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("q") /*Testing, will be gameover*/)
-        {
-            _analyticsManager.sendData();
-        }
-    }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Calculates the distance travelled by the runner and increases speed based on distance travelled
+    /// </summary>
     void FixedUpdate()
     {
-       // Debug.Log(_speed);
-       // Debug.Log(_distanceTravelled);
-
 
         _distanceTravelled = (int)transform.position.z - (int)_startingPos;
 

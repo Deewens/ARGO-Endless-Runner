@@ -6,6 +6,9 @@ internal enum CameraType {
     God
 }
 
+/// <summary>
+/// A class that lets the camera follow the player
+/// </summary>
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private CameraType type = CameraType.Runner;
@@ -18,12 +21,18 @@ public class CameraFollow : MonoBehaviour
     private Vector3 _offset;
     private Vector3 _currentVelocity;
 
+    /// <summary>
+    /// Sets up offset from player so the camera is at a fixed distance from the player
+    /// </summary>
     void Start()
     {
         if (type == CameraType.Runner)
             _offset = transform.position - runner.position;
     }
 
+    /// <summary>
+    /// MAkes the camera follow the player, runner and god
+    /// </summary>
     void LateUpdate()
     {
         if (type == CameraType.Runner)
