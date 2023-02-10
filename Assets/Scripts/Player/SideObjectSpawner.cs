@@ -9,6 +9,11 @@ public class SideObjectSpawner : MonoBehaviour
 {
     public GameObject _sideObject;
     Vector3 _nextSpawnPos;
+    [SerializeField]
+    public GameObject _runnerPlayer;
+
+
+
 
     /// <summary>
     /// Start spawns the first 15 pairs of columns that line the track
