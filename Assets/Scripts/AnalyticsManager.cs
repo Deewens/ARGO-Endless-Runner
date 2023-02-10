@@ -13,7 +13,7 @@ public class Data
     public int obstaclesHit = 0;
     public int obstaclesPlaced = 0;
     public int score = 0;
-    public int timePlayed = 0;
+    public double timePlayed = 0;
 }
 
 public class AnalyticsManager : MonoBehaviour
@@ -21,7 +21,11 @@ public class AnalyticsManager : MonoBehaviour
     public GameObject _runner;
     public GameObject _godZeus;
     public GameObject _godPoseidon;
+    public GameObject _objectSpawner;
 
+    private double _startTime;
+    private double _endTime;
+    private double _playTime;
 
     Data _runnerData = new Data(); //initialise all data
     Data _zeusData = new Data(); //initialise all data
@@ -31,7 +35,10 @@ public class AnalyticsManager : MonoBehaviour
 
     void Start()
     {
-        _dataSent= false;
+        _endTime = 0;
+        _playTime= 0;
+        _startTime = System.DateTimeOffset.Now.ToUnixTimeSeconds();
+        _dataSent = false;
         _runnerData.playerID = Random.Range(1, 100000000);
         _zeusData.playerID = Random.Range(1, 100000000);
         _poseidonData.playerID = Random.Range(1, 100000000);
@@ -45,6 +52,8 @@ public class AnalyticsManager : MonoBehaviour
 
     public void sendData()
     {
+        _endTime = System.DateTimeOffset.Now.ToUnixTimeSeconds();
+        _playTime = _endTime - _startTime;
         Debug.Log("Sending Data");
         _dataSent = true;
         if (_runner.tag == "Runner")
@@ -52,10 +61,11 @@ public class AnalyticsManager : MonoBehaviour
             _runnerData.role = "Runner";
             _runnerData.distanceTravelled = _runner.GetComponent<MoveForward>()._distanceTravelled;
             // extract data from finished scripts for the runner later on 
-            _runnerData.obstaclesAvoided = 0;
-            _runnerData.obstaclesHit = 0;
-            _runnerData.score = 0;
-            _runnerData.timePlayed = 0;
+            _runnerData.obstaclesAvoided = _runner.GetComponent<MoveForward>()._obstaclesAvoided;
+            _runnerData.obstaclesHit = 1;
+            _runnerData.obstaclesPlaced = _objectSpawner.GetComponent<ObstacleSpawner>()._obstaclesPlaced;
+            _runnerData.score = _runnerData.distanceTravelled + (_runnerData.obstaclesAvoided * _runnerData.obstaclesPlaced);
+            _runnerData.timePlayed = _playTime;
 
             string jsonData = JsonUtility.ToJson(_runnerData);
             StartCoroutine(PostMethod(jsonData));
