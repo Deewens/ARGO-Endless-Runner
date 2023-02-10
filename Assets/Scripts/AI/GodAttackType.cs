@@ -5,4 +5,5 @@ public enum GodAttackType
 {
     Dummy,
     Avoid,
+    Slide,
 }

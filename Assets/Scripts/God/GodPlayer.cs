@@ -36,7 +36,14 @@ public class GodPlayer : MonoBehaviour
                 Vector3 pos = Input.mousePosition;
                 pos.z = Camera.main.nearClipPlane + 30;
                 pos = Camera.main.ScreenToWorldPoint(pos);
-                pos.y = 2;
+                if(_uIGameManager.GetChosenAttack() == 1)
+                {
+                    pos.y = 3;
+                }
+                else
+                {
+                    pos.y = 2;
+                }
                 _attackPos = pos;
                 PlayerAttack();
             }
