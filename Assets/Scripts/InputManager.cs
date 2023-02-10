@@ -12,7 +12,7 @@ public class InputManager : Singleton<InputManager>
     public event EndTouch OnEndTouch;
     #endregion
     private RunnerController runnerController;
-    private Camera camera;
+    private new Camera camera;
 
     void Awake()
     {
@@ -31,6 +31,7 @@ public class InputManager : Singleton<InputManager>
     }
     void Start()
     {
+        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
         runnerController.Touch.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
         runnerController.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
     }
@@ -42,6 +43,10 @@ public class InputManager : Singleton<InputManager>
 
     private IEnumerator WaitStartTouch(InputAction.CallbackContext context)
     {
+        if (camera == null)
+        {
+            camera = Camera.main;
+        }
         yield return new WaitForEndOfFrame();
 
         var position = runnerController.Touch.PrimaryPosition.ReadValue<Vector2>();
