@@ -1,101 +1,103 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
-
+/// <summary>
+/// A class which accepts player input and makes the runner move, jump and slide accordingly
+/// </summary>
 public class RunnerPlayer : MonoBehaviour
 {
     [SerializeField]
-    private float minimumDistance = 0.1f;
+    private float minimumDistance = 0.01f;
     [SerializeField]
     private float maximumTime = 1f;
     [SerializeField]
     private float directionThreshold = .7f;
     [SerializeField]
-    private float laneSize = 1;
+    private float laneSize = 3;
     [SerializeField]
     private float laneCount = 3;
 
-    private float currentLane;
-    private InputManager inputManager;
+    private float _currentLane;
+    private InputManager _inputManager;
 
-    private Vector2 startPosition;
-    private float startTime;
-    private Vector2 endPosition;
-    private float endTime;
+    private Vector2 _startPosition;
+    private float _startTime;
+    private Vector2 _endPosition;
+    private float _endTime;
 
     [Header("Refrences")]
     public Transform orientation;
     public Transform playerObj;
     /// The Rigidbody of the Runner - Used to apply the force for actions.
-    private Rigidbody rb;
+    private Rigidbody _rb;
 
     [Header("Sliding")]
     public float maxSlideTime = 1.0f;
 
-    private float slideTimer;
+    private float _slideTimer;
 
     public float slideYScale;
     public float slideZScale;
 
-    private Vector3 playerScale;
+    private Vector3 _playerScale;
 
 
     /// The amount of force applied to the Runner in order to get them off the ground.
-    float jumpForce = 80.0f;
+    private float _jumpForce = 80.0f;
     /// Bool that keeps track of whether the Runner is on the ground or not.
-    bool grounded = false;
+    private bool _grounded = false;
     /// How hard the User has to swipe up before the Runner jumps.
-    float swipeIntensity = 70.0f;
+    private float _swipeIntensity = 70.0f;
 
-    bool sliding;
-    bool moving = false;
+    private bool _sliding;
+    private bool _moving = false;
 
     
 
     void Awake()
     {
-        inputManager = InputManager.Instance;
-        currentLane = Mathf.Ceil(laneCount / 2);
+        _inputManager = InputManager.Instance;
+        _currentLane = Mathf.Ceil(laneCount / 2);
     }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
 
-        playerScale = playerObj.localScale;
+        _playerScale = playerObj.localScale;
     }
 
     void OnEnable()
     {
-        inputManager.OnStartTouch += SwipeStart;
-        inputManager.OnEndTouch += SwipeEnd;
+        _inputManager.OnStartTouch += SwipeStart;
+        _inputManager.OnEndTouch += SwipeEnd;
     }
 
     void OnDisable()
     {
-        inputManager.OnStartTouch -= SwipeStart;
-        inputManager.OnEndTouch -= SwipeEnd;
+        _inputManager.OnStartTouch -= SwipeStart;
+        _inputManager.OnEndTouch -= SwipeEnd;
     }
 
     private void SwipeStart(Vector2 position, float time)
     {
-        startPosition = position;
-        startTime = time;
+        _startPosition = position;
+        _startTime = time;
     }
 
     private void SwipeEnd(Vector2 position, float time)
     {
-        endPosition = position;
-        endTime = time;
+        _endPosition = position;
+        _endTime = time;
         DetectSwipe();
     }
 
     private void DetectSwipe()
     {
-        if (Vector3.Distance(startPosition, endPosition) >= minimumDistance &&
-            (endTime - startTime) <= maximumTime)
+        if (Vector3.Distance(_startPosition, _endPosition) >= minimumDistance &&
+            (_endTime - _startTime) <= maximumTime)
         {
-            Vector3 direction = endPosition - startPosition;
+            Vector3 direction = _endPosition - _startPosition;
             //Vector2 direction2D = new Vector2(direction.x, direction.x).normalized;
             direction = direction.normalized;
             SwipeDirection(direction);
@@ -104,40 +106,40 @@ public class RunnerPlayer : MonoBehaviour
 
     private void SwipeDirection(Vector2 direction)
     {
-        if (!sliding)
+        if (!_sliding)
         {
-            if (currentLane > 1)
+            if (_currentLane > 1)
             {
                 if (Vector2.Dot(Vector2.left, direction) > directionThreshold)
                 {
-                    moving = true;
+                    _moving = true;
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                    currentLane--;
+                    _currentLane--;
                 }
 
             }
-            if (currentLane < laneCount)
+            if (_currentLane < laneCount)
             {
                 if (Vector2.Dot(Vector2.right, direction) > directionThreshold)
                 {
-                    moving = true;
+                    _moving = true;
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                    currentLane++;
+                    _currentLane++;
                 }
             }
-            if (Vector2.Dot(Vector2.down, direction) > directionThreshold && !moving)
+            if (Vector2.Dot(Vector2.down, direction) > directionThreshold && !_moving)
             {
                 StartSlide();
             }
         }
-        moving = false;
+        _moving = false;
     }
 
     private void Update()
     {
-        if (sliding && slideTimer > 0)
+        if (_sliding && _slideTimer > 0)
         {
-            slideTimer -= Time.deltaTime;
+            _slideTimer -= Time.deltaTime;
         }
         else
         {
@@ -147,27 +149,27 @@ public class RunnerPlayer : MonoBehaviour
 
     private void StartSlide()
     {
-        sliding = true;
+        _sliding = true;
 
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, slideZScale);
-        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        _rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
 
-        slideTimer = maxSlideTime;
+        _slideTimer = maxSlideTime;
     }
 
     private void StopSlide()
     {
-        sliding = false;
+        _sliding = false;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        playerObj.localScale = playerScale;
+        playerObj.localScale = _playerScale;
     }
 
     private void Jump()
     {
-        if (grounded && !sliding)
+        if (_grounded && !_sliding)
         {
-            rb.AddForce(transform.up * jumpForce * 10);
-            grounded = false;
+            _rb.AddForce(transform.up * _jumpForce * 6);
+            _grounded = false;
         }
     }
 
@@ -188,7 +190,7 @@ public class RunnerPlayer : MonoBehaviour
     /// </summary>
     void Land()
     {
-        grounded = true;
+        _grounded = true;
     }
 
     /// <summary>
@@ -200,7 +202,7 @@ public class RunnerPlayer : MonoBehaviour
         {
             var touch = Input.GetTouch(0);
 
-            if (touch.deltaPosition.y > swipeIntensity)
+            if (touch.deltaPosition.y > _swipeIntensity)
             {
                 Jump();
             }

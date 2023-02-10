@@ -9,27 +9,24 @@ public class UIGameManager : MonoBehaviour
     private int _chosenAttack = -1;
 
     /// <summary>
-    /// Function applied to attack pick button, sets the chosen attack to Avoid
+    /// Function applied to attack pick button, sets the chosen attack
     /// </summary>
-    /// <summary>
     public void ChooseAvoid()
     {
         _chosenAttack = 0;
     }
-    
-    /// <summary>
-    /// Function applied to attack pick button, sets the chosen attack to Slide
-    /// </summary>
-    /// <summary>
-    public void ChooseSlide()
+<<<<<<< HEAD
+
+    public void chooseSlide()
     {
         _chosenAttack = 1;
     }
-    
+=======
     /// <summary>
     /// returns the chosen attack
     /// </summary>
     /// <returns></returns>
+>>>>>>> 9b73b88 (Completed Adjust Jump force - AA-109)
     public int GetChosenAttack()
     {
         return _chosenAttack;

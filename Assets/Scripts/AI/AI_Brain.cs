@@ -83,13 +83,14 @@ public class AI_Brain : MonoBehaviour
             }
         }
 
-        else if (t_seenObstacle.CompareTag("JumpObstacle") && !solved)
+        if (t_seenObstacle.CompareTag("JumpObstacle") && !solved)
         {
             Jump();
             solved = true;
         }
 
-        else if (t_seenObstacle.CompareTag("SlideObstacle") && !solved)
+        
+        if (t_seenObstacle.CompareTag("SlideObstacle") && !solved)
         {
             StartSlide();
             solved =true;
@@ -133,7 +134,7 @@ public class AI_Brain : MonoBehaviour
     {
         if (grounded)
         {
-            rb.AddForce(transform.up * jumpForce * 10);
+            rb.AddForce(transform.up * jumpForce * 5);
             grounded = false;
         }
     }
