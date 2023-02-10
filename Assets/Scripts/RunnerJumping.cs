@@ -85,7 +85,7 @@ public class RunnerJumping : MonoBehaviour
     {
         if (grounded)
         {
-            rb.AddForce(transform.up * jumpForce * 10);
+            rb.AddForce(transform.up * jumpForce * 5);
             grounded = false;
         }
     }
