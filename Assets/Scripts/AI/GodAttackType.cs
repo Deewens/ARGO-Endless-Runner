@@ -4,4 +4,5 @@
 public enum GodAttackType
 {
     Dummy,
+    Avoid,
 }
