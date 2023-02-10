@@ -11,6 +11,10 @@ public class UIGameManager : MonoBehaviour
         _chosenAttack = 0;
     }
 
+    public void chooseSlide()
+    {
+        _chosenAttack = 1;
+    }
     public int GetChosenAttack()
     {
         return _chosenAttack;
