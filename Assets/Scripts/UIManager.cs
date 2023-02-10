@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// A class which adds functionality to main menu buttons,game over buttons, and the 'Auto' game button
+/// </summary>
 public class UIManager : MonoBehaviour
 {
     public GameObject GameOverMenu;
     public GameObject _runner;
     public Button _toggleAIButton;
-    bool _aiOnOff;
+    private bool _aiOnOff;
 
     private void Start()
     {
@@ -18,7 +20,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// REMOVE BEFORE COMMIT
+    /// Upon clicking, opens rating form in browser
     /// </summary>
     /// 
     public void GoToFormRatingForm()
@@ -27,16 +29,25 @@ public class UIManager : MonoBehaviour
             "https://docs.google.com/forms/d/e/1FAIpQLScP_TMz7UApxi89AMviheraT5H10M79u2_8E2bpfZZvgiWpZw/viewform?usp=sf_link");
     }
 
+    /// <summary>
+    /// Loads the MainScene again upon button press
+    /// </summary>
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    /// <summary>
+    /// Loads the MainScene upon button press
+    /// </summary>
     public void StartLevel()
     {
         SceneManager.LoadScene("MainScene");
     }
 
+    /// <summary>
+    /// Quits game upon button press
+    /// </summary>
     public void Quitgame()
     {
         #if UNITY_STANDALONE
@@ -48,6 +59,9 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
+    /// <summary>
+    /// Loads the MainMenu upon button press 
+    /// </summary>
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
@@ -68,6 +82,9 @@ public class UIManager : MonoBehaviour
         GameOverMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Toggles AI off and on upon button press
+    /// </summary>
     public void ToggleAIButton()
     {
         Debug.Log("here at toggle");
@@ -79,8 +96,6 @@ public class UIManager : MonoBehaviour
             _runner.transform.GetChild(1).gameObject.SetActive(true);
             _runner.GetComponent<AI_Brain>().enabled = true;
             _runner.GetComponent<RunnerPlayer>().enabled = false;
-            _runner.GetComponent<RunnerJumping>().enabled = false;
-
         }
         else
         {
@@ -89,7 +104,6 @@ public class UIManager : MonoBehaviour
             _runner.transform.GetChild(1).gameObject.SetActive(false);
             _runner.GetComponent<AI_Brain>().enabled = false;
             _runner.GetComponent<RunnerPlayer>().enabled = true;
-            _runner.GetComponent<RunnerJumping>().enabled = true;
         }
     }
 

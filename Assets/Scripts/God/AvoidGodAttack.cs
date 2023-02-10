@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Setting and spawning an avoidable obstacle at given position
+/// </summary>
 public class AvoidGodAttack : GodAttack
 {
-    private GameObject avoidLightning;
+    private GameObject _avoidLightning;
 
     /// <summary>
     /// Sets attack type to Avoid and loads avoid gameobject prefab
@@ -12,7 +14,7 @@ public class AvoidGodAttack : GodAttack
     private void Start()
     {
         attackType = GodAttackType.Avoid;
-        avoidLightning = Resources.Load("AvoidLightning") as GameObject;
+        _avoidLightning = Resources.Load("AvoidLightning") as GameObject;
     }
 
     /// <summary>
@@ -21,12 +23,6 @@ public class AvoidGodAttack : GodAttack
     /// <param name="targetPos"></param>
     public override void Attack(Vector3 targetPos)
     {
-        Instantiate(avoidLightning, targetPos, Quaternion.identity);
-        //Debug.Log("Spawned");
-    }
-
-    public override void Attack()
-    {
-        throw new System.NotImplementedException();
+        Instantiate(_avoidLightning, targetPos, Quaternion.identity);
     }
 }

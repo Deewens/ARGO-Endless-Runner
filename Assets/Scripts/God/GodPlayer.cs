@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using UnityEngine;
+/// <summary>
+/// A class managing the God Player attacks
+/// </summary>
 public class GodPlayer : MonoBehaviour
 {
     [SerializeField] private bool isAI = true;
@@ -21,6 +24,10 @@ public class GodPlayer : MonoBehaviour
         _uIGameManager = GameObject.Find("UIGameManager").GetComponent<UIGameManager>();
     }
 
+    /// <summary>
+    /// if is an AI, calls Attack
+    /// If not an AI and detects touch, grabs and converts the position to world space
+    /// </summary>
     private void Update()
     {
         if (isAI && _canAttack)
