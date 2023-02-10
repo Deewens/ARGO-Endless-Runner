@@ -69,6 +69,7 @@ public class UIManager : MonoBehaviour
 
     public void ToggleAIButton()
     {
+        Debug.Log("here at toggle");
         // _toggleAIButton.text = "Hi";
         if (!_aiOnOff)
         {

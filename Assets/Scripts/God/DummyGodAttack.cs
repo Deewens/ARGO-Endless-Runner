@@ -14,6 +14,14 @@ public class DummyGodAttack : GodAttack
     }
 
     /// <summary>
+    /// Just an example method to show how to create a new attack with target position. You should put the attack logic here in real code.
+    /// </summary>
+    public override void Attack(Vector3 targetPos)
+    {
+        Debug.Log("God attack with 'target pos'!");
+    }
+
+    /// <summary>
     /// Just an example method to show how to create a new attack. You should put the attack logic here in real code.
     /// </summary>
     public override void Attack()
