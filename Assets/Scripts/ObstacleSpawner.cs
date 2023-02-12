@@ -69,4 +69,37 @@ public class ObstacleSpawner : MonoBehaviour
         }
         StartCoroutine(SpawnObstacle());
     }
+
+    /// <summary>
+    /// Spawns a new small obstacle into the scene.
+    /// </summary>
+    /// <returns>The new small obstacle.</returns>
+    public GameObject SpawnSmallObstacle()
+    {
+        GameObject newObstacle = Instantiate(_obstacleSmall);
+        newObstacle.SetActive(true);
+        return newObstacle;
+    }
+
+    /// <summary>
+    /// Spawns a new wide obstacle into the scene.
+    /// </summary>
+    /// <returns>The new wide obstacle.</returns>
+    public GameObject SpawnWideObstacle()
+    {
+        GameObject newObstacle = Instantiate(_obstacleWide);
+        newObstacle.SetActive(true);
+        return newObstacle;
+    }
+
+    /// <summary>
+    /// Spawns a new high obstacle into the scene.
+    /// </summary>
+    /// <returns>The new high obstacle.</returns>
+    public GameObject SpawnHighObstacle()
+    {
+        GameObject newObstacle = Instantiate(_obstacleHigh);
+        newObstacle.SetActive(true);
+        return newObstacle;
+    }
 }
