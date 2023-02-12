@@ -40,7 +40,8 @@ public class AI_Brain : MonoBehaviour
     /// current lane occupied by runner
     private int currentLane = 2;
 
-    bool sliding;
+    bool _sliding;
+    public bool sliding { get { return _sliding; } }
     /// <summary>
     /// Controller of how the AI Runner reacts, once it sees an obstacle.
     /// </summary>
@@ -141,7 +142,7 @@ public class AI_Brain : MonoBehaviour
 
     private void StartSlide()
     {
-        sliding = true;
+        _sliding = true;
 
         AIObj.localScale = new Vector3(AIObj.localScale.x, slideYScale, slideZScale);
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -151,14 +152,14 @@ public class AI_Brain : MonoBehaviour
 
     private void StopSlide()
     {
-        sliding = false;
+        _sliding = false;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         AIObj.localScale = AIScale;
     }
 
     private void Update()
     {
-        if (sliding && slideTimer > 0)
+        if (_sliding && slideTimer > 0)
         {
             slideTimer -= Time.deltaTime;
         }

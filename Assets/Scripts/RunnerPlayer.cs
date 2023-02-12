@@ -50,6 +50,7 @@ public class RunnerPlayer : MonoBehaviour
     private float _swipeIntensity = 70.0f;
 
     private bool _sliding;
+    public bool sliding { get { return _sliding; } }
     private bool _moving = false;
 
     
@@ -79,13 +80,13 @@ public class RunnerPlayer : MonoBehaviour
         _inputManager.OnEndTouch -= SwipeEnd;
     }
 
-    private void SwipeStart(Vector2 position, float time)
+    public void SwipeStart(Vector2 position, float time)
     {
         _startPosition = position;
         _startTime = time;
     }
 
-    private void SwipeEnd(Vector2 position, float time)
+    public void SwipeEnd(Vector2 position, float time)
     {
         _endPosition = position;
         _endTime = time;
@@ -164,7 +165,7 @@ public class RunnerPlayer : MonoBehaviour
         playerObj.localScale = _playerScale;
     }
 
-    private void Jump()
+    public void Jump()
     {
         if (_grounded && !_sliding)
         {
