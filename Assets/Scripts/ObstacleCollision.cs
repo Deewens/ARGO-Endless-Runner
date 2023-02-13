@@ -14,6 +14,8 @@ public class ObstacleCollision : MonoBehaviour
     GameObject _runner;
     public static event Action OnPlayerDeath;
 
+    int damage = 20;
+
     /// <summary>
     /// Finds the runner in the scene
     /// </summary>
@@ -31,10 +33,17 @@ public class ObstacleCollision : MonoBehaviour
     {
         if (other.tag == "Runner")
         {
-            Debug.Log("GameOver");
-            OnPlayerDeath?.Invoke();
+            //if(!_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
+            //{
+            //    _runner.GetComponent<RunnerHealthController>().TakeDamage(damage);
+            //}
+            //if (_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
+            //{
+            //    Debug.Log("GameOver");
+            //    OnPlayerDeath?.Invoke();
+            //    other.gameObject.SetActive(false);
+            //}
             Destroy(gameObject);
-            other.gameObject.SetActive(false);
         }
         if (other.tag == "BehindPlayer")
         {
