@@ -11,19 +11,30 @@ public class CollectibleController : MonoBehaviour
 {
     private int _pointsForCoins;
     public static event Action OnPlayerDeath;
-    private GameObject _runner;
     private Score _runnerScoreScript;
+    
+    private GameObject _runner;
+    public GameObject Runner
+    {
+        set
+        {
+            _runner = value;
+            _runnerScoreScript = _runner.GetComponent<Score>();
+        }
+    }
+    
 
     // Start is called before the first frame update
     void Start()
     {
         _pointsForCoins = 5;
-        _runner = GameObject.Find("RunnerPlayer");
-        _runnerScoreScript = _runner.GetComponent<Score>();
     }
 
     private void OnTriggerStay(Collider other)
     {
+        if (_runner == null)
+            return;
+        
         if (other.tag == "Inpenetrable" || other.tag == "JumpObstacle" || other.tag == "SlideObstacle")
         {
             Destroy(gameObject);

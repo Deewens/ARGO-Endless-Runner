@@ -3,13 +3,14 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.Analytics;
 
 /// <summary>
 /// A class that moves the player forward and tracks the distance they have travelled
 /// </summary>
-public class MoveForward : MonoBehaviour
+public class MoveForward : NetworkBehaviour
 {
     private double _startTime;
     private double _endTime;
@@ -44,6 +45,9 @@ public class MoveForward : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
+        if (!isLocalPlayer)
+            return;
+        
         _distanceTravelled = (int)transform.position.z - (int)_startingPos;
 
         if (_distanceTravelled % _increaseWhen == 0 && _distanceTravelled != 0)

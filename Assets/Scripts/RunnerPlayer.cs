@@ -3,12 +3,13 @@
 // ...
 
 using System.Collections;
+using Mirror;
 using Unity.VisualScripting;
 using UnityEngine;
 /// <summary>
 /// A class which accepts player input and makes the runner move, jump and slide accordingly
 /// </summary>
-public class RunnerPlayer : MonoBehaviour
+public class RunnerPlayer : NetworkBehaviour
 {
     /// The minimum distance the swipe is to be to be considered a swipe
     [SerializeField]
@@ -48,20 +49,15 @@ public class RunnerPlayer : MonoBehaviour
     /// The time the swipe ended.
     private float _endTime;
 
-    [Header("Refrences")]
-
-    ///
-    //public Transform orientation; <- whats this used for?
-
-    /// Reference to this object's transform.
+    // Reference to this object's transform
+    // TODO: What is this for?
+    [Header("References")]
     public Transform playerObj;
 
     /// The Rigidbody of the Runner - Used to apply the force for actions.
     private Rigidbody _rb;
 
     [Header("Sliding")]
-
-    ///The amount of time the runner can slide.
     public float maxSlideTime = 1.0f;
 
     /// The timer that keeps track of how long the Runner has been sliding.
@@ -93,11 +89,13 @@ public class RunnerPlayer : MonoBehaviour
     private bool _moving = false;
     public bool jumping { get { return _jumping; } }
 
-    
+    public override void OnStartLocalPlayer()
+    {
+        _inputManager = InputManager.Instance;
+    }
 
     void Awake()
     {
-        _inputManager = InputManager.Instance;
         _currentLane = Mathf.Ceil(laneCount / 2);
     }
 
@@ -106,8 +104,10 @@ public class RunnerPlayer : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        if (!isLocalPlayer)
+            return;
 
+        _rb = GetComponent<Rigidbody>();
         _playerScale = playerObj.localScale;
     }
 
@@ -116,6 +116,9 @@ public class RunnerPlayer : MonoBehaviour
     /// </summary>
     void OnEnable()
     {
+        if (!isLocalPlayer)
+            return;
+        
         _inputManager.OnStartTouch += SwipeStart;
         _inputManager.OnEndTouch += SwipeEnd;
     }
@@ -125,6 +128,9 @@ public class RunnerPlayer : MonoBehaviour
     /// </summary>
     void OnDisable()
     {
+        if (!isLocalPlayer)
+            return;
+
         _inputManager.OnStartTouch -= SwipeStart;
         _inputManager.OnEndTouch -= SwipeEnd;
     }
@@ -209,6 +215,9 @@ public class RunnerPlayer : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        if (!isLocalPlayer)
+            return;
+        
         if (_sliding && _slideTimer > 0)
         {
             _slideTimer -= Time.deltaTime;
@@ -261,6 +270,9 @@ public class RunnerPlayer : MonoBehaviour
     /// <param name="collision">The object the Runner has collided with.</param>
     private void OnCollisionEnter(Collision collision)
     {
+        if (!isLocalPlayer)
+            return;
+        
         if (collision.transform.CompareTag("Ground"))
         {
             Land();
@@ -281,6 +293,9 @@ public class RunnerPlayer : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+        if (!isLocalPlayer)
+            return;
+        
         if (Input.touchCount == 1)
         {
             var touch = Input.GetTouch(0);
