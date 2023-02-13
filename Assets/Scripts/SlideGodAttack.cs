@@ -23,7 +23,6 @@ public class SlideGodAttack : GodAttack
     {
         Quaternion rotation = Quaternion.Euler(90, 90, 0);
         Instantiate(_avoidThunder, targetPos, rotation);
-        //Debug.Log("Spawned");
     }
 
     public override void Attack()
