@@ -33,16 +33,16 @@ public class ObstacleCollision : MonoBehaviour
     {
         if (other.tag == "Runner")
         {
-            //if(!_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
-            //{
-            //    _runner.GetComponent<RunnerHealthController>().TakeDamage(damage);
-            //}
-            //if (_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
-            //{
-            //    Debug.Log("GameOver");
-            //    OnPlayerDeath?.Invoke();
-            //    other.gameObject.SetActive(false);
-            //}
+            if (!_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
+            {
+                _runner.GetComponent<RunnerHealthController>().TakeDamage(damage);
+            }
+            if (_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
+            {
+                Debug.Log("GameOver");
+                OnPlayerDeath?.Invoke();
+                other.gameObject.SetActive(false);
+            }
             Destroy(gameObject);
         }
         if (other.tag == "BehindPlayer")
