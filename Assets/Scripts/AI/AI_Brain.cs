@@ -1,6 +1,14 @@
+// Coders:
+// Caroline Percy
+// ...
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// The Brain of the AI Runner.
+/// </summary>
 
 public class AI_Brain : MonoBehaviour
 {
@@ -26,9 +34,10 @@ public class AI_Brain : MonoBehaviour
     /// The scale will be double of what the gameobject is to show that it is currently sliding
     public float slideZScale;
 
+    ///The current scale of the AI Runner.
     private Vector3 AIScale;
 
-    public Transform orientation;
+    ///
     public Transform AIObj;
 
     /// How much the runner moves when changing lanes
@@ -40,8 +49,12 @@ public class AI_Brain : MonoBehaviour
     /// current lane occupied by runner
     private int currentLane = 2;
 
+    /// Keeps track of whether the AI runner is currently sliding.
     bool _sliding;
+    /// Public reference to _sliding.
     public bool sliding { get { return _sliding; } }
+
+
     /// <summary>
     /// Controller of how the AI Runner reacts, once it sees an obstacle.
     /// </summary>
@@ -140,6 +153,9 @@ public class AI_Brain : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Start the AI sliding.
+    /// </summary>
     private void StartSlide()
     {
         _sliding = true;
@@ -150,6 +166,9 @@ public class AI_Brain : MonoBehaviour
         slideTimer = maxSlideTime;
     }
 
+    /// <summary>
+    /// End the AI sliding.
+    /// </summary>
     private void StopSlide()
     {
         _sliding = false;
@@ -157,6 +176,10 @@ public class AI_Brain : MonoBehaviour
         AIObj.localScale = AIScale;
     }
 
+
+    /// <summary>
+    /// Calls every frame to update the brain.
+    /// </summary>
     private void Update()
     {
         if (_sliding && slideTimer > 0)

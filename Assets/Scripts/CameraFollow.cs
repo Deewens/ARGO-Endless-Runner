@@ -1,33 +1,42 @@
+// Coders:
+// Caroline Percy
+// ...
+
 using Mirror.Examples.SyncDir;
 using UnityEngine;
 
+/// <summary>
+/// Enum that keeps track of what kind of camera this is.
+/// </summary>
 internal enum CameraType {
     Runner,
     God
 }
 
 /// <summary>
-/// A class that lets the camera follow the player
+/// A class that lets the camera follow the Runner
 /// </summary>
 public class CameraFollow : MonoBehaviour
 {
+    /// What type of camera this one is.
     [SerializeField] private CameraType type = CameraType.Runner;
+
+    /// A reference to the runner in the scene.
     [SerializeField] private Transform runner;
 
+    /// The distance from the camera to the target (ie. the runner)
     private Vector3 _offset;
-    private Vector3 _currentVelocity;
 
     /// <summary>
     /// Sets up offset from player so the camera is at a fixed distance from the player
     /// </summary>
     void Start()
     {
-        //if (type == CameraType.Runner)
-            _offset = transform.position - runner.position;
+        _offset = transform.position - runner.position;
     }
 
     /// <summary>
-    /// MAkes the camera follow the player, runner and god
+    /// Makes the camera follow the player, runner and god
     /// </summary>
     void LateUpdate()
     {

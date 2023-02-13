@@ -1,26 +1,47 @@
+// Coders:
+// Caroline Percy
+// ... 
+
 using System;
 using System.Collections;
 using UnityEngine;
+
 /// <summary>
-/// A class managing the God Player attacks
+/// A class managing the Gods' attacks
 /// </summary>
 public class GodPlayer : MonoBehaviour
 {
+    /// Whether the God is controlled by an AI or a user.
     [SerializeField] private bool isAI = true;
-    [Header("Delay between attacks (in seconds")]
+
+    [Header("Delay between attacks (in seconds)")]
+
+    ///How long the God has to wait before they can use a power again.
     [SerializeField] private float attackCooldownTime = 5f;
+
+    /// Whether the God can currently attack.
     private bool _canAttack = true;
+
+    ///
     private AIGod _ai;
+
+    ///
     private GodAttack _activeAttack;
     int chosenAttack = -1;
 
+    ///
     private PlayerGodAttackList _playerAttack;
+
+    /// The position of the God's attack.
     private Vector3 _attackPos = new Vector3();
 
     public float distance = 10f;
 
     public LayerMask mask;
 
+    /// <summary>
+    /// the start of the god player script. assigns to the private variables.
+    /// </summary>
     private void Start()
     {
         _ai = GetComponent<AIGod>();
@@ -67,6 +88,10 @@ public class GodPlayer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Chooses the next attack for the God.
+    /// </summary>
+    /// <param name="t_attack">The number of the attack clicked on.</param>
     public void ChooseAttack(int t_attack)
     {
         _activeAttack = _playerAttack.GetAttack(t_attack);
