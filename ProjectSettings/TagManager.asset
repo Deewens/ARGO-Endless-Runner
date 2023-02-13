@@ -17,6 +17,7 @@ TagManager:
   - Zeus
   - Poseidon
   - BehindPlayer
+  - Hud
   layers:
   - Default
   - TransparentFX
@@ -24,8 +25,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Runner
+  - AttackObstacle
   - 
   - 
   - 
