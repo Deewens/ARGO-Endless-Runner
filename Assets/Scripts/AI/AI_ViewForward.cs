@@ -18,6 +18,6 @@ public class AI_ViewForward : MonoBehaviour
     /// <param name="other">The object that it "sees" ahead.</param>
     private void OnTriggerEnter(Collider other)
     {
-        transform.parent.GetComponent<AI_Brain>().React(other);
+        //transform.parent.GetComponent<AI_Brain>().React(other);
     }
 }

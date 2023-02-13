@@ -70,7 +70,7 @@ public class ObstacleSpawner : MonoBehaviour
                 _randomXPos = -2;
             else if (_randomXPos == 3)
                 _randomXPos = 0;
-            GameObject _temp = Instantiate(_obstacleSmall, new Vector3(_randomXPos,1,newPos.z), Quaternion.identity);
+            GameObject _temp = Instantiate(_obstacleSmall, new Vector3(_randomXPos,3,newPos.z), Quaternion.identity);
             _obstaclesPlaced += 1;
         }
         else if(_randomNumber == 2)

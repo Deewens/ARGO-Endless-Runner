@@ -93,7 +93,7 @@ public class RunnerPlayer : MonoBehaviour
     private bool _moving = false;
     public bool jumping { get { return _jumping; } }
 
-    
+    private AI_Brain brain;
 
     void Awake()
     {
@@ -109,6 +109,9 @@ public class RunnerPlayer : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         _playerScale = playerObj.localScale;
+
+        brain = GetComponent<AI_Brain>();
+        brain.Init(4, 3, 1);
     }
 
     /// <summary>

@@ -108,7 +108,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -237,7 +237,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -624,7 +624,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -882,7 +882,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1025,7 +1025,7 @@ GameObject:
   - component: {fileID: 3738126536702013703}
   - component: {fileID: 3738126536702013723}
   - component: {fileID: 3738126536702013724}
-  - component: {fileID: 3738126536702013725}
+  - component: {fileID: 627559023}
   m_Layer: 0
   m_Name: AI_Player
   m_TagString: Runner
@@ -1140,12 +1140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70bad9759fa97da47b6893f3076365eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
-  _maxSpeed: 0
   _rb: {fileID: 3738126536702013723}
-  _distanceTravelled: 0
   _obstaclesAvoided: 0
---- !u!114 &3738126536702013725
+--- !u!114 &627559023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1154,14 +1151,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3738126536702013702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a8ae17570267e4599b6fe830744f74, type: 3}
+  m_Script: {fileID: 11500000, guid: ead20427a0a00f5418cc7e19f30f70ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numInputs: 6
+  numHidden: 5
+  numOutputs: 1
+  parent: {fileID: 0}
   maxSlideTime: 0.75
   slideForce: 200
   slideYScale: 0.5
   slideZScale: 2
-  orientation: {fileID: 3738126536702013722}
   AIObj: {fileID: 3738126536702013722}
 --- !u!1 &3738126536735180719
 GameObject:
@@ -3490,10 +3490,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3215437766196058676, guid: 5dcedd53958547443b5061e3edf3062e,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215437766196058676, guid: 5dcedd53958547443b5061e3edf3062e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3738126537246893508, guid: 5dcedd53958547443b5061e3edf3062e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3738126537250337868, guid: 5dcedd53958547443b5061e3edf3062e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5526052688654139066, guid: 5dcedd53958547443b5061e3edf3062e,
         type: 3}
       propertyPath: m_Name
       value: RunnerPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526052688654139066, guid: 5dcedd53958547443b5061e3edf3062e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dcedd53958547443b5061e3edf3062e, type: 3}
@@ -3503,6 +3528,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3738126537374670537}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2269807458271642877 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3215437766196058676, guid: 5dcedd53958547443b5061e3edf3062e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3738126537374670537}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &837235898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269807458271642877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b80e1576aa7ec48afbf43116db1147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poiName: Player
 --- !u!1 &9173838916103430259 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5526052688654139066, guid: 5dcedd53958547443b5061e3edf3062e,
@@ -3525,34 +3569,3 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &3738126537374670543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9173838916103430259}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a8ae17570267e4599b6fe830744f74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSlideTime: 1.5
-  slideForce: 0
-  slideYScale: 0.3
-  slideZScale: 1
-  orientation: {fileID: 1535111621990736769}
-  AIObj: {fileID: 1535111621990736769}
---- !u!114 &1280461464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9173838916103430259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4b80e1576aa7ec48afbf43116db1147, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  poiName: 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -717,6 +717,7 @@ MonoBehaviour:
   _maxSpeed: 0
   _rb: {fileID: 922475859}
   _distanceTravelled: 0
+  _obstaclesAvoided: 0
 --- !u!114 &922475861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,12 +730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a8ae17570267e4599b6fe830744f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSlideTime: 0.75
-  slideForce: 200
-  slideYScale: 0.5
-  slideZScale: 2
-  orientation: {fileID: 922475858}
-  AIObj: {fileID: 922475858}
 --- !u!1 &1129391156
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,5 +2062,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7814810479047987881, guid: c747c527bc03e144b847c89e2544eebc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c747c527bc03e144b847c89e2544eebc, type: 3}
