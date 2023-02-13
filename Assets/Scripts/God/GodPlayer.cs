@@ -15,56 +15,60 @@ public class GodPlayer : MonoBehaviour
 
     private PlayerGodAttackList _playerAttack;
     private Vector3 _attackPos = new Vector3();
-    private UIGameManager _uIGameManager;
 
     private void Start()
     {
         _ai = GetComponent<AIGod>();
-        _playerAttack = GameObject.Find("UIGameManager").GetComponent<PlayerGodAttackList>();
-        _uIGameManager = GameObject.Find("UIGameManager").GetComponent<UIGameManager>();
+        _playerAttack = GameObject.Find("God Canvas").GetComponent<PlayerGodAttackList>();
+        //_uIGameManager = GameObject.Find("UIGameManager").GetComponent<UIGameManager>();
     }
 
     /// <summary>
     /// if is an AI, calls Attack
     /// If not an AI and detects touch, grabs and converts the position to world space
     /// </summary>
-    private void Update()
-    {
-        if (isAI && _canAttack)
-        {
-            Attack();
-        }
+    //private void Update()
+    //{
+    //    if (isAI && _canAttack)
+    //    {
+    //        Attack();
+    //    }
 
-        if (!isAI && _canAttack)
-        {
-            if (Input.GetMouseButtonDown(0) && _uIGameManager.GetChosenAttack() != -1)
-            {
-                _activeAttack = _playerAttack.GetAttack(_uIGameManager.GetChosenAttack());
-                Vector3 pos = Input.mousePosition;
-                pos.z = Camera.main.nearClipPlane + 30;
-                pos = Camera.main.ScreenToWorldPoint(pos);
-                if(_uIGameManager.GetChosenAttack() == 1)
-                {
-                    pos.y = 3;
-                }
-                else
-                {
-                    pos.y = 2;
-                }
-                _attackPos = pos;
-                PlayerAttack();
-            }
-            else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && _uIGameManager.GetChosenAttack() != -1)
-            {
-                _activeAttack = _playerAttack.GetAttack(_uIGameManager.GetChosenAttack());
-                Vector3 pos = Input.GetTouch(0).position;
-                pos.z = Camera.main.nearClipPlane + 30;
-                pos = Camera.main.ScreenToWorldPoint(pos);
-                pos.y = 2;
-                _attackPos = pos;
-                PlayerAttack();
-            }
-        }
+    //    if (!isAI && _canAttack)
+    //    {
+    //        if (Input.GetMouseButtonDown(0) && _uIGameManager.GetChosenAttack() != -1)
+    //        {
+    //            _activeAttack = _playerAttack.GetAttack(_uIGameManager.GetChosenAttack());
+    //            Vector3 pos = Input.mousePosition;
+    //            pos.z = Camera.main.nearClipPlane + 30;
+    //            pos = Camera.main.ScreenToWorldPoint(pos);
+    //            if(_uIGameManager.GetChosenAttack() == 1)
+    //            {
+    //                pos.y = 3;
+    //            }
+    //            else
+    //            {
+    //                pos.y = 2;
+    //            }
+    //            _attackPos = pos;
+    //            PlayerAttack();
+    //        }
+    //        else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && _uIGameManager.GetChosenAttack() != -1)
+    //        {
+    //            _activeAttack = _playerAttack.GetAttack(_uIGameManager.GetChosenAttack());
+    //            Vector3 pos = Input.GetTouch(0).position;
+    //            pos.z = Camera.main.nearClipPlane + 30;
+    //            pos = Camera.main.ScreenToWorldPoint(pos);
+    //            pos.y = 2;
+    //            _attackPos = pos;
+    //            PlayerAttack();
+    //        }
+    //    }
+    //}
+
+    private void ChooseAttack(int t_attack)
+    {
+        _activeAttack = _playerAttack.GetAttack(t_attack);
     }
 
     /// <summary>

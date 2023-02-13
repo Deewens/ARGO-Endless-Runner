@@ -9,6 +9,12 @@ using UnityEngine.UI;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    private Camera runnerCam;
+    private Camera godCam;
+
+    private GameObject godCanvas;
+    private GameObject runnerCanvas;
+
     public GameObject GameOverMenu;
     public GameObject _runner;
     public Button _toggleAIButton;
@@ -16,6 +22,16 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        runnerCam = GameObject.Find("Runner Camera").GetComponent<Camera>();
+        godCam = GameObject.Find("God Camera").GetComponent<Camera>();
+
+        godCanvas = GameObject.Find("God Canvas");
+        runnerCanvas = GameObject.Find("Runner Canvas");
+
+        godCanvas.SetActive(false);
+        godCam.enabled = false;
+        
+
         //_toggleAIButton = _gameplayCanvas.GetComponentInChildren<Button>();
     }
 
@@ -102,6 +118,11 @@ public class UIManager : MonoBehaviour
             _runner.transform.GetChild(1).gameObject.SetActive(true);
             _runner.GetComponent<AI_Brain>().enabled = true;
             _runner.GetComponent<RunnerPlayer>().enabled = false;
+
+            godCanvas.SetActive(true);
+            godCam.enabled = true;
+            runnerCanvas.SetActive(false);
+            runnerCam.enabled = false;
         }
         else
         {
@@ -110,6 +131,11 @@ public class UIManager : MonoBehaviour
             _runner.transform.GetChild(1).gameObject.SetActive(false);
             _runner.GetComponent<AI_Brain>().enabled = false;
             _runner.GetComponent<RunnerPlayer>().enabled = true;
+
+            godCanvas.SetActive(false);
+            godCam.enabled = false;
+            runnerCanvas.SetActive(true);
+            runnerCam.enabled = true;
         }
     }
 
