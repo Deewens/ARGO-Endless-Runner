@@ -1,6 +1,14 @@
+// Coders:
+// Caroline Percy
+// ...
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// Is a script that keeps track of what the runner AI "Sees".
+/// </summary>
 
 public class AI_ViewForward : MonoBehaviour
 {

@@ -1,3 +1,7 @@
+// Coders:
+// Caroline Percy
+// ...
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +12,25 @@ using UnityEngine;
 /// </summary>
 public class ObstacleSpawner : MonoBehaviour
 {
+    ///
     [SerializeField] private Transform _runner;
+
+    ///
     public GameObject _obstacleWide;
+
+    ///
     public GameObject _obstacleHigh;
+
+    ///
     public GameObject _obstacleSmall;
+
+    ///
     public int _obstaclesPlaced;
 
+    ///
     Vector3 _offset;
+
+    ///
     int _randomNumber;
 
     /// <summary>
