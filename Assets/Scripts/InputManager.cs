@@ -31,7 +31,7 @@ public class InputManager : Singleton<InputManager>
     }
     void Start()
     {
-        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        camera = GameObject.Find("Runner Camera").GetComponent<Camera>();
         runnerController.Touch.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
         runnerController.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
     }
