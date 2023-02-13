@@ -24,18 +24,26 @@ public class Data
 /// </summary>
 public class AnalyticsManager : MonoBehaviour
 {
-    public GameObject _runner;
-    public GameObject _godZeus;
-    public GameObject _godPoseidon;
-    public GameObject _objectSpawner;
+    [SerializeField] private GameObject objectSpawner;
+    
+    private GameObject _runner;
+    public GameObject Runner
+    {
+        set => _runner = value;
+    }
+    
+    private GameObject _god;
+    public GameObject God  {
+        set => _god = value;
+    }
 
     private double _startTime;
     private double _endTime;
     private double _playTime;
 
-    Data _runnerData = new Data(); //initialise all data
-    Data _zeusData = new Data(); //initialise all data
-    Data _poseidonData = new Data(); //initialise all data
+    private readonly Data _runnerData = new Data(); //initialise all data
+    private readonly Data _zeusData = new Data(); //initialise all data
+    private readonly Data _poseidonData = new Data(); //initialise all data
 
     bool _dataSent;
 
@@ -58,6 +66,9 @@ public class AnalyticsManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (_runner == null)
+            return;
+        
         if(!_dataSent && _runner.transform.GetChild(0).gameObject.activeSelf == false)
             sendData();
     }
@@ -71,14 +82,14 @@ public class AnalyticsManager : MonoBehaviour
         _playTime = _endTime - _startTime;
         Debug.Log("Sending Data");
         _dataSent = true;
-        if (_runner.tag == "Runner")
+        if (_runner.CompareTag("Runner"))
         {
             _runnerData.role = "Runner";
             _runnerData.distanceTravelled = _runner.GetComponent<MoveForward>().GetDistanceTravelled();
             // extract data from finished scripts for the runner later on 
             _runnerData.obstaclesAvoided = _runner.GetComponent<MoveForward>()._obstaclesAvoided;
             _runnerData.obstaclesHit = 1;
-            _runnerData.obstaclesPlaced = _objectSpawner.GetComponent<ObstacleSpawner>()._obstaclesPlaced;
+            _runnerData.obstaclesPlaced = objectSpawner.GetComponent<ObstacleSpawner>()._obstaclesPlaced;
             _runnerData.score = _runnerData.distanceTravelled + (_runnerData.obstaclesAvoided * _runnerData.obstaclesPlaced);
             _runnerData.timePlayed = _playTime;
 
@@ -86,26 +97,15 @@ public class AnalyticsManager : MonoBehaviour
             StartCoroutine(PostMethod(jsonData));
 
         }
-        if (_godZeus.tag == "Zeus")
+        if (_god.CompareTag("God"))
         {
             // extract data from the zeus player when done
-            _zeusData.role = "Zeus";
+            _zeusData.role = "God";
             _zeusData.obstaclesPlaced = 0;
             _zeusData.score = 0;
             _zeusData.timePlayed = 0;
 
             string jsonData = JsonUtility.ToJson(_zeusData);
-            StartCoroutine(PostMethod(jsonData));
-        }
-        if (_godPoseidon.tag == "Poseidon")
-        {
-            // extract data from the poseidon player when done
-            _poseidonData.role = "Poseidon";
-            _poseidonData.obstaclesPlaced = 0;
-            _poseidonData.score = 0;
-            _poseidonData.timePlayed = 0;
-
-            string jsonData = JsonUtility.ToJson(_poseidonData);
             StartCoroutine(PostMethod(jsonData));
         }
 

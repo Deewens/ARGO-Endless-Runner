@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RunnerHealthController : MonoBehaviour
 {
@@ -8,33 +9,36 @@ public class RunnerHealthController : MonoBehaviour
     private int _currentHealth;
     private int _healthBonus = 20;
 
-    public HealthBar healthBar;
-    // Start is called before the first frame update
+    [SerializeField] private HealthBar healthBarPrefab;
+    private HealthBar _healthBar;
+    
     void Start()
     {
+        _healthBar = Instantiate(healthBarPrefab);
+        
         _currentHealth = _maxHealth;
-        healthBar.SetMaxHealth(_maxHealth);
+        _healthBar.SetMaxHealth(_maxHealth);
     }
 
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage;
 
-        healthBar.SetHealth(_currentHealth);
+        _healthBar.SetHealth(_currentHealth);
     }
 
     public void InstaHeal()
     {
         _currentHealth = _maxHealth;
 
-        healthBar.SetMaxHealth(_maxHealth);
+        _healthBar.SetMaxHealth(_maxHealth);
     }
 
     public void PartialHeal()
     {
         _currentHealth += _healthBonus;
 
-        healthBar.SetHealth(_maxHealth);
+        _healthBar.SetHealth(_maxHealth);
     }
 
     public bool IsRunnerDead()
