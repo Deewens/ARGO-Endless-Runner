@@ -4,10 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
-  - JumpObstacle
-  - SlideObstacle
-  - Inpenetrable
   - Runner
   - AnalyticsManager
   - Zeus
@@ -20,6 +16,11 @@ TagManager:
   - Apple
   - Pomegranate
   - Coin
+  - Ground
+  - JumpObstacle
+  - SlideObstacle
+  - Inpenetrable
+  - God
   layers:
   - Default
   - TransparentFX

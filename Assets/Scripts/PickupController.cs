@@ -9,6 +9,15 @@ public class PickupController : MonoBehaviour
 {
     private Vector3 _offset = new Vector3();
     private Transform _runner;
+    public Transform Runner
+    {
+        set
+        {
+            _runner = value;
+            StartCoroutine(SpawnPickup());
+        }
+    }
+
     private GameObject _coin;
     private GameObject _pom;
     private GameObject _apple;
@@ -21,7 +30,6 @@ public class PickupController : MonoBehaviour
     private void Start()
     {
         _offset = new Vector3(0,0,40);
-        _runner = GameObject.FindGameObjectWithTag("Runner").transform;
         _coin = Resources.Load("Coin") as GameObject;
         _pom = Resources.Load("Pomegranate") as GameObject;
         _apple = Resources.Load("Apple") as GameObject;
@@ -29,7 +37,6 @@ public class PickupController : MonoBehaviour
         _speedDown = Resources.Load("SpeedDownPotion") as GameObject;
         _maxHealth = Resources.Load("MaxHealthPotion") as GameObject;
         _partHealth = Resources.Load("PartHealthPotion") as GameObject;
-        StartCoroutine(SpawnPickup());
     }
 
     private void Update()
@@ -49,6 +56,9 @@ public class PickupController : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
+        if (_runner == null)
+            return;
+        
         Vector3 newPos = _runner.position + _offset;
         transform.position = new Vector3(transform.position.x, transform.position.y, newPos.z);
     }

@@ -18,4 +18,14 @@ public class AIGod : MonoBehaviour
         int rand = UnityEngine.Random.Range(0, attackList.Count);
         return attackList[rand];
     }
+    
+    /// <summary>
+    /// Returns the requested attack
+    /// </summary>
+    /// <param name="chosenAttack"></param>
+    /// <returns></returns>
+    public GodAttack GetAttack(int chosenAttack)
+    {
+        return attackList[chosenAttack];
+    }
 }

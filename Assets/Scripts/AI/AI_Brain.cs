@@ -4,13 +4,14 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
 /// <summary>
 /// The Brain of the AI Runner.
 /// </summary>
 
-public class AI_Brain : MonoBehaviour
+public class AI_Brain : NetworkBehaviour
 {
     /// The Rigidbody of the Runner - Used to apply the force for the jump.
     Rigidbody rb;
@@ -61,6 +62,10 @@ public class AI_Brain : MonoBehaviour
     /// <param name="t_seenObstacle">The obstacle it sees ahead.</param>
     public void React(Collider t_seenObstacle)
     {
+        // TODO: Probably need to change the check for localplayer from somewhere else
+        if (!isLocalPlayer)
+            return;
+        
         bool solved = false;
 
         if (t_seenObstacle.CompareTag("Inpenetrable"))
@@ -116,6 +121,9 @@ public class AI_Brain : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        if (!isLocalPlayer)
+            return;
+        
         rb = GetComponent<Rigidbody>();
 
         AIScale = AIObj.localScale;
@@ -127,6 +135,9 @@ public class AI_Brain : MonoBehaviour
     /// <param name="collision">The object the Runner has collided with.</param>
     private void OnCollisionEnter(Collision collision)
     {
+        if (!isLocalPlayer)
+            return;
+        
         if (collision.transform.CompareTag("Ground"))
         {
             Land();
@@ -182,6 +193,9 @@ public class AI_Brain : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        if (!isLocalPlayer)
+            return;
+        
         if (_sliding && slideTimer > 0)
         {
             slideTimer -= Time.deltaTime;
