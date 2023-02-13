@@ -32,16 +32,16 @@ public class NetworkPlayerController : NetworkBehaviour
         if (FindObjectOfType<NetworkClientCount>().playersConnected > 1)
         {
             madeGod();
-            cam._player = GameObject.Find("RunnerPlayer").transform;
-            cam._offset = godPos;
+            //cam._player = GameObject.Find("RunnerPlayer").transform;
+            //cam._offset = godPos;
             cam.transform.rotation = godRotation;
         }
 
         else
         {
             madeRunner();
-            cam._player = transform.Find("RunnerPlayer");
-            cam._offset = runnerPos;
+            //cam._player = transform.Find("RunnerPlayer");
+            //cam._offset = runnerPos;
             cam.transform.rotation = runnerRotation;
         }
         
@@ -69,7 +69,7 @@ public class NetworkPlayerController : NetworkBehaviour
     {
         if (!isLocalPlayer) { return; }
 
-        cam.CameraUpdate();
+        //cam.CameraUpdate();
         
     }
 }

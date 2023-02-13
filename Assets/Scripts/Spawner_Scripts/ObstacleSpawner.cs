@@ -12,25 +12,23 @@ using UnityEngine;
 /// </summary>
 public class ObstacleSpawner : MonoBehaviour
 {
-    ///
-    [SerializeField] private Transform _runner;
+    private Transform _runner;
+    public Transform Runner
+    {
+        set
+        {
+            _runner = value;
+            _offset = transform.position - _runner.position;
+            StartCoroutine(SpawnObstacle());
+        }
+    }
 
-    ///
     public GameObject _obstacleWide;
-
-    ///
     public GameObject _obstacleHigh;
-
-    ///
     public GameObject _obstacleSmall;
-
-    ///
     public int _obstaclesPlaced;
 
-    ///
     Vector3 _offset;
-
-    ///
     int _randomNumber;
 
     /// <summary>
@@ -40,8 +38,6 @@ public class ObstacleSpawner : MonoBehaviour
     void Start()
     {
         _obstaclesPlaced = 0;
-        _offset = transform.position - _runner.position;
-        StartCoroutine(SpawnObstacle());
     }
 
     /// <summary>
@@ -49,6 +45,9 @@ public class ObstacleSpawner : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
+        if (_runner == null)
+            return;
+        
         Vector3 newPos = _runner.position + _offset;
         transform.position = new Vector3(transform.position.x, transform.position.y, newPos.z);
     }
