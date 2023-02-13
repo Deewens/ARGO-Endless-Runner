@@ -1,4 +1,4 @@
-// Coders:
+/// Author : Izabela Zelek, February 2023
 // Caroline Percy
 // ...
 
@@ -56,9 +56,8 @@ public class InputManager : Singleton<InputManager>
         runnerController.Touch.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
         runnerController.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
     }
-
     /// <summary>
-    /// 
+    /// Starts WaitStartTouch Coroutine
     /// </summary>
     /// <param name="context"></param>
     private void StartTouchPrimary(InputAction.CallbackContext context)
@@ -67,7 +66,7 @@ public class InputManager : Singleton<InputManager>
     }
 
     /// <summary>
-    /// 
+    /// Triggers OnEndTouch when fingers stops touching the screen
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
@@ -90,7 +89,7 @@ public class InputManager : Singleton<InputManager>
     }
 
     /// <summary>
-    /// 
+    /// Triggers OnEndTouch when fingers stops touching the screen
     /// </summary>
     /// <param name="context"></param>
     private void EndTouchPrimary(InputAction.CallbackContext context)
@@ -99,9 +98,9 @@ public class InputManager : Singleton<InputManager>
     }
 
     /// <summary>
-    /// 
+    /// Gets World position of touch
     /// </summary>
-    /// <returns></returns>
+    /// <param name="context"></param>
     public Vector2 PrimaryPosition()
     {
         return Utils.ScreenToWorld(camera, runnerController.Touch.PrimaryPosition.ReadValue<Vector2>());

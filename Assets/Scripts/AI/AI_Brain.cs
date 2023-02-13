@@ -1,5 +1,5 @@
-// Coders:
-// Caroline Percy
+//Author : Izabela Zelek, February 2023
+//Author : Caroline Percy
 // ...
 
 using System.Collections;
@@ -7,9 +7,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// The Brain of the AI Runner.
+/// A class which uses a neural network to create AI movement
 /// </summary>
-
 public class AI_Brain : MonoBehaviour
 {
     public int numInputs = 6;

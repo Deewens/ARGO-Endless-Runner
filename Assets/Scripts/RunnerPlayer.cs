@@ -1,5 +1,5 @@
-// Coders:
-// Caroline Percy
+//Author : Izabela Zelek, February 2023
+//Author : Caroline Percy
 // ...
 
 using System.Collections;
@@ -92,8 +92,10 @@ public class RunnerPlayer : MonoBehaviour
     /// Whether the Runner is moving.
     private bool _moving = false;
     public bool jumping { get { return _jumping; } }
+    private bool _capture = false;
 
     private AI_Brain brain;
+    private CSVWriter _writer;
 
     void Awake()
     {
@@ -109,6 +111,8 @@ public class RunnerPlayer : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         _playerScale = playerObj.localScale;
+
+        _writer = GetComponent<CSVWriter>();
 
         brain = GetComponent<AI_Brain>();
         brain.Init(4, 3, 1);
@@ -220,6 +224,16 @@ public class RunnerPlayer : MonoBehaviour
         {
             StopSlide();
         }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            _capture = !_capture;
+        }
+
+        if (_capture)
+        {
+            _writer.WriteCSV(6, 6, 6, 9);
+        }
     }
 
     /// <summary>
@@ -293,6 +307,11 @@ public class RunnerPlayer : MonoBehaviour
                 Jump();
             }
         }
+    }
+
+    public void TurnOnCapture()
+    {
+        _capture = !_capture;
     }
 
 }

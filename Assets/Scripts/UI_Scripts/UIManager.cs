@@ -1,3 +1,4 @@
+//Author : Izabela Zelek, February 2023
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject _runner;
     public Button _toggleAIButton;
     private bool _aiOnOff;
+    //private bool _capture = false;
 
     private void Start()
     {
@@ -143,5 +145,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
+    public void ToggleCapture()
+    {
+        _runner.GetComponent<RunnerPlayer>().TurnOnCapture();
+    }
 }

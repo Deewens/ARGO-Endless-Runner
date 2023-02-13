@@ -1,7 +1,5 @@
-// Coders:
-// Caroline Percy
-// ... 
-
+//Author : Izabela Zelek, February 2023
+//Author : Caroline Percy
 using System;
 using System.Collections;
 using System.Linq;

@@ -1,3 +1,4 @@
+//Author : Izabela Zelek, February 2023
 using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Component
