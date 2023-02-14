@@ -51,7 +51,7 @@ public class ObstacleCollision : MonoBehaviour
 
             if (_runner != null)
             {
-                Debug.Log("Avoided");
+                //Debug.Log("Avoided");
                 _runner.GetComponent<MoveForward>()._obstaclesAvoided += 1;
             }
             else
