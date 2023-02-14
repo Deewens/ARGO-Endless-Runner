@@ -80,7 +80,7 @@ public class GodPlayer : MonoBehaviour
                     pos = Camera.main.ScreenToWorldPoint(pos);
                     if (chosenAttack == 1)
                     {
-                        pos.y = 3;
+                        pos.y = 2;
                     }
                     else
                     {
