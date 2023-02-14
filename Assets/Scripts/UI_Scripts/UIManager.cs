@@ -113,7 +113,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ToggleAIButton()
     {
-        Debug.Log("here at toggle");
+        //Debug.Log("here at toggle");
         // _toggleAIButton.text = "Hi";
         if (!_aiOnOff)
         {

@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -29,6 +30,8 @@ public class GodPlayer : MonoBehaviour
     private GodAttack _activeAttack;
     int chosenAttack = -1;
 
+    [SerializeField] GameObject[] AttackButtons;
+
     ///
     private PlayerGodAttackList _playerAttack;
 
@@ -46,6 +49,12 @@ public class GodPlayer : MonoBehaviour
     {
         _ai = GetComponent<AIGod>();
         _playerAttack = GameObject.Find("God Canvas").GetComponent<PlayerGodAttackList>();
+
+        foreach (GameObject g in AttackButtons)
+        {
+            g.transform.Find("Background").gameObject.SetActive(false);
+            g.transform.Find("Selected").gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -82,7 +91,7 @@ public class GodPlayer : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("pick another place");
+                    //Debug.Log("pick another place");
                 }
             }
         }
@@ -94,6 +103,13 @@ public class GodPlayer : MonoBehaviour
     /// <param name="t_attack">The number of the attack clicked on.</param>
     public void ChooseAttack(int t_attack)
     {
+        foreach (GameObject g in AttackButtons)
+        {
+            g.transform.Find("Selected").gameObject.SetActive(false);
+        }
+
+        AttackButtons[t_attack - 1].transform.Find("Selected").gameObject.SetActive(true);
+
         _activeAttack = _playerAttack.GetAttack(t_attack);
         chosenAttack = t_attack;
     }
@@ -119,10 +135,20 @@ public class GodPlayer : MonoBehaviour
     /// </summary>
     private IEnumerator StartAttackCooldown()
     {
+        foreach (GameObject g in AttackButtons)
+        {
+            g.transform.Find("Background").gameObject.SetActive(true);
+        }
+
         _canAttack = false;
         _activeAttack = null;
         yield return new WaitForSeconds(attackCooldownTime);
         _canAttack = true;
+
+        foreach (GameObject g in AttackButtons)
+        {
+            g.transform.Find("Background").gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -142,20 +168,31 @@ public class GodPlayer : MonoBehaviour
 
     private bool PlacementAllow()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitInfo;
-
-        // Check if the raycast hits a specific GameObject
-        if (Physics.Raycast(ray, out hitInfo,Mathf.Infinity,mask))
+        if (Input.mousePosition.y > 400)
         {
-            Debug.Log(hitInfo.collider.gameObject.name);
-            Debug.Log(hitInfo.collider.gameObject.tag);
-            GameObject hitObject = hitInfo.collider.gameObject;
-            if (hitObject.tag == "Ground")
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+
+            // Check if the raycast hits a specific GameObject
+            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, mask))
             {
-                return true;
+                Debug.Log(hitInfo.collider.gameObject.name);
+                Debug.Log(hitInfo.collider.gameObject.tag);
+                GameObject hitObject = hitInfo.collider.gameObject;
+                if (hitObject.tag == "Ground")
+                {
+                    //Debug.Log(hitInfo.collider.gameObject.tag);
+                    hitObject = hitInfo.collider.gameObject;
+                    if (hitObject.tag == "Ground")
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
+
         }
+
         return false;
     }
 }

@@ -19,4 +19,13 @@ public abstract class GodAttack : MonoBehaviour
     /// </summary>
     /// <param name="targetPos"></param>
     public virtual void Attack(Vector3 targetPos) { }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Runner")
+        {
+            Destroy(gameObject, 2);
+        }
+    }
 }
