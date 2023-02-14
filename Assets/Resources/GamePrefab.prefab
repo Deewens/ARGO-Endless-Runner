@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &77362068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 77362070}
+  - component: {fileID: 77362069}
+  m_Layer: 0
+  m_Name: PickupController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &77362070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77362068}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 40}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3738126537683072139}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &77362069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77362068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c306e49d345470b49a05107a4e459e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3738126536702013702
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +593,7 @@ Transform:
   - {fileID: 3738126536962693961}
   - {fileID: 3738126538257914561}
   - {fileID: 1535111621990736769}
+  - {fileID: 77362070}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1181,7 +1226,7 @@ GameObject:
   - component: {fileID: 3738126538195565474}
   - component: {fileID: 3738126538195565475}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Runner Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1300,8 +1345,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   runner: {fileID: 1535111621990736769}
-  distanceFromGod: 10
-  heightFromGod: 25
 --- !u!1 &3738126538198371905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,6 +1677,11 @@ PrefabInstance:
       objectReference: {fileID: 9173838916103430259}
     - target: {fileID: 2991922969393586026, guid: f87728c442f1f54448a1ad7f0d97cbe5,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991922969393586026, guid: f87728c442f1f54448a1ad7f0d97cbe5,
+        type: 3}
       propertyPath: _toggleAIButton
       value: 
       objectReference: {fileID: 3738126537842536482}
@@ -1916,7 +1964,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1955755287282592834}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5b2ae5d621aa8e49915a30e69c53072, type: 3}
   m_Name: 
@@ -2266,6 +2314,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3738126537683072139}
     m_Modifications:
+    - target: {fileID: 2123888526971081566, guid: 5dcedd53958547443b5061e3edf3062e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2787079065683197256, guid: 5dcedd53958547443b5061e3edf3062e,
         type: 3}
       propertyPath: m_RootOrder
