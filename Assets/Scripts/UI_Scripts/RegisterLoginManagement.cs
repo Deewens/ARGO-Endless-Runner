@@ -66,6 +66,8 @@ public class RegisterLoginManagement : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        //Debug.Log("Turn me off");
+
         this.gameObject.SetActive(false);
     }
 
@@ -102,6 +104,7 @@ public class RegisterLoginManagement : MonoBehaviour
         RemoveSpaces();
         if (passwordInput.text.Length >= 6 && usernameInput.text.Length >= 6)
         {
+           // Debug.Log("Valid username and password Length");
             loginData.username = usernameInput.text;
             loginData.password = passwordInput.text;
             clearFields();
@@ -116,6 +119,8 @@ public class RegisterLoginManagement : MonoBehaviour
 
     public IEnumerator LogInAccount(string jsonData)
     {
+        //Debug.Log("Made It this far");
+
         string url = URLGameServer + PathCheckUsernameAndPassword;
 
         using (UnityWebRequest request = UnityWebRequest.Put(url, jsonData))
@@ -135,7 +140,7 @@ public class RegisterLoginManagement : MonoBehaviour
             }
             else
             {
-               // Debug.Log("Can't log in invalid details entered");
+                //Debug.Log("Can't log in invalid details entered");
             }
 
             if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
@@ -146,7 +151,7 @@ public class RegisterLoginManagement : MonoBehaviour
             }
             else
             {
-               // Debug.Log("Error sending data to the server: Error " + request.responseCode);
+                Debug.Log("Error sending data to the server: Error " + request.responseCode);
             }
         }
     }
