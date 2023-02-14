@@ -21,131 +21,231 @@ public class RegisterLoginManagement : MonoBehaviour
 
     public List<string> ExistingUsernames;
     public string[] ExistingPasswords;
+    public Image TogglePasswordCensorIcon;
+    public Sprite Locked;
+    public Sprite unlocked;
+    public TMPro.TextMeshProUGUI UsernameHud;
 
     public TMPro.TMP_InputField usernameInput;
     public TMPro.TMP_InputField passwordInput;
-    //public Button registerButton;
-    //public Button goToLoginButton;
-
-    ArrayList credentials;
+    private bool ValidPassword;
+    private bool ValidUsername;
+    private bool LoggedIn;
+    private string URLGameServer;
+    private string PathUpdateCredentials;
+    private string PathUpdateFeedback;
+    private string PathCheckUserName;
+    private string PathCheckUsernameAndPassword;
+    private string jsonData;
+    public string LoggedInUser;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        //registerButton.onClick.AddListener(writeStuffToFile);
-        //goToLoginButton.onClick.AddListener(goToLoginScene);
+        LoggedIn = false;
+        URLGameServer = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/";
+        PathUpdateCredentials = "credentials";
+        PathUpdateFeedback = "playtestdata";
+        PathCheckUserName = "checkusername";
+        PathCheckUsernameAndPassword = "checkusernameandpassword";
 
-        //if (File.Exists(Application.dataPath + "/credentials.txt"))
-        //{
-        //    credentials = new ArrayList(File.ReadAllLines(Application.dataPath + "/credentials.txt"));
-        //}
-        //else
-        //{
-        //    File.WriteAllText(Application.dataPath + "/credentials.txt", "");
-        //}
+        passwordInput.contentType = TMPro.TMP_InputField.ContentType.Password;
+        TogglePasswordCensorIcon.sprite = Locked;
 
-    }
-
-    void goToLoginScene()
-    {
-        SceneManager.LoadScene("Login");
-    }
-
-
-    void writeStuffToFile()
-    {
-        //bool isExists = false;
-
-        //credentials = new ArrayList(File.ReadAllLines(Application.dataPath + "/credentials.txt"));
-        //foreach (var i in credentials)
-        //{
-        //    if (i.ToString().Contains(usernameInput.text))
-        //    {
-        //        isExists = true;
-        //        break;
-        //    }
-        //}
-
-        //if (isExists)
-        //{
-        //    Debug.Log($"Username '{usernameInput.text}' already exists");
-        //}
-        //else
-        //{
-        //    credentials.Add(usernameInput.text + ":" + passwordInput.text);
-        //    File.WriteAllLines(Application.dataPath + "/credentials.txt", (String[])credentials.ToArray(typeof(string)));
-        //    Debug.Log("Account Registered");
-        //}
+        ValidPassword = false;
+        ValidUsername = false;
     }
 
     public void clearFields()
     {
         usernameInput.text = "";
         passwordInput.text = "";
+        ValidPassword = false;
+        ValidUsername = false;
     }
 
-    public void sendData()
+    public void GoToMainMenu()
     {
-        Debug.Log("Sending Data");
-
-
-        loginData.username = usernameInput.text;
-        loginData.password = passwordInput.text;
-        clearFields();
-        string jsonData = JsonUtility.ToJson(loginData);
-        StartCoroutine(PostMethod(jsonData));
-
-
+        this.gameObject.SetActive(false);
     }
 
-    public void GetData()
+    public void CensorText()
+    {
+       // Debug.Log("Function Called");
+        if (passwordInput.contentType == TMPro.TMP_InputField.ContentType.Password)
+        {
+          //  Debug.Log("Standard");
+            TogglePasswordCensorIcon.sprite = unlocked;
+            passwordInput.contentType = TMPro.TMP_InputField.ContentType.Standard;
+        }
+        else
+        {
+           // Debug.Log("Password");
+            TogglePasswordCensorIcon.sprite = Locked;
+            passwordInput.contentType = TMPro.TMP_InputField.ContentType.Password;
+        }
+    }
+
+    public void RemoveSpaces()
+    {
+        //Debug.Log("With Spaces : " + usernameInput.text);
+        //Debug.Log("With Spaces : " + passwordInput.text);
+        usernameInput.text = usernameInput.text.Replace(" ", "");
+        passwordInput.text = passwordInput.text.Replace(" ", "");
+        //Debug.Log("Without Spaces : " + usernameInput.text);
+        //Debug.Log("Without Spaces : " + passwordInput.text);
+    }
+
+    public void Login()
     {
         Debug.Log("getting Data");
-        
-
-        loginData.username = usernameInput.text;
-        loginData.password = passwordInput.text;
-        clearFields();
-        string jsonData = JsonUtility.ToJson(loginData);
-        StartCoroutine(GetUsername());
-
-
+        RemoveSpaces();
+        if (passwordInput.text.Length >= 6 && usernameInput.text.Length >= 6)
+        {
+            loginData.username = usernameInput.text;
+            loginData.password = passwordInput.text;
+            clearFields();
+            jsonData = JsonUtility.ToJson(loginData);
+            StartCoroutine(LogInAccount(jsonData));
+        }
+        else
+        {
+           // Debug.Log("Passwords and Usernames need to be at least 6 characters long");
+        }
     }
 
-    public IEnumerator GetUsername()
+    public IEnumerator LogInAccount(string jsonData)
     {
-        
-        string usernameURL = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/usernames";
+        string url = URLGameServer + PathCheckUsernameAndPassword;
 
-        UnityWebRequest request = UnityWebRequest.Get(usernameURL);
-        
+        using (UnityWebRequest request = UnityWebRequest.Put(url, jsonData))
+        {
+            request.method = UnityWebRequest.kHttpVerbPOST;
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Accept", "application/json");
 
             yield return request.SendWebRequest();
-            
+
+            if (request.downloadHandler.text == "CanLogIn")
+            {
+                //Debug.Log("Can log in valid details entered");
+                UsernameHud.text = loginData.username;
+                LoggedIn = true;
+                GoToMainMenu();
+            }
+            else
+            {
+               // Debug.Log("Can't log in invalid details entered");
+            }
 
             if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
             {
-            ExistingUsernames.Add(request.downloadHandler.text);
-            Debug.Log(ExistingUsernames[0]);
-
-            Debug.Log("Data successfully received from the server");
+                //Debug.Log("Downloaded : " + request.downloadHandler.text);
+                //Debug.Log("Data successfully sent to the server");
 
             }
             else
             {
-                Debug.Log("Error receiving data from the server: Error " + request.responseCode);
+               // Debug.Log("Error sending data to the server: Error " + request.responseCode);
             }
-        
+        }
+    }
+
+    public void RegisterData()
+    {
+        //Debug.Log("getting Data");
+        RemoveSpaces();
+        if (passwordInput.text.Length >= 6 && usernameInput.text.Length >=6)
+        {
+            loginData.username = usernameInput.text;
+            loginData.password = passwordInput.text;
+            clearFields();
+            jsonData = JsonUtility.ToJson(loginData);
+            StartCoroutine(RegisterUsername(jsonData));
+        }
+        else
+        {
+            //Debug.Log("Passwords and Usernames need to be at least 6 characters long");
+        }
+        // StartCoroutine(GetUsername());
+    }
+
+    //public IEnumerator ValidatePassword(string jsonData)
+    //{
+    //    string url = URLGameServer + PathCheckPassword;
+    //   // Debug.Log(jsonData);
+    //    using (UnityWebRequest request = UnityWebRequest.Put(url, jsonData))
+    //    {
+    //        request.method = UnityWebRequest.kHttpVerbPOST;
+    //        request.SetRequestHeader("Content-Type", "application/json");
+    //        request.SetRequestHeader("Accept", "application/json");
+
+    //        yield return request.SendWebRequest();
+
+    //        if(request.downloadHandler.text == "true")
+    //        {
+    //            ValidPassword = true;
+    //        }
+    //        else
+    //        {
+    //            ValidPassword = false;
+    //        }
+
+
+    //        if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
+    //        {
+    //            Debug.Log("Downloaded : " + request.downloadHandler.text);
+    //            Debug.Log("Data successfully sent to the server");
+
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Error sending data to the server: Error " + request.responseCode);
+    //        }
+    //    }
+    //}
+
+    public IEnumerator RegisterUsername(string jsonData)
+    {
+        string url = URLGameServer + PathCheckUserName;
+
+        using (UnityWebRequest request = UnityWebRequest.Put(url, jsonData))
+        {
+            request.method = UnityWebRequest.kHttpVerbPOST;
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Accept", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.downloadHandler.text == "NotTaken")
+            {
+                StartCoroutine(PostMethod(jsonData, PathUpdateCredentials));
+            }
+            else
+            {
+                ValidUsername = false;
+            }
+
+            if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
+            {
+                //Debug.Log("Downloaded : " + request.downloadHandler.text);
+               // Debug.Log("Data successfully sent to the server");
+
+            }
+            else
+            {
+                //Debug.Log("Error sending data to the server: Error " + request.responseCode);
+            }
+        }
     }
 
     /// <summary>
     /// Sends the data to an external database hosted on anvil
     /// </summary>
-    public static IEnumerator PostMethod(string jsonData)
+    public IEnumerator PostMethod(string jsonData, string t_path)
     {
+        // player data and credentials
         string url = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/credentials";
-        //string url = "https://experienced-forceful-queen.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/metric";
 
         using (UnityWebRequest request = UnityWebRequest.Put(url, jsonData))
         {
@@ -157,12 +257,12 @@ public class RegisterLoginManagement : MonoBehaviour
 
             if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
             {
-                Debug.Log("Data successfully sent to the server");
+                //Debug.Log("Data Registered");
 
             }
             else
             {
-                Debug.Log("Error sending data to the server: Error " + request.responseCode);
+                //Debug.Log("Error sending data to the server: Error " + request.responseCode);
             }
         }
     }

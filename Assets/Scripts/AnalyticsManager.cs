@@ -116,8 +116,7 @@ public class AnalyticsManager : MonoBehaviour
     /// </summary>
     public static IEnumerator PostMethod(string jsonData)
     {
-        string url = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/metric";
-        //string url = "https://experienced-forceful-queen.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/metric";
+        string url = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/playtestdata";
 
         using (UnityWebRequest request = UnityWebRequest.Put(url, jsonData))
         {
