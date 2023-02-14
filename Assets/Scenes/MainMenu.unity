@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -390,6 +390,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588652168}
   m_CullTransparentMesh: 1
+--- !u!114 &662248079 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7484018623262769715, guid: 52fb526687b6ebf478013173aa07ff44,
+    type: 3}
+  m_PrefabInstance: {fileID: 1440931099}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c49ac059b5e8a74281f805785dbc133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &665774864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,11 +1427,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3650915854062391466, guid: 52fb526687b6ebf478013173aa07ff44,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 662248079}
+    - target: {fileID: 3650915854062391466, guid: 52fb526687b6ebf478013173aa07ff44,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650915854062391466, guid: 52fb526687b6ebf478013173aa07ff44,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RegisterLoginManagement, Source
+      objectReference: {fileID: 0}
     - target: {fileID: 7484018623262769715, guid: 52fb526687b6ebf478013173aa07ff44,
         type: 3}
       propertyPath: UsernameHud
       value: 
       objectReference: {fileID: 1697467918}
+    - target: {fileID: 7883823939208927681, guid: 52fb526687b6ebf478013173aa07ff44,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3980957848626793311}
+    - target: {fileID: 7883823939208927681, guid: 52fb526687b6ebf478013173aa07ff44,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Quitgame
+      objectReference: {fileID: 0}
     - target: {fileID: 7883823939732800176, guid: 52fb526687b6ebf478013173aa07ff44,
         type: 3}
       propertyPath: m_Name
@@ -1540,7 +1577,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 52fb526687b6ebf478013173aa07ff44, type: 3}
 --- !u!1 &1447869306
 GameObject:
