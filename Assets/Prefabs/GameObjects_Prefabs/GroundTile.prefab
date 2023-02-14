@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7653179859077166942}
   - component: {fileID: 4948610700545867179}
   - component: {fileID: 444555764704729738}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GroundTile
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
