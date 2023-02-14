@@ -17,6 +17,8 @@ TagManager:
   - SpeedDown
   - MaxHealth
   - PartHealth
+  - Apple
+  - Pomegranate
   layers:
   - Default
   - TransparentFX
