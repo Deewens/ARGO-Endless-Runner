@@ -21,6 +21,22 @@ public class CollectibleController : MonoBehaviour
         }
         else if (other.tag == "Runner")
         {
+            if(gameObject.transform.tag == "SpeedUp")
+            {
+                GameObject.Find("PickupController").GetComponent<PickupController>().SpeedUp();
+            }
+            else if (gameObject.transform.tag == "SpeedDown")
+            {
+                GameObject.Find("PickupController").GetComponent<PickupController>().SpeedDown();
+            }
+            else if (gameObject.transform.tag == "MaxHealth")
+            {
+                GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().InstaHeal();
+            }
+            else if (gameObject.transform.tag == "PartHealth")
+            {
+                GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().PartialHeal();
+            }
             Destroy(gameObject);
         }
 

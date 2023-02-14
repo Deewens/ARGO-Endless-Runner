@@ -13,6 +13,10 @@ TagManager:
   - Zeus
   - Poseidon
   - BehindPlayer
+  - SpeedUp
+  - SpeedDown
+  - MaxHealth
+  - PartHealth
   layers:
   - Default
   - TransparentFX

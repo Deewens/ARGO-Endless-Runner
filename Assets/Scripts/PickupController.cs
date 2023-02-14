@@ -12,6 +12,12 @@ public class PickupController : MonoBehaviour
     private GameObject _coin;
     private GameObject _pom;
     private GameObject _apple;
+    private GameObject _speedUp;
+    private GameObject _speedDown;
+    private GameObject _maxHealth;
+    private GameObject _partHealth;
+
+    private float _timer = 0.0f;
     private void Start()
     {
         _offset = new Vector3(0,0,40);
@@ -19,7 +25,23 @@ public class PickupController : MonoBehaviour
         _coin = Resources.Load("Coin") as GameObject;
         _pom = Resources.Load("Pomegranate") as GameObject;
         _apple = Resources.Load("Apple") as GameObject;
+        _speedUp = Resources.Load("SpeedUpPotion") as GameObject;
+        _speedDown = Resources.Load("SpeedDownPotion") as GameObject;
+        _maxHealth = Resources.Load("MaxHealthPotion") as GameObject;
+        _partHealth = Resources.Load("PartHealthPotion") as GameObject;
         StartCoroutine(SpawnPickup());
+    }
+
+    private void Update()
+    {
+        if (Time.timeScale != 1.0f && _timer > 0.0f)
+        {
+            _timer -= Time.deltaTime;
+        }
+        if (Time.timeScale != 1.0f && _timer <= 0.0f)
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 
     /// <summary>
@@ -37,33 +59,68 @@ public class PickupController : MonoBehaviour
     public IEnumerator SpawnPickup()
     {
         while(_runner.GetChild(0).gameObject.activeSelf)
-        { 
-            int _randomNumber = Random.Range(1,4);
-
+        {
             yield return new WaitForSeconds(1.0f);
+
+            int pickOrPower = Random.Range(1, 4);
             int randX = Random.Range(-2, 2);
-            if(randX < 0)
+            if (randX < 0)
             {
                 randX = -2;
             }
-            else if(randX > 0)
+            else if (randX > 0)
             {
                 randX = 2;
             }
             Vector3 newPos = _runner.position + _offset;
-
-            switch(_randomNumber)
+            if(pickOrPower == 1 && Time.timeScale == 1.0f)
             {
-                case 1:
-                    Instantiate(_coin, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                    break;
-                case 2:
-                    Instantiate(_pom, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                    break;
-                case 3:
-                    Instantiate(_apple, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                    break;
+                int randomNumber = Random.Range(1, 5);
+
+                switch (randomNumber)
+                {
+                    case 1:
+                        Instantiate(_speedUp, new Vector3(randX, 2, newPos.z), Quaternion.identity);
+                        break;
+                    case 2:
+                        Instantiate(_speedDown, new Vector3(randX, 2, newPos.z), Quaternion.identity);
+                        break;
+                    case 3:
+                        Instantiate(_maxHealth, new Vector3(randX, 2, newPos.z), Quaternion.identity);
+                        break;
+                    case 4:
+                        Instantiate(_partHealth, new Vector3(randX, 2, newPos.z), Quaternion.identity);
+                        break;
+                }
+            }
+            else
+            {
+                int randomNumber = Random.Range(1, 4);
+
+                switch (randomNumber)
+                {
+                    case 1:
+                        Instantiate(_coin, new Vector3(randX, 2, newPos.z), Quaternion.identity);
+                        break;
+                    case 2:
+                        Instantiate(_pom, new Vector3(randX, 2, newPos.z), Quaternion.identity);
+                        break;
+                    case 3:
+                        Instantiate(_apple, new Vector3(randX, 2, newPos.z), Quaternion.identity);
+                        break;
+                }
             }
         }
+    }
+
+    public void SpeedUp()
+    {
+        Time.timeScale = 2.0f;
+        _timer = 10.0f;
+    }
+    public void SpeedDown()
+    {
+        Time.timeScale = 0.5f;
+        _timer = 5.0f;
     }
 }
