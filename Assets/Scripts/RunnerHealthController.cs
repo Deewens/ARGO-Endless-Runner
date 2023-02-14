@@ -41,4 +41,14 @@ public class RunnerHealthController : MonoBehaviour
     {
         return _currentHealth == 0;
     }
+
+    public int GetHealth()
+    {
+        return _currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return _maxHealth;
+    }
 }
