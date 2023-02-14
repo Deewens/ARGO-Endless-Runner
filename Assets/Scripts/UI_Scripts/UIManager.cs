@@ -9,6 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    private string CurrentScene;
     private Camera runnerCam;
     private Camera godCam;
 
@@ -22,15 +23,18 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        runnerCam = GameObject.Find("Runner Camera").GetComponent<Camera>();
-        godCam = GameObject.Find("God Camera").GetComponent<Camera>();
+        CurrentScene = SceneManager.GetActiveScene().name;
+        if (CurrentScene != "MainMenu")
+        {
+            runnerCam = GameObject.Find("Runner Camera").GetComponent<Camera>();
+            godCam = GameObject.Find("God Camera").GetComponent<Camera>();
 
-        godCanvas = GameObject.Find("God Canvas");
-        runnerCanvas = GameObject.Find("Runner Canvas");
+            godCanvas = GameObject.Find("God Canvas");
+            runnerCanvas = GameObject.Find("Runner Canvas");
 
-        godCanvas.SetActive(false);
-        godCam.enabled = false;
-        
+            godCanvas.SetActive(false);
+            godCam.enabled = false;
+        }
 
         //_toggleAIButton = _gameplayCanvas.GetComponentInChildren<Button>();
     }

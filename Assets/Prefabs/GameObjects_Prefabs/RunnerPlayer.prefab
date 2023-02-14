@@ -211,9 +211,9 @@ GameObject:
   - component: {fileID: 2787079065683197256}
   - component: {fileID: 7869008503816964129}
   - component: {fileID: 3738126537374670540}
-  - component: {fileID: 3738126537374670541}
   - component: {fileID: 3738126537374670543}
   - component: {fileID: 2123888526971081566}
+  - component: {fileID: -3576427142159529889}
   m_Layer: 0
   m_Name: RunnerPlayer
   m_TagString: Runner
@@ -277,23 +277,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &3738126537374670541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5526052688654139066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bad9759fa97da47b6893f3076365eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 0
-  _maxSpeed: 0
-  _rb: {fileID: 3738126537374670540}
-  _distanceTravelled: 0
-  _obstaclesAvoided: 0
 --- !u!114 &3738126537374670543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,3 +308,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
+--- !u!114 &-3576427142159529889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526052688654139066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70bad9759fa97da47b6893f3076365eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0
+  _maxSpeed: 0
+  _rb: {fileID: 3738126537374670540}
+  _distanceTravelled: 0
+  _obstaclesAvoided: 0
