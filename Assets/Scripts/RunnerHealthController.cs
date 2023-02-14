@@ -4,26 +4,41 @@ using UnityEngine;
 
 public class RunnerHealthController : MonoBehaviour
 {
-    int maxHealth = 100;
-    int currentHealth;
+    private int _maxHealth = 100;
+    private int _currentHealth;
+    private int _healthBonus = 20;
 
     public HealthBar healthBar;
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        _currentHealth = _maxHealth;
+        healthBar.SetMaxHealth(_maxHealth);
     }
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        _currentHealth -= damage;
 
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetHealth(_currentHealth);
+    }
+
+    public void InstaHeal()
+    {
+        _currentHealth = _maxHealth;
+
+        healthBar.SetMaxHealth(_maxHealth);
+    }
+
+    public void PartialHeal()
+    {
+        _currentHealth += _healthBonus;
+
+        healthBar.SetHealth(_maxHealth);
     }
 
     public bool IsRunnerDead()
     {
-        return currentHealth == 0;
+        return _currentHealth == 0;
     }
 }
