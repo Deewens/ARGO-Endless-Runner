@@ -33,6 +33,7 @@ public class ObstacleCollision : MonoBehaviour
     {
         if (other.tag == "Runner")
         {
+            GetComponent<PointOfInterest>().StartHit(other);
             if (!_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
             {
                 _runner.GetComponent<RunnerHealthController>().TakeDamage(damage);

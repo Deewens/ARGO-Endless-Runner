@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -130,11 +130,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3357977896576486807, guid: 032f84c3245e1a045ac5f6146659573d,
+    - target: {fileID: 540343333, guid: 032f84c3245e1a045ac5f6146659573d, type: 3}
+      propertyPath: Priority
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 623717433, guid: 032f84c3245e1a045ac5f6146659573d, type: 3}
+      propertyPath: Priority
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1562054891, guid: 032f84c3245e1a045ac5f6146659573d, type: 3}
+      propertyPath: Priority
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964468130, guid: 032f84c3245e1a045ac5f6146659573d, type: 3}
+      propertyPath: Priority
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074245901, guid: 032f84c3245e1a045ac5f6146659573d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078927493, guid: 032f84c3245e1a045ac5f6146659573d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269807458271642877, guid: 032f84c3245e1a045ac5f6146659573d,
         type: 3}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 1352398232}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269807458271642877, guid: 032f84c3245e1a045ac5f6146659573d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3738126537683072138, guid: 032f84c3245e1a045ac5f6146659573d,
         type: 3}
       propertyPath: m_Name
@@ -205,29 +234,30 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9060543372454368918, guid: 032f84c3245e1a045ac5f6146659573d,
+    - target: {fileID: 9173838916103430259, guid: 032f84c3245e1a045ac5f6146659573d,
         type: 3}
-      propertyPath: _rb
-      value: 
-      objectReference: {fileID: 1280461463}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3738126537374670541, guid: 032f84c3245e1a045ac5f6146659573d, type: 3}
+    - {fileID: 1280461464, guid: 032f84c3245e1a045ac5f6146659573d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 032f84c3245e1a045ac5f6146659573d, type: 3}
---- !u!54 &1280461463 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 3738126537374670540, guid: 032f84c3245e1a045ac5f6146659573d,
+--- !u!1 &837235893 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2269807458271642877, guid: 032f84c3245e1a045ac5f6146659573d,
     type: 3}
   m_PrefabInstance: {fileID: 801194413}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1352398232 stripped
+--- !u!114 &837235898
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8051531267852688892, guid: 032f84c3245e1a045ac5f6146659573d,
-    type: 3}
-  m_PrefabInstance: {fileID: 801194413}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 837235893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 901bee5e8e1bd5944973775e5ef1b2d4, type: 3}
+  m_Script: {fileID: 11500000, guid: e4b80e1576aa7ec48afbf43116db1147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poiName: Player
