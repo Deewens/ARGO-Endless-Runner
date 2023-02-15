@@ -1,3 +1,6 @@
+/// Author :
+/// Contributor : Patrick Donnelly - Score/runner Related elements
+
 using System;
 using UnityEngine;
 
@@ -6,8 +9,18 @@ using UnityEngine;
 /// </summary>
 public class CollectibleController : MonoBehaviour
 {
-    public int Score;
+    private int _pointsForCoins;
     public static event Action OnPlayerDeath;
+    private GameObject _runner;
+    private Score _runnerScoreScript;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _pointsForCoins = 5;
+        _runner = GameObject.Find("RunnerPlayer");
+        _runnerScoreScript = _runner.GetComponent<Score>();
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -60,6 +73,7 @@ public class CollectibleController : MonoBehaviour
             else if (gameObject.transform.tag == "Coin")
             {
                 GetComponent<PointOfInterest>().StartHit(other);
+                _runnerScoreScript.AddComboPoints(_pointsForCoins);
             }
             Destroy(gameObject);
         }
