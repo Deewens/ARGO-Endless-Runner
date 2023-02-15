@@ -19,6 +19,7 @@ TagManager:
   - PartHealth
   - Apple
   - Pomegranate
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -28,10 +29,10 @@ TagManager:
   - UI
   - Runner
   - AttackObstacle
-  - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - Item
+  - Coin
+  - Potion
   - 
   - 
   - 
