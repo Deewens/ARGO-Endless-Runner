@@ -46,7 +46,7 @@ public class GodPlayer : MonoBehaviour
                 {
                     _activeAttack = _playerAttack.GetAttack(chosenAttack);
                     Vector3 pos = Input.mousePosition;
-                    pos.z = Camera.main.nearClipPlane + 30;
+                    pos.z = Camera.main.nearClipPlane + 25;
                     pos = Camera.main.ScreenToWorldPoint(pos);
                     if (chosenAttack == 1)
                     {
@@ -123,6 +123,7 @@ public class GodPlayer : MonoBehaviour
         // Check if the raycast hits a specific GameObject
         if (Physics.Raycast(ray, out hitInfo,Mathf.Infinity,mask))
         {
+            Debug.Log(hitInfo.collider.gameObject.name);
             Debug.Log(hitInfo.collider.gameObject.tag);
             GameObject hitObject = hitInfo.collider.gameObject;
             if (hitObject.tag == "Ground")
