@@ -83,18 +83,18 @@ public class RunnerPlayer : MonoBehaviour
     /// How hard the User has to swipe up before the Runner jumps.
     private float _swipeIntensity = 70.0f;
 
+    /// Whether the runner is currently jumping
+    private bool _jumping;
     /// Whether the runner is currently sliding.
     private bool _sliding;
-
-    /// Public reference to _sliding.
     public bool sliding { get { return _sliding; } }
 
     /// Whether the Runner is moving.
     private bool _moving = false;
+    public bool jumping { get { return _jumping; } }
 
-    /// <summary>
-    /// Is called on start up. Gets the input manager in the current scene.
-    /// </summary>
+    
+
     void Awake()
     {
         _inputManager = InputManager.Instance;
@@ -196,6 +196,8 @@ public class RunnerPlayer : MonoBehaviour
             }
             if (Vector2.Dot(Vector2.down, direction) > directionThreshold && !_moving)
             {
+                _sliding = true;
+                transform.GetChild(0).GetComponent<PointOfInterest>().StartSlide();
                 StartSlide();
             }
         }
@@ -222,8 +224,6 @@ public class RunnerPlayer : MonoBehaviour
     /// </summary>
     private void StartSlide()
     {
-        _sliding = true;
-
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, slideZScale);
         _rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
 
@@ -235,9 +235,10 @@ public class RunnerPlayer : MonoBehaviour
     /// </summary>
     private void StopSlide()
     {
-        _sliding = false;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         playerObj.localScale = _playerScale;
+        _sliding = false;
+
     }
 
     /// <summary>
@@ -247,6 +248,8 @@ public class RunnerPlayer : MonoBehaviour
     {
         if (_grounded && !_sliding)
         {
+            transform.GetChild(0).GetComponent<PointOfInterest>().StartJump();
+            _jumping = true;
             _rb.AddForce(transform.up * _jumpForce * 6);
             _grounded = false;
         }
@@ -270,6 +273,7 @@ public class RunnerPlayer : MonoBehaviour
     void Land()
     {
         _grounded = true;
+        _jumping = false;
     }
 
     /// <summary>

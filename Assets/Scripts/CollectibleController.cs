@@ -25,11 +25,13 @@ public class CollectibleController : MonoBehaviour
             {
                 GameObject.Find("PickupController").GetComponent<PickupController>().SpeedUp();
                 GameObject.Find("PickupController").GetComponent<GoalController>().AddSpeedUp();
+                GetComponent<PointOfInterest>().StartHit(other);
             }
             else if (gameObject.transform.tag == "SpeedDown")
             {
                 GameObject.Find("PickupController").GetComponent<PickupController>().SpeedDown();
                 GameObject.Find("PickupController").GetComponent<GoalController>().AddSpeedDown();
+                GetComponent<PointOfInterest>().StartHit(other);
             }
             else if (gameObject.transform.tag == "MaxHealth")
             {
@@ -38,18 +40,26 @@ public class CollectibleController : MonoBehaviour
                     GameObject.Find("PickupController").GetComponent<GoalController>().CheckHealth();
                 }
                 GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().InstaHeal();
+                GetComponent<PointOfInterest>().StartHit(other);
             }
             else if (gameObject.transform.tag == "PartHealth")
             {
                 GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().PartialHeal();
+                GetComponent<PointOfInterest>().StartHit(other);
             }
             else if (gameObject.transform.tag == "Apple")
             {
                 GameObject.Find("PickupController").GetComponent<GoalController>().AddApple();
+                GetComponent<PointOfInterest>().StartHit(other);
             }
             else if (gameObject.transform.tag == "Pomegranate")
             {
                 GameObject.Find("PickupController").GetComponent<GoalController>().AddPom();
+                GetComponent<PointOfInterest>().StartHit(other);
+            }
+            else if (gameObject.transform.tag == "Coin")
+            {
+                GetComponent<PointOfInterest>().StartHit(other);
             }
             Destroy(gameObject);
         }

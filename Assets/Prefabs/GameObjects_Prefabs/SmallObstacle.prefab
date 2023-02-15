@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5345019761289315615}
   - component: {fileID: 9067611497985221232}
   - component: {fileID: -328615150150821998}
-  m_Layer: 0
+  - component: {fileID: 7021528709783949760}
+  m_Layer: 8
   m_Name: SmallObstacle
   m_TagString: Inpenetrable
   m_Icon: {fileID: 0}
@@ -110,3 +111,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd7e793d12581ac4bb6d04b2ba602e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7021528709783949760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4603449998670265347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b80e1576aa7ec48afbf43116db1147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poiName: 
