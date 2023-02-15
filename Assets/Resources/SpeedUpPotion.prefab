@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 3611869591961707607}
   - component: {fileID: 5908116456588405999}
   - component: {fileID: 1389081779199203239}
-  m_Layer: 0
+  - component: {fileID: -3334409409132035773}
+  m_Layer: 11
   m_Name: SpeedUpPotion
   m_TagString: SpeedUp
   m_Icon: {fileID: 0}
@@ -129,3 +130,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!114 &-3334409409132035773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5202156651666678229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b80e1576aa7ec48afbf43116db1147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poiName: 
