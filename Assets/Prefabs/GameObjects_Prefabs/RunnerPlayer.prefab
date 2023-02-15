@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 3738126537374670543}
   - component: {fileID: 2123888526971081566}
   - component: {fileID: -3576427142159529889}
+  - component: {fileID: -3594936904190199961}
   m_Layer: 0
   m_Name: RunnerPlayer
   m_TagString: Runner
@@ -256,7 +257,6 @@ MonoBehaviour:
   directionThreshold: 0.7
   laneSize: 2
   laneCount: 3
-  orientation: {fileID: 2787079065683197256}
   playerObj: {fileID: 2787079065683197256}
   maxSlideTime: 1.5
   slideYScale: 0.3
@@ -293,7 +293,6 @@ MonoBehaviour:
   slideForce: 0
   slideYScale: 0.3
   slideZScale: 1
-  orientation: {fileID: 2787079065683197256}
   AIObj: {fileID: 2787079065683197256}
 --- !u!114 &2123888526971081566
 MonoBehaviour:
@@ -325,3 +324,15 @@ MonoBehaviour:
   _rb: {fileID: 3738126537374670540}
   _distanceTravelled: 0
   _obstaclesAvoided: 0
+--- !u!114 &-3594936904190199961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526052688654139066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e51489d49f02248a2c3dbb6723ead8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
