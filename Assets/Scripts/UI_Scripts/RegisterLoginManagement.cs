@@ -1,3 +1,6 @@
+/// Author : Patrick Donnelly
+/// Contributors : ---
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -174,41 +177,6 @@ public class RegisterLoginManagement : MonoBehaviour
         }
         // StartCoroutine(GetUsername());
     }
-
-    //public IEnumerator ValidatePassword(string jsonData)
-    //{
-    //    string url = URLGameServer + PathCheckPassword;
-    //   // Debug.Log(jsonData);
-    //    using (UnityWebRequest request = UnityWebRequest.Put(url, jsonData))
-    //    {
-    //        request.method = UnityWebRequest.kHttpVerbPOST;
-    //        request.SetRequestHeader("Content-Type", "application/json");
-    //        request.SetRequestHeader("Accept", "application/json");
-
-    //        yield return request.SendWebRequest();
-
-    //        if(request.downloadHandler.text == "true")
-    //        {
-    //            ValidPassword = true;
-    //        }
-    //        else
-    //        {
-    //            ValidPassword = false;
-    //        }
-
-
-    //        if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
-    //        {
-    //            Debug.Log("Downloaded : " + request.downloadHandler.text);
-    //            Debug.Log("Data successfully sent to the server");
-
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("Error sending data to the server: Error " + request.responseCode);
-    //        }
-    //    }
-    //}
 
     public IEnumerator RegisterUsername(string jsonData)
     {
