@@ -38,6 +38,12 @@ public class ObstacleCollision : MonoBehaviour
             {
                 _runner.GetComponent<RunnerHealthController>().TakeDamage(damage);
             }
+
+            //if (!_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
+            //{
+            //    _runner.GetComponent<RunnerHealthController>().TakeDamage(damage);
+            //}
+
             if (_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
             {
                 Debug.Log("GameOver");
@@ -58,7 +64,7 @@ public class ObstacleCollision : MonoBehaviour
             {
                 _runner = GameObject.FindGameObjectWithTag("Runner");
             }
-            Destroy(gameObject, 2);
+            Destroy(gameObject);
         }
         
     }

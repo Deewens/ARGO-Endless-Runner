@@ -28,6 +28,8 @@ public class ObstacleSpawner : MonoBehaviour
     public int _obstaclesPlaced;
 
     ///
+    public Transform parent;
+
     Vector3 _offset;
 
     ///
@@ -59,7 +61,13 @@ public class ObstacleSpawner : MonoBehaviour
     public IEnumerator SpawnObstacle()
     {
         //Debug.Log("Here");
-        _randomNumber = Random.Range(1, 4);
+        _randomNumber = Random.Range(1, 3);
+
+        if (_randomNumber == 2)
+        {
+            _randomNumber = 3;
+        }
+
         //_randomNumber = 1;
         yield return new WaitForSeconds(2.0f);
         Vector3 newPos = _runner.position + _offset;
@@ -70,17 +78,17 @@ public class ObstacleSpawner : MonoBehaviour
                 _randomXPos = -2;
             else if (_randomXPos == 3)
                 _randomXPos = 0;
-            GameObject _temp = Instantiate(_obstacleSmall, new Vector3(_randomXPos,3,newPos.z), Quaternion.identity);
+            GameObject _temp = Instantiate(_obstacleSmall, new Vector3(_randomXPos,3,newPos.z), Quaternion.identity,parent);
             _obstaclesPlaced += 1;
         }
         else if(_randomNumber == 2)
         {
-            GameObject _temp = Instantiate(_obstacleHigh, new Vector3(0, 2, newPos.z), Quaternion.identity);
+            GameObject _temp = Instantiate(_obstacleHigh, new Vector3(0, 2, newPos.z), Quaternion.identity,parent);
             _obstaclesPlaced += 1;
         }
         else if(_randomNumber == 3)
         {
-            GameObject _temp = Instantiate(_obstacleWide, new Vector3(0, 1, newPos.z), Quaternion.identity);
+            GameObject _temp = Instantiate(_obstacleWide, new Vector3(0, 1, newPos.z), Quaternion.identity,parent);
             _obstaclesPlaced += 1;
         }
         StartCoroutine(SpawnObstacle());

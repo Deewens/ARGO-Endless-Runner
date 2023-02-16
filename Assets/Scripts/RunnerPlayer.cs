@@ -76,6 +76,12 @@ public class RunnerPlayer : MonoBehaviour
     /// The Runner's original scale.
     private Vector3 _playerScale;
 
+
+
+    private float _targetTime = 1.0f;
+    private bool _timeOver = true;
+
+
     /// The amount of force applied to the Runner in order to get them off the ground.
     private float _jumpForce = 80.0f;
     /// Bool that keeps track of whether the Runner is on the ground or not.
@@ -93,8 +99,6 @@ public class RunnerPlayer : MonoBehaviour
     private bool _moving = false;
     public bool jumping { get { return _jumping; } }
     private bool _capture = false;
-
-    private AI_Brain brain;
     private CSVWriter _writer;
 
     void Awake()
@@ -113,9 +117,6 @@ public class RunnerPlayer : MonoBehaviour
         _playerScale = playerObj.localScale;
 
         _writer = GetComponent<CSVWriter>();
-
-        brain = GetComponent<AI_Brain>();
-        brain.Init(4, 3, 1);
     }
 
     /// <summary>
@@ -180,42 +181,78 @@ public class RunnerPlayer : MonoBehaviour
     /// <param name="direction">The direction the swipe.</param>
     private void SwipeDirection(Vector2 direction)
     {
-        if (!_sliding)
-        {
-            if (_currentLane > 1)
-            {
-                if (Vector2.Dot(Vector2.left, direction) > directionThreshold)
-                {
-                    _moving = true;
-                    gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                    _currentLane--;
-                }
+        //if (!_sliding)
+        //{
+        //    if (_currentLane > 1)
+        //    {
+        //        if (Vector2.Dot(Vector2.left, direction) > directionThreshold)
+        //        {
+        //            _moving = true;
+        //            gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+        //            _currentLane--;
+        //            if (_capture)
+        //            {
+        //                _writer.WriteCSV(transform.position.x, transform.position.y, transform.position.z, -1);
+        //            }
+        //        }
 
-            }
-            if (_currentLane < laneCount)
+
+
+        if (_currentLane < laneCount)
+        {
+            if (Vector2.Dot(Vector2.right, direction) > directionThreshold)
             {
-                if (Vector2.Dot(Vector2.right, direction) > directionThreshold)
-                {
-                    _moving = true;
-                    gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                    _currentLane++;
-                }
-            }
-            if (Vector2.Dot(Vector2.down, direction) > directionThreshold && !_moving)
-            {
-                _sliding = true;
-                transform.GetChild(0).GetComponent<PointOfInterest>().StartSlide();
-                StartSlide();
+                _moving = true;
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+                _currentLane++;
             }
         }
-        _moving = false;
+        if (Vector2.Dot(Vector2.down, direction) > directionThreshold && !_moving)
+        {
+            _sliding = true;
+            transform.GetChild(0).GetComponent<PointOfInterest>().StartSlide();
+            StartSlide();
+        }
+    
+    _moving = false;
+
     }
+
+        //    }
+        //    if (_currentLane < laneCount)
+        //    {
+        //        if (Vector2.Dot(Vector2.right, direction) > directionThreshold)
+        //        {
+        //            _moving = true;
+        //            gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+        //            _currentLane++;
+        //            if (_capture)
+        //            {
+        //                _writer.WriteCSV(transform.position.x, transform.position.y, transform.position.z, 1);
+        //            }
+        //        }
+        //    }
+        //    if (Vector2.Dot(Vector2.down, direction) > directionThreshold && !_moving)
+        //    {
+        //        StartSlide();
+        //    }
+        //}
+        //_moving = false;
 
     /// <summary>
     /// The update that is called every frame for the Runner.
     /// </summary>
     private void Update()
     {
+        if(!_timeOver)
+        {
+            _targetTime -= Time.deltaTime;
+
+            if (_targetTime <= 0.0f)
+            {
+                _timeOver = true;
+            }
+        }
         if (_sliding && _slideTimer > 0)
         {
             _slideTimer -= Time.deltaTime;
@@ -229,16 +266,22 @@ public class RunnerPlayer : MonoBehaviour
         {
             _capture = !_capture;
         }
-
-        if (_capture)
+        if (_capture && _timeOver)
         {
-            _writer.WriteCSV(6, 6, 6, 9);
+            _writer.WriteCSV(transform.position.x, transform.position.y, transform.position.z, 0);
+            _timeOver = false;
+            _targetTime = 1.0f;
         }
     }
 
     /// <summary>
     /// Changes the Runner's state to sliding.
     /// </summary>
+    public void AddStuff(int o)
+    {
+        _writer.WriteCSV(transform.position.x, transform.position.y, transform.position.z, o);
+    }
+
     private void StartSlide()
     {
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, slideZScale);
@@ -312,6 +355,11 @@ public class RunnerPlayer : MonoBehaviour
     public void TurnOnCapture()
     {
         _capture = !_capture;
+    }
+
+    public bool IsCapture()
+    {
+        return _capture;
     }
 
 }

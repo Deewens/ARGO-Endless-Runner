@@ -18,8 +18,9 @@ public class UIManager : MonoBehaviour
     private GameObject runnerCanvas;
 
     public GameObject GameOverMenu;
-    public GameObject _runner;
-    public Button _toggleAIButton;
+    public GameObject Runner;
+    public Button ToggleAIButton;
+    public Button CaptureButton;
     private bool _aiOnOff;
     //private bool _capture = false;
 
@@ -113,17 +114,17 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Toggles AI off and on upon button press
     /// </summary>
-    public void ToggleAIButton()
+    public void ToggleAI()
     {
         //Debug.Log("here at toggle");
         // _toggleAIButton.text = "Hi";
         if (!_aiOnOff)
         {
             _aiOnOff = true;
-            _toggleAIButton.image.color = Color.red;
-            _runner.transform.GetChild(1).gameObject.SetActive(true);
-            _runner.GetComponent<AI_Brain>().enabled = true;
-            _runner.GetComponent<RunnerPlayer>().enabled = false;
+            ToggleAIButton.image.color = Color.red;
+            Runner.transform.GetChild(1).gameObject.SetActive(true);
+            Runner.GetComponent<AI_Brain>().enabled = true;
+            Runner.GetComponent<RunnerPlayer>().enabled = false;
 
             godCanvas.SetActive(true);
             godCam.enabled = true;
@@ -133,10 +134,10 @@ public class UIManager : MonoBehaviour
         else
         {
             _aiOnOff = false;
-            _toggleAIButton.image.color = Color.white;
-            _runner.transform.GetChild(1).gameObject.SetActive(false);
-            _runner.GetComponent<AI_Brain>().enabled = false;
-            _runner.GetComponent<RunnerPlayer>().enabled = true;
+            ToggleAIButton.image.color = Color.white;
+            Runner.transform.GetChild(1).gameObject.SetActive(false);
+            Runner.GetComponent<AI_Brain>().enabled = false;
+            Runner.GetComponent<RunnerPlayer>().enabled = true;
 
             godCanvas.SetActive(false);
             godCam.enabled = false;
@@ -147,6 +148,16 @@ public class UIManager : MonoBehaviour
 
     public void ToggleCapture()
     {
-        _runner.GetComponent<RunnerPlayer>().TurnOnCapture();
+        Runner.GetComponent<RunnerPlayer>().TurnOnCapture();
+
+        if(Runner.GetComponent<RunnerPlayer>().IsCapture())
+        {
+            ToggleAIButton.image.color = Color.yellow;
+        }
+        else
+        {
+            ToggleAIButton.image.color = Color.white;
+        }
+      
     }
 }

@@ -11,7 +11,11 @@ public class PointOfInterest : Subject
         poiName = gameObject.name;
         if (poiName != "Player")
         { 
-            RegisterObserver(GameObject.Find("AudioManager").GetComponent<AudioSystem>());
+            if (GameObject.FindObjectsOfType<AudioSystem>().Length > 0)
+            {
+                RegisterObserver(GameObject.Find("AudioManager").GetComponent<AudioSystem>());
+            }
+
        }
     }
 

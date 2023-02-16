@@ -63,12 +63,20 @@ public class HC_AI_Brain : MonoBehaviour
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                     currentLane--;
                     solved = true;
+                    if (GetComponent<RunnerPlayer>().IsCapture())
+                    {
+                        GetComponent<RunnerPlayer>().AddStuff(2);
+                    }
                 }
                 else if (rand == 2)
                 {
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                     currentLane++;
                     solved = true;
+                    if (GetComponent<RunnerPlayer>().IsCapture())
+                    {
+                        GetComponent<RunnerPlayer>().AddStuff(+1);
+                    }
                 }
             }
             else if (currentLane > 1 && !solved)
@@ -76,12 +84,20 @@ public class HC_AI_Brain : MonoBehaviour
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                 currentLane--;
                 solved = true;
+                if (GetComponent<RunnerPlayer>().IsCapture())
+                {
+                    GetComponent<RunnerPlayer>().AddStuff(2);
+                }
             }
             else if (currentLane < laneCount && !solved)
             {
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                 currentLane++;
                 solved = true;
+                if (GetComponent<RunnerPlayer>().IsCapture())
+                {
+                    GetComponent<RunnerPlayer>().AddStuff(+1);
+                }
             }
         }
 
@@ -89,6 +105,11 @@ public class HC_AI_Brain : MonoBehaviour
         {
             Jump();
             solved = true;
+
+            if (GetComponent<RunnerPlayer>().IsCapture())
+            {
+                GetComponent<RunnerPlayer>().AddStuff(3);
+            }
         }
 
 
@@ -168,5 +189,10 @@ public class HC_AI_Brain : MonoBehaviour
         {
             StopSlide();
         }
+    }
+
+    public int getLane()
+    {
+        return currentLane;
     }
 }

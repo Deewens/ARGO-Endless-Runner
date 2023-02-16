@@ -6,21 +6,52 @@ using System.IO;
 public class CSVReader : MonoBehaviour
 {
     public TextAsset textAssetData;
+    private NeuralNetwork _brain;
 
-    void Update()
+    void Awake()
     {
-        ReadCSV();
+        _brain = GetComponent<NeuralNetwork>();
     }
 
-    void ReadCSV()
+    public void ReadCSV()
     {
-        string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, System.StringSplitOptions.None);
+        string[] data = textAssetData.text.Split(new string[] { "\r\n" }, System.StringSplitOptions.None);
+        string[] line;
 
-        int tableSize = 4;
+       for (int i = 0; i < 6;i++)
+       {
+            line = data[i].ToString().Split(",");
 
-        for(int i = 0; i < tableSize; i++)
-        {
-            Debug.Log(data);
+            for(int j =0; j<line.Length;j++)
+            {
+                _brain.SetWeightsLayer1(i, j, float.Parse(line[j]));
+            }
+       }
+       int index = 0;
+       for(int i = 6; i < 11;i++)
+       {
+            line = data[i].ToString().Split("\r");
+
+            _brain.SetBias(index, float.Parse(line[0]));
+            index++;
+       }
+       index = 0;
+
+       for(int i = 11; i < 16;i++)
+       {
+            line = data[i].ToString().Split(",");
+
+            _brain.SetWeightsLayer2(index, float.Parse(line[0]));
+
+            //for (int j = 0; j < line.Length; j++)
+            //{
+
+            //}
+            index++;
         }
+
+
+        line = data[16].ToString().Split("\r");
+        _brain.SetBias(5, float.Parse(line[0]));
     }
 }

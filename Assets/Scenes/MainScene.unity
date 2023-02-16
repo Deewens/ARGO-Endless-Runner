@@ -460,8 +460,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameOverMenu: {fileID: 457136260}
-  _runner: {fileID: 2146757399}
-  _toggleAIButton: {fileID: 1380511845}
+  Runner: {fileID: 0}
+  ToggleAIButton: {fileID: 0}
+  CaptureButton: {fileID: 0}
 --- !u!224 &216847287
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2288,6 +2289,7 @@ Transform:
   - {fileID: 1344098357}
   - {fileID: 36714833}
   - {fileID: 1279174109}
+  - {fileID: 1764390944}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2702,10 +2704,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead20427a0a00f5418cc7e19f30f70ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numInputs: 6
-  numHidden: 5
-  numOutputs: 1
-  parent: {fileID: 0}
   maxSlideTime: 0.75
   slideForce: 200
   slideYScale: 0.5
@@ -3476,6 +3474,7 @@ MonoBehaviour:
   _obstacleSmall: {fileID: 4603449998670265347, guid: 70f90bd1faf198346bd7ad51e3c93226,
     type: 3}
   _obstaclesPlaced: 0
+  parent: {fileID: 1764390944}
 --- !u!4 &1287966784
 Transform:
   m_ObjectHideFlags: 0
@@ -4170,6 +4169,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1764390943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1764390944}
+  m_Layer: 0
+  m_Name: Obstacles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1764390944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764390943}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 539.6515, y: 1750.4342, z: 128.28613}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 603677522}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1798504191
 GameObject:
   m_ObjectHideFlags: 0
@@ -5295,6 +5325,8 @@ GameObject:
   - component: {fileID: 2146757403}
   - component: {fileID: 2146757402}
   - component: {fileID: 2146757401}
+  - component: {fileID: 2146757407}
+  - component: {fileID: 2146757408}
   m_Layer: 6
   m_Name: RunnerPlayer
   m_TagString: Runner
@@ -5348,10 +5380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead20427a0a00f5418cc7e19f30f70ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numInputs: 6
-  numHidden: 5
-  numOutputs: 1
-  parent: {fileID: 0}
   maxSlideTime: 1
   slideForce: 0
   slideYScale: 0
@@ -5417,3 +5445,29 @@ MonoBehaviour:
   maxSlideTime: 1.5
   slideYScale: 0.3
   slideZScale: 1
+--- !u!114 &2146757407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146757399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5becd7e1afa6d2647861b924176e8429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAssetData: {fileID: 4900000, guid: ea43775b95155aa47a0a9a53deb101fc, type: 3}
+--- !u!114 &2146757408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146757399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acbefdbf464c624995ec877347d8062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1764390944}
