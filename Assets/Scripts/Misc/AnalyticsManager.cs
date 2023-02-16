@@ -74,7 +74,7 @@ public class AnalyticsManager : MonoBehaviour
         if (_runner.tag == "Runner")
         {
             _runnerData.role = "Runner";
-            _runnerData.distanceTravelled = _runner.GetComponent<MoveForward>()._distanceTravelled;
+            _runnerData.distanceTravelled = _runner.GetComponent<MoveForward>().GetDistanceTravelled();
             // extract data from finished scripts for the runner later on 
             _runnerData.obstaclesAvoided = _runner.GetComponent<MoveForward>()._obstaclesAvoided;
             _runnerData.obstaclesHit = 1;
