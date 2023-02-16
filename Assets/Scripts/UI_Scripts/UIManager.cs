@@ -1,3 +1,6 @@
+/// Author : Patrick Donnelly
+/// Contributors : Izzy - RatingForm
+ 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
