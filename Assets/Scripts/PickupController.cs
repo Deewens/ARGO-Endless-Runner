@@ -30,17 +30,18 @@ public class PickupController : MonoBehaviour
     private void Start()
     {
         _offset = new Vector3(0,0,40);
-        _coin = Resources.Load("Coin") as GameObject;
-        _pom = Resources.Load("Pomegranate") as GameObject;
-        _apple = Resources.Load("Apple") as GameObject;
-        _speedUp = Resources.Load("SpeedUpPotion") as GameObject;
-        _speedDown = Resources.Load("SpeedDownPotion") as GameObject;
-        _maxHealth = Resources.Load("MaxHealthPotion") as GameObject;
-        _partHealth = Resources.Load("PartHealthPotion") as GameObject;
+        _coin = Resources.Load("Pickups/Coin") as GameObject;
+        _pom = Resources.Load("Pickups/Pomegranate") as GameObject;
+        _apple = Resources.Load("Pickups/Apple") as GameObject;
+        _speedUp = Resources.Load("Pickups/SpeedUpPotion") as GameObject;
+        _speedDown = Resources.Load("Pickups/SpeedDownPotion") as GameObject;
+        _maxHealth = Resources.Load("Pickups/MaxHealthPotion") as GameObject;
+        _partHealth = Resources.Load("Pickups/PartHealthPotion") as GameObject;
     }
 
     private void Update()
     {
+
         if (Time.timeScale != 1.0f && _timer > 0.0f)
         {
             _timer -= Time.deltaTime;
@@ -68,7 +69,8 @@ public class PickupController : MonoBehaviour
     /// </summary>
     public IEnumerator SpawnPickup()
     {
-        while(_runner.GetChild(0).gameObject.activeSelf)
+        Debug.Log("Spawning");
+        while (_runner.GetChild(0).gameObject.activeSelf)
         {
             yield return new WaitForSeconds(1.0f);
 
@@ -125,12 +127,12 @@ public class PickupController : MonoBehaviour
 
     public void SpeedUp()
     {
-        Time.timeScale = 2.0f;
-        _timer = 10.0f;
+        //Time.timeScale = 2.0f;
+        //_timer = 10.0f;
     }
     public void SpeedDown()
     {
-        Time.timeScale = 0.5f;
-        _timer = 5.0f;
+        //Time.timeScale = 0.5f;
+        //_timer = 5.0f;
     }
 }
