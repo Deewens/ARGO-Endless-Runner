@@ -127,12 +127,10 @@ public class PickupController : MonoBehaviour
 
     public void SpeedUp()
     {
-        //Time.timeScale = 2.0f;
-        //_timer = 10.0f;
+        _runner.GetComponent<MoveForward>().SetSpeed(+2);
     }
     public void SpeedDown()
     {
-        //Time.timeScale = 0.5f;
-        //_timer = 5.0f;
+        _runner.GetComponent<MoveForward>().SetSpeed(-2);
     }
 }

@@ -543,6 +543,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BGObjectsConstantDistanceFromPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 4412648783981138556, guid: 8a640f3b16a30df429d9290830383355,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4412648783981138559, guid: 8a640f3b16a30df429d9290830383355,
         type: 3}
       propertyPath: m_RootOrder

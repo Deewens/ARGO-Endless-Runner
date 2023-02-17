@@ -143,7 +143,6 @@ public class Score : NetworkBehaviour
                     _speedMissionComplete = true;
                     _baseIncrease = 50;
                     AddMissionPoints(_moveForwardScript.GetSpeed() / 4);
-                    _moveForwardScript.SetIsSpeedIncreased(false);
                 }
             }
             else if (_moveForwardScript.GetSpeed() == 24)
@@ -151,14 +150,12 @@ public class Score : NetworkBehaviour
                 _speedMissionComplete = true;
                 _baseIncrease = 100;
                 AddMissionPoints(_moveForwardScript.GetSpeed() / 6);
-                _moveForwardScript.SetIsSpeedIncreased(false);
             }
             else if (_moveForwardScript.GetSpeed() == 30)
             {
                 _speedMissionComplete = true;
                 _baseIncrease = 100;
                 AddMissionPoints(_moveForwardScript.GetSpeed() / 5);
-                _moveForwardScript.SetIsSpeedIncreased(false);
             }
         }
     }
@@ -334,7 +331,6 @@ public class Score : NetworkBehaviour
             {
                 if (_moveForwardScript.GetDistanceTravelled() == 100)
                 {
-                    Debug.Log("Here 1");
                     _distanceMissionComplete = true;
                     _baseIncrease = 50;
                     AddMissionPoints(_moveForwardScript.GetDistanceTravelled() / 100);
