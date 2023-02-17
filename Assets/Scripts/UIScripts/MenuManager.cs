@@ -9,6 +9,7 @@ using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 /// <summary>
 /// A class which adds functionality to main menu buttons,game over buttons, and the 'Auto' game button
@@ -27,6 +28,9 @@ public class MenuManager : MonoBehaviour
     [Scene]
     [SerializeField] 
     private string singleplayerMainScene = "";
+
+    [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject leaderboardPanel;
 
     /// <summary>
     /// Upon clicking, opens rating form in browser
@@ -57,6 +61,44 @@ public class MenuManager : MonoBehaviour
     public void LoadMultiplayerMenuScene()
     {
         SceneManager.LoadScene(multiplayerMenuScene);
+    }
+
+    public void DisplayLeaderboard()
+    {
+        GameObject title = mainMenuPanel.transform.GetChild(0).transform.Find("Title").gameObject;
+        if (title != null)
+        {
+            title.SetActive(false);
+        }
+        
+        foreach (Transform childTransform in mainMenuPanel.transform)
+        {
+            if (childTransform.GetComponent<Button>() != null)
+            {
+                childTransform.gameObject.SetActive(false);
+            }
+        }
+        
+        leaderboardPanel.SetActive(true);
+    }
+
+    public void HideLeaderboard()
+    {
+        GameObject title = mainMenuPanel.transform.GetChild(0).transform.Find("Title").gameObject;
+        if (title != null)
+        {
+            title.SetActive(true);
+        }
+        
+        foreach (Transform childTransform in mainMenuPanel.transform)
+        {
+            if (childTransform.GetComponent<Button>() != null)
+            {
+                childTransform.gameObject.SetActive(true);
+            }
+        }
+        
+        leaderboardPanel.SetActive(false);
     }
 
     /// <summary>
