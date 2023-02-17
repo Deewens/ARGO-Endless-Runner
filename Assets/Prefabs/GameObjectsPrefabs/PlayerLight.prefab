@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 3266399099745709666}
   - component: {fileID: 3266399099745709664}
   - component: {fileID: 3266399099745709665}
-  - component: {fileID: 3266399099745709679}
+  - component: {fileID: 166451441114525680}
   m_Layer: 6
   m_Name: PlayerLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3266399099745709666
 Transform:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!114 &3266399099745709679
+--- !u!114 &166451441114525680
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,8 +125,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3266399099745709667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b584a33795f3e4045b92c18e8bbb62ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b9a7693d0991634082fb4404c2c358d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  runner: {fileID: 0}
