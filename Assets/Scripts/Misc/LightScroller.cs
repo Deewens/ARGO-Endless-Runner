@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BGScroller : MonoBehaviour
+public class LightScroller : MonoBehaviour
 {
     private Transform _runner;
 
