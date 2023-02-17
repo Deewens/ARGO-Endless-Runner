@@ -21,6 +21,7 @@ TagManager:
   - SlideObstacle
   - Inpenetrable
   - God
+  - Moon
   layers:
   - Default
   - TransparentFX
@@ -34,7 +35,7 @@ TagManager:
   - Item
   - Coin
   - Potion
-  - 
+  - Glow
   - 
   - 
   - 
