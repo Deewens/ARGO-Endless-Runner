@@ -22,7 +22,6 @@ public class MoveForward : NetworkBehaviour
     int _startingPos;
     int _increaseWhen;
     public int _obstaclesAvoided;
-    private bool _isSpeedIncreased;
 
     /// <summary>
     /// Sets up default values
@@ -36,7 +35,6 @@ public class MoveForward : NetworkBehaviour
         _speed = 8;
         _startingPos = (int)transform.position.z;
         _obstaclesAvoided = 0;
-        _isSpeedIncreased = false;
     }
 
 
@@ -56,7 +54,6 @@ public class MoveForward : NetworkBehaviour
             {
                 _speed += 2;
                 _increaseWhen += 100;
-                _isSpeedIncreased = true;
             }
             else
             {
@@ -83,20 +80,20 @@ public class MoveForward : NetworkBehaviour
         return MaxSpeed;
     }
 
-    public bool GetIsSpeedIncreased()
-    {
-        return _isSpeedIncreased;
-    }
-
-    public void SetIsSpeedIncreased(bool IsSpeedIncreased)
-    {
-        _isSpeedIncreased = IsSpeedIncreased;
-    }
-
     public int GetPlayTime()
     {
         _endTime = System.DateTimeOffset.Now.ToUnixTimeSeconds();
         _playTime = _endTime - _startTime;
         return (int)_playTime;
+    }
+
+    public void SetSpeed(int SpeedChange)
+    {
+        Debug.Log("Speed");
+        if (-SpeedChange < MaxSpeed)
+        {
+            _speed += SpeedChange;
+        }
+        Debug.Log("Speed");
     }
 }
