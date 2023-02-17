@@ -39,6 +39,18 @@ public class RunnerReferencesSetter : NetworkBehaviour
         {
             collectibleController.Runner = gameObject;
         }
+
+        var backGroundScroller = FindObjectOfType<BGScroller>();
+        if (backGroundScroller != null)
+        {
+            backGroundScroller.Runner = transform;
+        }
+
+        var playerLight = FindObjectOfType<LightScroller>();
+        if (playerLight != null)
+        {
+            playerLight.Runner = transform;
+        }
     }
 
     public override void OnStartLocalPlayer()
