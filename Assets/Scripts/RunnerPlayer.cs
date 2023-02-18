@@ -2,9 +2,7 @@
 // Caroline Percy
 // ...
 
-using System.Collections;
 using Mirror;
-using Unity.VisualScripting;
 using UnityEngine;
 /// <summary>
 /// A class which accepts player input and makes the runner move, jump and slide accordingly
@@ -89,13 +87,9 @@ public class RunnerPlayer : NetworkBehaviour
     private bool _moving = false;
     public bool jumping { get { return _jumping; } }
 
-    public override void OnStartLocalPlayer()
-    {
-        _inputManager = InputManager.Instance;
-    }
-
     void Awake()
     {
+        _inputManager = InputManager.Instance;
         _currentLane = Mathf.Ceil(laneCount / 2);
     }
 
@@ -104,21 +98,12 @@ public class RunnerPlayer : NetworkBehaviour
     /// </summary>
     void Start()
     {
-        if (!isLocalPlayer)
-            return;
-
         _rb = GetComponent<Rigidbody>();
         _playerScale = playerObj.localScale;
     }
 
-    /// <summary>
-    /// Is called when the screen is touched.
-    /// </summary>
-    void OnEnable()
+    private void OnEnable()
     {
-        if (!isLocalPlayer)
-            return;
-        
         _inputManager.OnStartTouch += SwipeStart;
         _inputManager.OnEndTouch += SwipeEnd;
     }
@@ -126,11 +111,8 @@ public class RunnerPlayer : NetworkBehaviour
     /// <summary>
     /// Is called when the screen has stopped being touched.
     /// </summary>
-    void OnDisable()
+    private void OnDisable()
     {
-        if (!isLocalPlayer)
-            return;
-
         _inputManager.OnStartTouch -= SwipeStart;
         _inputManager.OnEndTouch -= SwipeEnd;
     }
@@ -140,7 +122,7 @@ public class RunnerPlayer : NetworkBehaviour
     /// </summary>
     /// <param name="position">The starting position of the swipe.</param>
     /// <param name="time">The start time of the swipe.</param>
-    public void SwipeStart(Vector2 position, float time)
+    private void SwipeStart(Vector2 position, float time)
     {
         _startPosition = position;
         _startTime = time;
@@ -151,7 +133,7 @@ public class RunnerPlayer : NetworkBehaviour
     /// </summary>
     /// <param name="position">The end position of the swipe.</param>
     /// <param name="time">The end time of the swipe.</param>
-    public void SwipeEnd(Vector2 position, float time)
+    private void SwipeEnd(Vector2 position, float time)
     {
         _endPosition = position;
         _endTime = time;
@@ -253,7 +235,7 @@ public class RunnerPlayer : NetworkBehaviour
     /// <summary>
     /// Performs the jump command.
     /// </summary>
-    public void Jump()
+    private void Jump()
     {
         if (_grounded && !_sliding)
         {
@@ -282,7 +264,7 @@ public class RunnerPlayer : NetworkBehaviour
     /// <summary>
     /// What happens when the Runner is on the ground again.
     /// </summary>
-    void Land()
+    private void Land()
     {
         _grounded = true;
         _jumping = false;
@@ -306,5 +288,4 @@ public class RunnerPlayer : NetworkBehaviour
             }
         }
     }
-
 }
