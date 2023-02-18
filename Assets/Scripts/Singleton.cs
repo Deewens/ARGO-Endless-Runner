@@ -14,7 +14,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
                 obj.hideFlags = HideFlags.HideAndDontSave;
                 _instance = obj.AddComponent<T>();
             }
-            return _instance; }
+            return _instance;
+        }
     }
 
     private void OnDestroy()
