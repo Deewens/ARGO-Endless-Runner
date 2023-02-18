@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Mirror;
-using UnityEditorInternal.Profiling;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager

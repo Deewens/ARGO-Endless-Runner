@@ -6,8 +6,6 @@ TagManager:
   tags:
   - Runner
   - AnalyticsManager
-  - Zeus
-  - Poseidon
   - BehindPlayer
   - SpeedUp
   - SpeedDown
@@ -22,6 +20,7 @@ TagManager:
   - Inpenetrable
   - God
   - Moon
+  - Decoration
   layers:
   - Default
   - TransparentFX

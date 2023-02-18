@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: -2351904400090401639}
   m_Layer: 0
   m_Name: Bush6
-  m_TagString: SlideObstacle
+  m_TagString: Decoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
