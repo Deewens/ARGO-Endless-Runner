@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 /// <summary>
@@ -18,11 +19,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] 
     private string mainMenuScene = "";
 
-    public GameObject GameOverMenu;
-    public Button _toggleAIButton;
+    [FormerlySerializedAs("GameOverMenu")] public GameObject gameOverMenu;
+    [FormerlySerializedAs("_toggleAIButton")] public Button toggleAIButton;
     
-    private bool _isRunnerAIOn = true;
-    private bool _isGodAIOn = true;
+    private bool _isRunnerAIOn = false;
+    private bool _isGodAIOn = false;
     
     private GameObject _runner;
     public GameObject Runner
@@ -56,7 +57,7 @@ public class UIManager : MonoBehaviour
 
     public void EnableGameOvermenu()
     {
-        GameOverMenu.SetActive(true);
+        gameOverMenu.SetActive(true);
     }
 
     /// <summary>
@@ -69,7 +70,7 @@ public class UIManager : MonoBehaviour
         if (!_isRunnerAIOn)
         {
             _isRunnerAIOn = true;
-            _toggleAIButton.image.color = Color.red;
+            toggleAIButton.image.color = Color.red;
             _runner.transform.GetChild(1).gameObject.SetActive(true);
             _runner.GetComponent<AI_Brain>().enabled = true;
             _runner.GetComponent<RunnerPlayer>().enabled = false;
@@ -77,7 +78,7 @@ public class UIManager : MonoBehaviour
         else
         {
             _isRunnerAIOn = false;
-            _toggleAIButton.image.color = Color.white;
+            toggleAIButton.image.color = Color.white;
             _runner.transform.GetChild(1).gameObject.SetActive(false);
             _runner.GetComponent<AI_Brain>().enabled = false;
             _runner.GetComponent<RunnerPlayer>().enabled = true;
