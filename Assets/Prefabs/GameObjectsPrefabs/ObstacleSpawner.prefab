@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde1d51ca28c23b408485d11a74a77e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runner: {fileID: 0}
-  _obstacleWide: {fileID: 2095361754395054288, guid: 4a66c3625678f65499e2b6a209bc9c9c,
+  obstacleWidePrefab: {fileID: 2095361754395054288, guid: 4a66c3625678f65499e2b6a209bc9c9c,
     type: 3}
-  _obstacleHigh: {fileID: 6901037333560088150, guid: 16994822081597f41b64ae268f6f6d3f,
+  obstacleHighPrefab: {fileID: 6901037333560088150, guid: 16994822081597f41b64ae268f6f6d3f,
     type: 3}
-  _obstacleSmall: {fileID: 4603449998670265347, guid: 70f90bd1faf198346bd7ad51e3c93226,
+  obstacleSmallPrefab: {fileID: 344522506933938203, guid: 2184e85c5ae269d49b2e7bee49fbf484,
     type: 3}
+  _obstaclesPlaced: 0

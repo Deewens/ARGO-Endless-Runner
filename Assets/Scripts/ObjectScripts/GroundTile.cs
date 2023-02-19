@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -8,25 +9,29 @@ public class GroundTile : MonoBehaviour
 {
     private GroundSpawner _groundSpawner;
 
-    /// <summary>
-    /// Finds the spawner of this object in the scene
-    /// </summary>
-    void Start()
+    private void Start()
     {
-        _groundSpawner = GameObject.FindObjectOfType<GroundSpawner>();
+        _groundSpawner = FindObjectOfType<GroundSpawner>();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Runner"))
+        {
+            // Checks for collision with the runners offscreen collider
+            // to detect when the ground tiles are off screen.
+            // Move the the ground tile to continue the endless path
+            StartCoroutine(ReplaceTile());
+        }
     }
 
     /// <summary>
-    /// Checks for collision with the runners offscreen collider
-    /// to detect when the ground tiles are off screen.
-    /// Respawns a new ground tile to continue the endless path
+    /// Hide the tile after 2 seconds and move it behind the player.
     /// </summary>
-    private void OnTriggerExit(Collider other)
+    private IEnumerator ReplaceTile()
     {
-        if (other.tag == "Runner")
-        {
-            _groundSpawner.SpawnTile();
-            Destroy(gameObject, 2);
-        }
+        yield return new WaitForSeconds(2);
+        gameObject.SetActive(false);
+        _groundSpawner.MoveTile(this);
     }
 }

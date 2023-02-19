@@ -9,25 +9,27 @@ using UnityEngine;
 public class SideObject : MonoBehaviour
 {
     private SideObjectSpawner _sideObjectSpawner;
-
-    /// <summary>
-    /// Finds the spawner of this object in the scene
-    /// </summary>
-    void Start()
+    
+    private void Start()
     {
-        _sideObjectSpawner = GameObject.FindObjectOfType<SideObjectSpawner>();
+        _sideObjectSpawner = FindObjectOfType<SideObjectSpawner>();
     }
-
-    /// <summary>
-    /// Checks for collision with the collider behind the player to
-    /// check if off screen. Spawns a new side object and destroys the old one
-    /// </summary>
+    
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Runner")
+        if (other.CompareTag("Runner"))
         {
-            _sideObjectSpawner.SpawnSideObject();
-            Destroy(gameObject, 2);
+            StartCoroutine(ReplaceSideObject());
         }
+    }
+    
+    /// <summary>
+    /// Hide the object after 2 seconds and move it behind the player.
+    /// </summary>
+    private IEnumerator ReplaceSideObject()
+    {
+        yield return new WaitForSeconds(2);
+        gameObject.SetActive(false);
+        _sideObjectSpawner.MoveSideObject(this);
     }
 }

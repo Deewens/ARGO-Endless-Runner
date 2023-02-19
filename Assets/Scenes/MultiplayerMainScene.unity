@@ -262,10 +262,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4052076012915848168, guid: fd2728ac8b79c5a41b7dffd5804111d8,
         type: 3}
-      propertyPath: _obstacleSmall
-      value: 
-      objectReference: {fileID: 344522506933938203, guid: 2184e85c5ae269d49b2e7bee49fbf484,
-        type: 3}
+      propertyPath: _obstaclesPlaced
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4052076012915848169, guid: fd2728ac8b79c5a41b7dffd5804111d8,
         type: 3}
       propertyPath: m_RootOrder
@@ -973,6 +972,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1772175737426885667, guid: 8cb68649553914248924888f97fcfffb,
+        type: 3}
+      propertyPath: groundTilePrefab
+      value: 
+      objectReference: {fileID: 1972402487271624975, guid: 0902ff06c09110f45907fc573aeed975,
+        type: 3}
     - target: {fileID: 1772175737426885668, guid: 8cb68649553914248924888f97fcfffb,
         type: 3}
       propertyPath: m_Name

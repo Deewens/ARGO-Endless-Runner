@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -8,41 +9,57 @@ using UnityEngine.XR;
 /// </summary>
 public class BushSpawner : MonoBehaviour
 {
-    public List<GameObject> _sideObject;
-    Vector3 _nextSpawnPos;
+    private readonly List<GameObject> _sideObjectPrefabs = new();
+    private Vector3 _nextSpawnPos;
+
+    private readonly List<SideBush> _sideBushPool = new();
 
     /// <summary>
     /// Start spawns the first 15 pairs of columns that line the track
     /// </summary>
-    void Start()
+    private void Start()
     {
-        _sideObject[0] = Resources.Load("FoilagePrefabs/Bush0") as GameObject;
-        _sideObject[1] = Resources.Load("FoilagePrefabs/Bush1") as GameObject;
-        _sideObject[2] = Resources.Load("FoilagePrefabs/Bush2") as GameObject;
-        _sideObject[3] = Resources.Load("FoilagePrefabs/Bush3") as GameObject;
-        _sideObject[4] = Resources.Load("FoilagePrefabs/Bush4") as GameObject;
-        _sideObject[5] = Resources.Load("FoilagePrefabs/Bush5") as GameObject;
-        _sideObject[6] = Resources.Load("FoilagePrefabs/Bush6") as GameObject;
+        _sideObjectPrefabs.Add(Resources.Load("FoilagePrefabs/Bush0") as GameObject);
+        _sideObjectPrefabs.Add(Resources.Load("FoilagePrefabs/Bush1") as GameObject);
+        _sideObjectPrefabs.Add(Resources.Load("FoilagePrefabs/Bush2") as GameObject);
+        _sideObjectPrefabs.Add(Resources.Load("FoilagePrefabs/Bush3") as GameObject);
+        _sideObjectPrefabs.Add(Resources.Load("FoilagePrefabs/Bush4") as GameObject);
+        _sideObjectPrefabs.Add(Resources.Load("FoilagePrefabs/Bush5") as GameObject);
+        _sideObjectPrefabs.Add(Resources.Load("FoilagePrefabs/Bush6") as GameObject);
 
-        // _sideObject[1] = Resources.Load("Prefabs/MuzzleFlash") as GameObject;
-
-        for (int i = 0; i < 15; i++)
+        // Instantiate every bush twice to have a pool of 14 bushes
+        for (var i = 0; i < 2; i++)
         {
-            int Rand = Random.Range(0, 7);
-            GameObject _temp = Instantiate(_sideObject[Rand], new Vector3(0, 1, _nextSpawnPos.z), Quaternion.identity);
-            _nextSpawnPos = _temp.transform.GetChild(1).transform.position;
+            foreach (var sideObjectPrefab in _sideObjectPrefabs)
+            {
+                var bushGO = Instantiate(sideObjectPrefab);
+                bushGO.SetActive(false);
+                _sideBushPool.Add(bushGO.GetComponent<SideBush>());
+            }
+        }
+        
+        // Active randomly selected 14 bushes from the object pool
+        for (var i = 0; i < 15; i++)
+        {
+            var inactiveBush = _sideBushPool.Where(bush => !bush.gameObject.activeSelf).ToList();
+        
+            var rand = Random.Range(0, inactiveBush.Count);
+            inactiveBush[rand].transform.position = new Vector3(0, 1, _nextSpawnPos.z);
+            inactiveBush[rand].gameObject.SetActive(true);
+            _nextSpawnPos = inactiveBush[rand].transform.GetChild(1).transform.position;
         }
     }
 
     /// <summary>
-    /// Spawns the colums that line the track and stores the position of the next spawn location
+    /// Randomly select a bush from the pool and place it at the end of the track
     /// </summary>
-    public void SpawnBush()
+    public void PlaceRandomBush()
     {
-        int Rand = Random.Range(0, 7);
-        GameObject _temp = Instantiate(_sideObject[Rand], new Vector3(0,1,_nextSpawnPos.z), Quaternion.identity);
-        _nextSpawnPos = _temp.transform.GetChild(1).transform.position;
+        var inactiveBush = _sideBushPool.Where(bush => !bush.gameObject.activeSelf).ToList();
+        
+        var rand = Random.Range(0, inactiveBush.Count);
+        inactiveBush[rand].transform.position = new Vector3(0, 1, _nextSpawnPos.z);
+        inactiveBush[rand].gameObject.SetActive(true);
+        _nextSpawnPos = inactiveBush[rand].transform.GetChild(1).transform.position;
     }
-
-
 }
