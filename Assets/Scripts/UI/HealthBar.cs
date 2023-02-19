@@ -17,33 +17,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 using UnityEngine;
+using UnityEngine.UI;
 
-public class JumpGodAttack : GodAttack
+public class HealthBar : MonoBehaviour
 {
-    private GameObject jumpAttack;
+    public Slider slider;
 
-    /// <summary>
-    /// Sets attack type to Jump and loads jump gameobject prefab
-    /// </summary>
-    private void Start()
+    public void SetMaxHealth(int health)
     {
-        attackType = GodAttackType.Jump;
-        jumpAttack = Resources.Load("God Jump Attack") as GameObject;
+        slider.maxValue = health;
+        slider.value = health;
     }
 
-    /// <summary>
-    /// Spawns the avoid gameobject prefab at given target position
-    /// </summary>
-    /// <param name="targetPos"></param>
-    public override void Attack(Vector3 targetPos)
+    public void SetHealth(int health)
     {
-        targetPos = new Vector3(targetPos.x, 0.5f, targetPos.z);
-        Quaternion rotation = Quaternion.Euler(0, 0, 0);
-        Instantiate(jumpAttack, targetPos, rotation);
-    }
-
-    public override void Attack()
-    {
-        throw new System.NotImplementedException();
+        slider.value = health;
     }
 }
