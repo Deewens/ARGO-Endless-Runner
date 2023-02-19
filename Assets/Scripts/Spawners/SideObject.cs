@@ -16,34 +16,37 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System.Collections;
 using UnityEngine;
 
-public class JumpGodAttack : GodAttack
+/// <summary>
+/// A class that defines the side objects that line the path,
+/// checks for collision to detect when they are off screen
+/// </summary>
+public class SideObject : MonoBehaviour
 {
-    private GameObject jumpAttack;
-
-    /// <summary>
-    /// Sets attack type to Jump and loads jump gameobject prefab
-    /// </summary>
+    private SideObjectSpawner _sideObjectSpawner;
+    
     private void Start()
     {
-        attackType = GodAttackType.Jump;
-        jumpAttack = Resources.Load("God Jump Attack") as GameObject;
+        _sideObjectSpawner = FindObjectOfType<SideObjectSpawner>();
     }
-
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Runner"))
+        {
+            StartCoroutine(ReplaceSideObject());
+        }
+    }
+    
     /// <summary>
-    /// Spawns the avoid gameobject prefab at given target position
+    /// Hide the object after 2 seconds and move it behind the player.
     /// </summary>
-    /// <param name="targetPos"></param>
-    public override void Attack(Vector3 targetPos)
+    private IEnumerator ReplaceSideObject()
     {
-        targetPos = new Vector3(targetPos.x, 0.5f, targetPos.z);
-        Quaternion rotation = Quaternion.Euler(0, 0, 0);
-        Instantiate(jumpAttack, targetPos, rotation);
-    }
-
-    public override void Attack()
-    {
-        throw new System.NotImplementedException();
+        yield return new WaitForSeconds(2);
+        gameObject.SetActive(false);
+        _sideObjectSpawner.MoveSideObject(this);
     }
 }
