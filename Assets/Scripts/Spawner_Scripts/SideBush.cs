@@ -12,9 +12,9 @@ public class SideBush : MonoBehaviour
     /// <summary>
     /// Finds the spawner of this object in the scene
     /// </summary>
-    void Start()
+    private void Start()
     {
-        _bushSpawner = GameObject.FindObjectOfType<BushSpawner>();
+        _bushSpawner = FindObjectOfType<BushSpawner>();
     }
 
     /// <summary>
@@ -23,10 +23,16 @@ public class SideBush : MonoBehaviour
     /// </summary>
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Runner")
+        if (other.CompareTag("Runner"))
         {
-            _bushSpawner.SpawnBush();
-            Destroy(gameObject, 2);
+            StartCoroutine(ReplaceAndMove());
         }
+    }
+
+    private IEnumerator ReplaceAndMove()
+    {
+        yield return new WaitForSeconds(2);
+        gameObject.SetActive(false);
+        _bushSpawner.PlaceRandomBush();
     }
 }

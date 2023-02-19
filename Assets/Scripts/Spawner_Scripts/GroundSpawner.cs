@@ -6,27 +6,29 @@ using UnityEngine;
 /// </summary>
 public class GroundSpawner : MonoBehaviour
 {
-    public GameObject _groundTile;
-    Vector3 _nextSpawnPos;
+    [SerializeField] private GameObject groundTilePrefab;
+    private Vector3 _nextSpawnPos;
 
     /// <summary>
     /// Start spawns the first 15 ground tiles that create the track
     /// </summary>
-    void Start()
+    private void Start()
     {
-        for (int i = 0; i < 15; i++)
+        for (var i = 0; i < 15; i++)
         {
-            GameObject _temp = Instantiate(_groundTile, _nextSpawnPos, Quaternion.identity);
-            _nextSpawnPos = _temp.transform.GetChild(1).transform.position;
+            var groundTile = Instantiate(groundTilePrefab, _nextSpawnPos, Quaternion.identity);
+            _nextSpawnPos = groundTile.transform.GetChild(1).transform.position;
         }
     }
-
+    
     /// <summary>
-    /// Spawns the ground tiles that create the track and stores the position of the next spawn location
+    /// Move the tile that has gone off screen to the end of the track
     /// </summary>
-    public void SpawnTile()
+    /// <param name="tile">Tile to be moved</param>
+    public void MoveTile(GroundTile tile)
     {
-        GameObject _temp = Instantiate(_groundTile, _nextSpawnPos, Quaternion.identity);
-        _nextSpawnPos = _temp.transform.GetChild(1).transform.position;
+        tile.transform.position = _nextSpawnPos;
+        _nextSpawnPos = tile.transform.GetChild(1).transform.position;
+        tile.gameObject.SetActive(true);
     }
 }

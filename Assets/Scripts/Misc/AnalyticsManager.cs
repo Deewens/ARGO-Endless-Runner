@@ -89,7 +89,7 @@ public class AnalyticsManager : MonoBehaviour
             // extract data from finished scripts for the runner later on 
             _runnerData.obstaclesAvoided = _runner.GetComponent<MoveForward>()._obstaclesAvoided;
             _runnerData.obstaclesHit = 1;
-            _runnerData.obstaclesPlaced = objectSpawner.GetComponent<ObstacleSpawner>()._obstaclesPlaced;
+            _runnerData.obstaclesPlaced = objectSpawner.GetComponent<ObstacleSpawner>().obstaclesPlaced;
             _runnerData.score = _runnerData.distanceTravelled + (_runnerData.obstaclesAvoided * _runnerData.obstaclesPlaced);
             _runnerData.timePlayed = _playTime;
 
