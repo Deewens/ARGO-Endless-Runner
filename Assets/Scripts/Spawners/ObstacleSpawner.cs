@@ -1,6 +1,8 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
+                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,6 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 using System.Collections;
+using Mirror;
 using UnityEngine;
 
 /// <summary>
@@ -25,66 +28,78 @@ using UnityEngine;
 /// </summary>
 public class ObstacleSpawner : MonoBehaviour
 {
+    [SerializeField] private GameObject _obstacleWidePrefab;
+    [SerializeField] private GameObject _obstacleHighPrefab;
+    [SerializeField] private GameObject _obstacleSmallPrefab;
+
+    [HideInInspector] public int ObstaclesPlaced;
+    
+    private Vector3 _offset;
+    
     private Transform _runner;
+    private bool _isRunnerSet = false;
+    
     public Transform Runner
     {
+        [Server]    
         set
         {
             _runner = value;
             _offset = transform.position - _runner.position;
             StartCoroutine(SpawnObstacle());
+            _isRunnerSet = true;
         }
     }
 
-    [SerializeField] private GameObject obstacleWidePrefab;
-    [SerializeField] private GameObject obstacleHighPrefab;
-    [SerializeField] private GameObject obstacleSmallPrefab;
-    
-    [HideInInspector] public int obstaclesPlaced;
-
-    private Vector3 _offset;
-    private int _randomNumber;
 
     /// <summary>
     /// Updates the position of the spawner to always be in front of the player
     /// </summary>
+    [ServerCallback]
     private void LateUpdate()
     {
-        if (_runner == null)
+        if (!_isRunnerSet)
             return;
         
-        Vector3 newPos = _runner.position + _offset;
+        var newPos = _runner.position + _offset;
         transform.position = new Vector3(transform.position.x, transform.position.y, newPos.z);
     }
 
     /// <summary>
     /// Coroutine that handles spawning obstacles of three different types
     /// </summary>
+    [Server]
     private IEnumerator SpawnObstacle()
     {
-        _randomNumber = Random.Range(1, 4);
-        yield return new WaitForSeconds(2.0f);
-        Vector3 newPos = _runner.position + _offset;
-        if (_randomNumber == 1)
+        while (true)
         {
-            int randomXPos = Random.Range(1, 4);
-            if (randomXPos == 1)
-                randomXPos = -2;
-            else if (randomXPos == 3)
-                randomXPos = 0;
-            GameObject temp = Instantiate(obstacleSmallPrefab, new Vector3(randomXPos,3.5f,newPos.z), Quaternion.identity);
-            obstaclesPlaced += 1;
+            var randomNumber = Random.Range(1, 4);
+            yield return new WaitForSeconds(2.0f);
+            Vector3 newPos = _runner.position + _offset;
+            if (randomNumber == 1)
+            {
+                int randomXPos = Random.Range(1, 4);
+                if (randomXPos == 1)
+                    randomXPos = -2;
+                else if (randomXPos == 3)
+                    randomXPos = 0;
+                
+                GameObject obstacle = Instantiate(_obstacleSmallPrefab, new Vector3(randomXPos,3.5f,newPos.z), Quaternion.identity);
+                NetworkServer.Spawn(obstacle);
+                ObstaclesPlaced += 1;
+            }
+            else if(randomNumber == 2)
+            {
+                GameObject obstacle = Instantiate(_obstacleHighPrefab, new Vector3(0, 2, newPos.z), Quaternion.identity);
+                NetworkServer.Spawn(obstacle);
+                ObstaclesPlaced += 1;
+            }
+            else if(randomNumber == 3)
+            {
+                GameObject obstacle = Instantiate(_obstacleWidePrefab, new Vector3(0, 1, newPos.z), Quaternion.identity);
+                NetworkServer.Spawn(obstacle);
+                ObstaclesPlaced += 1;
+            }
         }
-        else if(_randomNumber == 2)
-        {
-            GameObject temp = Instantiate(obstacleHighPrefab, new Vector3(0, 2, newPos.z), Quaternion.identity);
-            obstaclesPlaced += 1;
-        }
-        else if(_randomNumber == 3)
-        {
-            GameObject temp = Instantiate(obstacleWidePrefab, new Vector3(0, 1, newPos.z), Quaternion.identity);
-            obstaclesPlaced += 1;
-        }
-        StartCoroutine(SpawnObstacle());
     }
 }

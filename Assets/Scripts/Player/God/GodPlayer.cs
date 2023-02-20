@@ -1,6 +1,8 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
+                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,7 +33,7 @@ public class GodPlayer : NetworkBehaviour
 
     [Header("The camera linked to the god")]
     [SerializeField]
-    private CameraFollow cameraPrefab;
+    private GodCamera _cameraPrefab;
     
     /// Whether the God is controlled by an AI or a user.
     [SerializeField] private bool isAI = true;
@@ -42,7 +44,7 @@ public class GodPlayer : NetworkBehaviour
     private bool _canAttack = true;
     private AIGod _ai;
     private GodAttack _activeAttack;
-    int chosenAttack = -1;
+    private int _chosenAttack = -1;
 
     [SerializeField] GameObject[] AttackButtons;
 
@@ -77,12 +79,7 @@ public class GodPlayer : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        CameraFollow cameraFollow = Instantiate(cameraPrefab);
-
-        // There should be only one RunnerPlayer in the scene, so we can use FindObjectOfType.
-        RunnerPlayer player = FindObjectOfType<RunnerPlayer>();
-        cameraFollow.Runner = player.transform;
-        
+        GodCamera runnerCamera = Instantiate(_cameraPrefab);
     }
 
     /// <summary>
@@ -98,15 +95,15 @@ public class GodPlayer : NetworkBehaviour
 
         if (!isAI && _canAttack)
         {
-            if ((Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) && chosenAttack != -1)
+            if ((Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) && _chosenAttack != -1)
             {
                 if (PlacementAllow())
                 {
-                    _activeAttack = _ai.GetAttack(chosenAttack);
+                    _activeAttack = _ai.GetAttack(_chosenAttack);
                     Vector3 pos = Input.mousePosition;
                     pos.z = Camera.main.nearClipPlane + 25;
                     pos = Camera.main.ScreenToWorldPoint(pos);
-                    if (chosenAttack == 1)
+                    if (_chosenAttack == 1)
                     {
                         pos.y = 2;
                     }
@@ -139,7 +136,7 @@ public class GodPlayer : NetworkBehaviour
         AttackButtons[t_attack - 1].transform.Find("Selected").gameObject.SetActive(true);
 
         _activeAttack = _ai.GetAttack(t_attack);
-        chosenAttack = t_attack;
+        _chosenAttack = t_attack;
     }
 
     /// <summary>

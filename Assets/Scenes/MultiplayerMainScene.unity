@@ -260,6 +260,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObstacleSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4052076012915848167, guid: fd2728ac8b79c5a41b7dffd5804111d8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4052076012915848168, guid: fd2728ac8b79c5a41b7dffd5804111d8,
         type: 3}
       propertyPath: _obstaclesPlaced
@@ -320,6 +325,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7841780684356834797, guid: fd2728ac8b79c5a41b7dffd5804111d8,
+        type: 3}
+      propertyPath: sceneId
+      value: 3043088193
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841780684356834797, guid: fd2728ac8b79c5a41b7dffd5804111d8,
+        type: 3}
+      propertyPath: serverOnly
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd2728ac8b79c5a41b7dffd5804111d8, type: 3}
 --- !u!4 &125100251 stripped
@@ -344,7 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 227724326}
   m_Layer: 0
-  m_Name: =====Level=====
+  m_Name: =====Environment=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -366,10 +381,16 @@ Transform:
   - {fileID: 1517125481}
   - {fileID: 125100251}
   - {fileID: 1977610980}
-  - {fileID: 563153002}
+  - {fileID: 288533074}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &288533074 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4412648783981138559, guid: 8a640f3b16a30df429d9290830383355,
+    type: 3}
+  m_PrefabInstance: {fileID: 682513790}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &336985558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -530,22 +551,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &563153001
+--- !u!1001 &682513790
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 227724326}
     m_Modifications:
+    - target: {fileID: 2199975992988507400, guid: 8a640f3b16a30df429d9290830383355,
+        type: 3}
+      propertyPath: sceneId
+      value: 4004270214
+      objectReference: {fileID: 0}
     - target: {fileID: 4412648783981138556, guid: 8a640f3b16a30df429d9290830383355,
         type: 3}
       propertyPath: m_Name
       value: BGObjectsConstantDistanceFromPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 4412648783981138556, guid: 8a640f3b16a30df429d9290830383355,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4412648783981138559, guid: 8a640f3b16a30df429d9290830383355,
         type: 3}
@@ -604,12 +625,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a640f3b16a30df429d9290830383355, type: 3}
---- !u!4 &563153002 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4412648783981138559, guid: 8a640f3b16a30df429d9290830383355,
-    type: 3}
-  m_PrefabInstance: {fileID: 563153001}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &821306140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -972,16 +987,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1772175737426885667, guid: 8cb68649553914248924888f97fcfffb,
-        type: 3}
-      propertyPath: groundTilePrefab
-      value: 
-      objectReference: {fileID: 1972402487271624975, guid: 0902ff06c09110f45907fc573aeed975,
-        type: 3}
     - target: {fileID: 1772175737426885668, guid: 8cb68649553914248924888f97fcfffb,
         type: 3}
       propertyPath: m_Name
       value: GroundSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143549345479980925, guid: 8cb68649553914248924888f97fcfffb,
+        type: 3}
+      propertyPath: sceneId
+      value: 2854585738
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb68649553914248924888f97fcfffb, type: 3}
@@ -1127,12 +1141,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: SideObjectSpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 7114681536317811883, guid: 7f6a96157eb4f774fb15643b39bfce06,
+    - target: {fileID: 7114681536317811882, guid: 7f6a96157eb4f774fb15643b39bfce06,
         type: 3}
-      propertyPath: _sideObject
-      value: 
-      objectReference: {fileID: 6511252505286682719, guid: 5547550950e44f54e89dc5cf22824a4c,
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414393992148800293, guid: 7f6a96157eb4f774fb15643b39bfce06,
         type: 3}
+      propertyPath: sceneId
+      value: 4090720198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414393992148800293, guid: 7f6a96157eb4f774fb15643b39bfce06,
+        type: 3}
+      propertyPath: serverOnly
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f6a96157eb4f774fb15643b39bfce06, type: 3}
 --- !u!4 &1703821223 stripped
@@ -1342,10 +1365,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 227724326}
     m_Modifications:
+    - target: {fileID: -1057756775768809416, guid: 366567f0a14b3f842ae4b735a5b208b6,
+        type: 3}
+      propertyPath: sceneId
+      value: 915650055
+      objectReference: {fileID: 0}
+    - target: {fileID: -1057756775768809416, guid: 366567f0a14b3f842ae4b735a5b208b6,
+        type: 3}
+      propertyPath: serverOnly
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6112508109100490568, guid: 366567f0a14b3f842ae4b735a5b208b6,
         type: 3}
       propertyPath: m_Name
       value: BushSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112508109100490568, guid: 366567f0a14b3f842ae4b735a5b208b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6112508109100490614, guid: 366567f0a14b3f842ae4b735a5b208b6,
         type: 3}

@@ -1,6 +1,8 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
+                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,20 +18,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
 using Mirror;
 using TMPro;
 using UnityEngine;
 
 public class Score : NetworkBehaviour
 {
-    private TMPro.TextMeshProUGUI _comboText;
+    private TextMeshProUGUI _comboText;
     private GameObject _comboCanvas;
     private bool _timerIsRunning;
     private float _comboTimeRemaining;
     private int _totalComboPointsSoFar;
     private int _currentCombo;
 
-    private TMPro.TextMeshProUGUI _bonusPointsText;
+    private TextMeshProUGUI _bonusPointsText;
     private GameObject _bonusPointsCanvas;
     private int _baseIncrease;
     private int _currentPlayTime;
@@ -42,27 +45,32 @@ public class Score : NetworkBehaviour
     private bool _speedMissionComplete;
     private bool _timeAliveMissionComplete;
 
-    private TMPro.TextMeshProUGUI _scoreText;
+    private TextMeshProUGUI _scoreText;
     private GameObject _scoreCanvas;
     private int _totalScore;
 
     private MoveForward _moveForwardScript;
 
-
-    private void Start()
+    private void Awake()
     {
+        // Disable the script by default. It will be enabled only by the local player
+        enabled = false;
+
         _comboCanvas = GameObject.Find("ComboCanvas");
         _bonusPointsCanvas = GameObject.Find("BonusPointsCanvas");
         _scoreCanvas = GameObject.Find("ScoreCanvas");
+        
+        // Deactivate every UI by default if you're not the local player
+        _comboCanvas.SetActive(false);
+        _bonusPointsCanvas.SetActive(false);
+        _scoreCanvas.SetActive(false);
+    }
 
-        if (!isLocalPlayer)
-        {
-            // Deactivate every UI if you're not the local player
-            _comboCanvas.SetActive(false);
-            _bonusPointsCanvas.SetActive(false);
-            _scoreCanvas.SetActive(false);
-            return;
-        }
+    public override void OnStartAuthority()
+    {
+        _comboCanvas.SetActive(true);
+        _bonusPointsCanvas.SetActive(true);
+        _scoreCanvas.SetActive(true);
         
         _distanceMissionComplete = false;
         _speedMissionComplete = false;
@@ -84,21 +92,24 @@ public class Score : NetworkBehaviour
         _moveForwardScript = GetComponent<MoveForward>();
         _currentPlayTime = 0;
         _currentSpeed = 0;
+        
+        enabled = true;
     }
-    // Start is called before the first frame update
+
+    public override void OnStopAuthority()
+    {
+        enabled = false;
+    }
 
     void Update()
     {
-        // Do not perform any calculation related to the score if you're not the local player, because you already doing it in the LocalPlayer game instance
-        if (!isLocalPlayer)
-            return;
-        
-        if(_comboText == null || _comboCanvas == null)
+        if (_comboText == null || _comboCanvas == null)
         {
             _comboCanvas = GameObject.Find("ComboCanvas");
             _comboText = _comboCanvas.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             _comboCanvas.SetActive(false);
         }
+
         if (_bonusPointsText == null || _bonusPointsCanvas == null)
         {
             Debug.Log("Cannot Find BonusPointsCanvas - null refernce");
@@ -106,25 +117,26 @@ public class Score : NetworkBehaviour
             _bonusPointsText = _bonusPointsCanvas.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             _bonusPointsCanvas.SetActive(false);
         }
+
         if (_scoreText == null || _scoreCanvas == null)
         {
             Debug.Log("Cannot Find ScoreCanvas - null refernce");
             _scoreCanvas = GameObject.Find("ScoreCanvas");
             _scoreText = _scoreCanvas.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         }
+
         if (_timerIsRunning)
         {
             if (_comboTimeRemaining > 0)
             {
                 _comboTimeRemaining -= Time.deltaTime;
-                //Debug.Log("Combo Running!");
             }
             else
             {
-                Debug.Log("Combo Finished!");
                 ResetCombo();
             }
         }
+
         if (_popUpTimerIsRunning)
         {
             if (_popUpTimeRemaining > 0)
@@ -133,7 +145,6 @@ public class Score : NetworkBehaviour
             }
             else
             {
-                Debug.Log("Combo Finished!");
                 ResetPopUp();
             }
         }
@@ -185,6 +196,7 @@ public class Score : NetworkBehaviour
             _currentDistanceTravelled = _moveForwardScript.GetDistanceTravelled();
             return true;
         }
+
         return false;
     }
 
@@ -200,6 +212,7 @@ public class Score : NetworkBehaviour
             _currentSpeed = _moveForwardScript.GetSpeed();
             return true;
         }
+
         return false;
     }
 
@@ -215,6 +228,7 @@ public class Score : NetworkBehaviour
             _currentPlayTime = _moveForwardScript.GetPlayTime();
             return true;
         }
+
         return false;
     }
 
@@ -222,7 +236,7 @@ public class Score : NetworkBehaviour
     {
         if (CheckIfPlayTimeChanged())
         {
-            if (_moveForwardScript.GetPlayTime() >=30)
+            if (_moveForwardScript.GetPlayTime() >= 30)
             {
                 if (_moveForwardScript.GetPlayTime() == 30)
                 {
@@ -245,7 +259,6 @@ public class Score : NetworkBehaviour
                 }
             }
         }
-
     }
 
     private void ResetPopUp()
@@ -270,29 +283,26 @@ public class Score : NetworkBehaviour
         _comboCanvas.SetActive(false);
     }
 
-    public void CombineScore(int DistanceTravelled)
+    private void AddMissionPoints(int multiplier)
     {
-        _totalScore+= DistanceTravelled;
+        _totalScore += _baseIncrease * multiplier;
+        SetBonusPointsText(_baseIncrease * multiplier);
     }
 
-    public void AddMissionPoints(int Multiplier)
+    public void AddComboPoints(int collectiblePoints)
     {
-        _totalScore += _baseIncrease * Multiplier;
-        SetBonusPointsText(_baseIncrease * Multiplier);
-    }
+        if (!isLocalPlayer)
+        {
+            Debug.LogError("AddComboPoints() called on a non-local player.");
+            return;
+        }
 
-    public void AddComboPoints(int CollectiblePoints)
-    {
         SetComboTimer();
         _currentCombo += 1;
-        _totalComboPointsSoFar += CollectiblePoints * _currentCombo;
-        _totalScore += CollectiblePoints * _currentCombo;
+        _totalComboPointsSoFar += collectiblePoints * _currentCombo;
+        _totalScore += collectiblePoints * _currentCombo;
         SetComboText(_currentCombo);
         _scoreText.text = "" + _totalScore + "";
-        //Debug.Log("Combo : " + _currentCombo);
-        //Debug.Log("Combo Points : " + _totalComboPointsSoFar);
-        //Debug.Log("Score : " + _totalScore);
-
     }
 
     private void SetComboTimer()
@@ -301,10 +311,10 @@ public class Score : NetworkBehaviour
         _timerIsRunning = true;
     }
 
-    private void SetComboText(int CurrentCombo)
+    private void SetComboText(int currentCombo)
     {
         _comboCanvas.SetActive(true);
-        _comboText.text = "COMBO X " + CurrentCombo + " : " + _totalComboPointsSoFar + " Points";
+        _comboText.text = "COMBO X " + currentCombo + " : " + _totalComboPointsSoFar + " Points";
     }
 
     private void SetPopUpTimer()
@@ -313,10 +323,10 @@ public class Score : NetworkBehaviour
         _popUpTimerIsRunning = true;
     }
 
-    private void SetBonusPointsText(int BonusPoints)
+    private void SetBonusPointsText(int bonusPoints)
     {
-        _totalScore += BonusPoints;
-        _totalBonusPointsSoFar += BonusPoints;
+        _totalScore += bonusPoints;
+        _totalBonusPointsSoFar += bonusPoints;
         _bonusPointsText.text = "";
         SetPopUpTimer();
         _bonusPointsCanvas.SetActive(true);
@@ -324,14 +334,17 @@ public class Score : NetworkBehaviour
         {
             _bonusPointsText.text += ("Distance Travelled " + _moveForwardScript.GetDistanceTravelled() + "\r\n");
         }
+
         if (_speedMissionComplete)
         {
             _bonusPointsText.text += ("Speed Reached " + _moveForwardScript.GetSpeed() + "\r\n");
         }
+
         if (_timeAliveMissionComplete)
         {
             _bonusPointsText.text += ("Seconds Survived " + _moveForwardScript.GetPlayTime() + "\r\n");
         }
+
         _bonusPointsText.text += "+" + _totalBonusPointsSoFar + " Points";
         _scoreText.text = "" + _totalScore + "";
     }
@@ -348,7 +361,8 @@ public class Score : NetworkBehaviour
                     _baseIncrease = 50;
                     AddMissionPoints(_moveForwardScript.GetDistanceTravelled() / 100);
                 }
-                else if (_moveForwardScript.GetDistanceTravelled() % 250 == 0 && _moveForwardScript.GetDistanceTravelled() <= 1000)
+                else if (_moveForwardScript.GetDistanceTravelled() % 250 == 0 &&
+                         _moveForwardScript.GetDistanceTravelled() <= 1000)
                 {
                     _distanceMissionComplete = true;
                     _baseIncrease = 50;

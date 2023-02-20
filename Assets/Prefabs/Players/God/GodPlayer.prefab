@@ -167,7 +167,7 @@ MonoBehaviour:
   syncInterval: 0.1
   uiPrefab: {fileID: 1131798976270131116, guid: 35e89f602565e2049a825e2ec836396d,
     type: 3}
-  cameraPrefab: {fileID: 3659733665701409566, guid: f2c6139e83dcdf345ac9b2fc8b99ccce,
+  _cameraPrefab: {fileID: -6946163019771194934, guid: f2c6139e83dcdf345ac9b2fc8b99ccce,
     type: 3}
   isAI: 0
   attackCooldownTime: 5

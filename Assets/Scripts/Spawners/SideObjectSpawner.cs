@@ -1,6 +1,8 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
+                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Mirror;
 using UnityEngine;
 
 /// <summary>
@@ -23,28 +26,32 @@ using UnityEngine;
 /// </summary>
 public class SideObjectSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject sideObjectPrefab;
+    [SerializeField] private GameObject _sideObjectPrefab;
+    
     private Vector3 _nextSpawnPos;
 
     /// <summary>
     /// Start spawns the first 15 pairs of columns that line the track
     /// </summary>
+    [ServerCallback]
     private void Start()
     {
         for (var i = 0; i < 15; i++)
         {
-            var sideObject = Instantiate(sideObjectPrefab, _nextSpawnPos, Quaternion.identity);
+            var sideObject = Instantiate(_sideObjectPrefab, _nextSpawnPos, Quaternion.identity);
+            NetworkServer.Spawn(sideObject);
             _nextSpawnPos = sideObject.transform.GetChild(1).transform.position;
         }
     }
 
     /// <summary>
-    /// Spawns the columns that line the track and stores the position of the next spawn location
+    /// Spawns the columns that line the track and stores the position of the next spawn location.
     /// </summary>
+    /// <remarks>Can only be called from the Server.</remarks>
+    [Server]
     public void MoveSideObject(SideObject sideObject)
     {
         sideObject.transform.position = _nextSpawnPos;
         _nextSpawnPos = sideObject.transform.GetChild(1).transform.position;
-        sideObject.gameObject.SetActive(true);
     }
 }

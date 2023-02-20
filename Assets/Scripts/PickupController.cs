@@ -84,9 +84,8 @@ public class PickupController : MonoBehaviour
     /// <summary>
     /// Coroutine that handles spawning pickups
     /// </summary>
-    public IEnumerator SpawnPickup()
+    private IEnumerator SpawnPickup()
     {
-        Debug.Log("Spawning");
         while (_runner.GetChild(0).gameObject.activeSelf)
         {
             yield return new WaitForSeconds(1.0f);

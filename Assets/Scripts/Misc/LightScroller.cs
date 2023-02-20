@@ -1,6 +1,8 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
+                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>,
+                   Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,24 +35,11 @@ public class LightScroller : MonoBehaviour
         }
     }
 
-    void Start()
+    private void LateUpdate()
     {
-        _runner = GameObject.Find("RunnerPlayer").transform;
-        _offset = transform.position - _runner.position;
-    }
-
-    private void Update()
-    {
-        if(_runner == null)
-        {
-            Debug.Log("Cannot Find Runner in Scene - null reference");
-            _runner = GameObject.Find("RunnerPlayer").transform;
-            _offset = transform.position - _runner.position;
-        }
-    }
-
-    void LateUpdate()
-    {
+        if (_runner == null)
+            return;
+        
         Vector3 newPos = _runner.position + _offset;
         transform.position = new Vector3(transform.position.x, transform.position.y, newPos.z);
     }

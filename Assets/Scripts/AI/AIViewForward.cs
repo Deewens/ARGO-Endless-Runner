@@ -1,6 +1,8 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
+                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,15 +25,22 @@ using UnityEngine;
 /// </summary>
 public class AIViewForward : MonoBehaviour
 {
+    private AIBrain _aiBrain;
+
+    private void Start()
+    {
+        _aiBrain = transform.parent.GetComponent<AIBrain>();
+    }
+
     /// <summary>
     /// Occurs when the collider that acts as the AI's eyes "sees" something. (aka collides with it)
     /// </summary>
     /// <param name="other">The object that it "sees" ahead.</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Decoration"))
+        if (!enabled && other.CompareTag("Decoration"))
             return;
         
-        transform.parent.GetComponent<AIBrain>().React(other);
+        _aiBrain.React(other);
     }
 }

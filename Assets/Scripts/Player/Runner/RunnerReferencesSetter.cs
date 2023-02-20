@@ -1,6 +1,8 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
+                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,20 +26,55 @@ using UnityEngine;
 /// </summary>
 public class RunnerReferencesSetter : NetworkBehaviour
 {
-    [Header("The UI linked to the runner")]
     [SerializeField]
-    private GameObject uiPrefab;
+    private GameObject _uiPrefab;
 
-    [Header("The camera linked to the runner")]
     [SerializeField]
-    private CameraFollow cameraPrefab;
+    private RunnerCamera _runnerCameraPrefab;
 
-    private void Awake()
+    public override void OnStartServer()
     {
+        // We only need to set the references of the runner to environment objets in the server, because the environment
+        // is generated on the server.
+        // The environment is dispatched to the clients by the server.
         var obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
         if (obstacleSpawner != null)
         {
             obstacleSpawner.Runner = transform;
+        }
+        else
+        {
+            Debug.LogWarning("No ObstacleSpawner found in the scene on server.");
+        }
+        
+        var bgScroller = FindObjectOfType<BGScroller>();
+        if (bgScroller != null)
+        {
+            bgScroller.Runner = transform;
+        }
+        else
+        {
+            Debug.LogWarning($"No BGScroller found in the '{bgScroller.name}' GameObject.");
+        }
+    }
+    
+    public override void OnStartLocalPlayer()
+    {
+        // Set the references to the runner in every script that needs it.
+
+        // This camera is only the one of the Runner, so should only be used in the LocalClient
+        RunnerCamera runnerCamera = Instantiate(_runnerCameraPrefab);
+        runnerCamera.Runner = transform;
+
+        GameObject ui = Instantiate(_uiPrefab);
+        var uiManager = ui.GetComponentInChildren<UIManager>();
+        if (uiManager != null)
+        {
+            uiManager.Runner = gameObject;
+        }
+        else
+        {
+            Debug.LogWarning($"No UIManager found in the '{ui.name}' GameObject.");
         }
 
         var analyticsManager = FindObjectOfType<AnalyticsManager>();
@@ -58,32 +95,10 @@ public class RunnerReferencesSetter : NetworkBehaviour
             collectibleController.Runner = gameObject;
         }
 
-        var backGroundScroller = FindObjectOfType<BGScroller>();
-        if (backGroundScroller != null)
-        {
-            backGroundScroller.Runner = transform;
-        }
-
         var playerLight = FindObjectOfType<LightScroller>();
         if (playerLight != null)
         {
             playerLight.Runner = transform;
-        }
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        GameObject ui = Instantiate(uiPrefab);
-        var uiManager = ui.GetComponentInChildren<UIManager>();
-        if (uiManager != null)
-        {
-            uiManager.Runner = gameObject;
-        }
-
-        CameraFollow cameraFollow = Instantiate(cameraPrefab);
-        if (cameraFollow != null)
-        {
-            cameraFollow.Runner = transform;
         }
     }
 }
