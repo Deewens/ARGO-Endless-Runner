@@ -927,10 +927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuScene: Assets/Scenes/MainMenu.unity
-  multiplayerMenuScene: Assets/Scenes/MultiplayerMenu.unity
-  mainGameScene: Assets/Scenes/MultiplayerMainScene.unity
-  GameOverMenu: {fileID: 1096734331604288729}
-  _toggleAIButton: {fileID: 1552379831461259607}
+  gameOverMenu: {fileID: 1096734331604288729}
+  toggleAIButton: {fileID: 1552379831461259607}
 --- !u!1 &1552379831461259605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1237,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1552379830044947381}
     m_Modifications:
+    - target: {fileID: 2912570192183561412, guid: 95fbe4c477f5d144d92dda38ce70d6b8,
+        type: 3}
+      propertyPath: _slider
+      value: 
+      objectReference: {fileID: 1818504618577190561}
     - target: {fileID: 4564388515731073040, guid: 95fbe4c477f5d144d92dda38ce70d6b8,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1359,8 +1362,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 4564388516775436051, guid: 95fbe4c477f5d144d92dda38ce70d6b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5061859981930746793, guid: 95fbe4c477f5d144d92dda38ce70d6b8,
+        type: 3}
+      propertyPath: _assetId
+      value: 2517544690
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95fbe4c477f5d144d92dda38ce70d6b8, type: 3}
+--- !u!114 &1818504618577190561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4564388516775436053, guid: 95fbe4c477f5d144d92dda38ce70d6b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2768402589995680180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1818504618577190566 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4564388516775436050, guid: 95fbe4c477f5d144d92dda38ce70d6b8,

@@ -310,8 +310,6 @@ MonoBehaviour:
     type: 3}
   _runnerCameraPrefab: {fileID: 3659733665701409566, guid: e97058af52484194aa65ca55333c7198,
     type: 3}
-  _fakeEnvBackgroundPrefab: {fileID: 4412648783981138556, guid: 8a640f3b16a30df429d9290830383355,
-    type: 3}
 --- !u!114 &7869008503816964129
 MonoBehaviour:
   m_ObjectHideFlags: 0
