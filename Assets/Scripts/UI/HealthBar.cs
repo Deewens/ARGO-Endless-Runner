@@ -18,19 +18,73 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
-public class HealthBar : MonoBehaviour
+public class HealthBar : NetworkBehaviour
 {
-    public Slider slider;
+    public int MaxHealth { get; private set; } = 100;
 
-    public void SetMaxHealth(int health)
+    public int HealthBonus { get; private set; } = 20;
+
+    [SerializeField] private Slider _slider;
+
+    [SyncVar(hook = nameof(OnHealthChanged))]
+    private int _currentHealth;
+
+    private void Awake()
     {
-        slider.maxValue = health;
-        slider.value = health;
+        _currentHealth = MaxHealth;
+    }
+
+    public void SetMaxHealth()
+    {
+        _slider.maxValue = MaxHealth;
+        _slider.value = MaxHealth;
     }
 
     public void SetHealth(int health)
     {
-        slider.value = health;
+        _slider.value = health;
+        _currentHealth = health;
     }
+
+    public void TakeDamage(int damage)
+    {
+        _currentHealth -= damage;
+        SetHealth(_currentHealth);
+    }
+
+    //public void InstantHeal()
+    //{
+    //    _currentHealth = MaxHealth;
+    //    SetHealth(_currentHealth);
+    //}
+
+    public void PartialHeal()
+    {
+        _currentHealth += HealthBonus;
+        if (_currentHealth > MaxHealth)
+        {
+            _currentHealth = MaxHealth;
+        }
+        SetHealth(_currentHealth);
+    }
+
+    public bool IsDead()
+    {
+        return _currentHealth <= 0;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return _currentHealth;
+    }
+
+    private void OnHealthChanged(int oldHealth, int newHealth)
+    {
+        if (!isLocalPlayer) return;
+
+        _currentHealth = newHealth;
+    }
+
 }
