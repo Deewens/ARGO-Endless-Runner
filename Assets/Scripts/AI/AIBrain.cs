@@ -16,13 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Mirror;
 using UnityEngine;
 
 /// <summary>
 /// The Brain of the AI Runner.
 /// </summary>
-public class AIBrain : NetworkBehaviour
+public class AIBrain : MonoBehaviour
 {
     /// The Rigidbody of the Runner - Used to apply the force for the jump.
     Rigidbody rb;
@@ -73,10 +72,6 @@ public class AIBrain : NetworkBehaviour
     /// <param name="t_seenObstacle">The obstacle it sees ahead.</param>
     public void React(Collider t_seenObstacle)
     {
-        // TODO: Probably need to change the check for localplayer from somewhere else
-        if (!isLocalPlayer)
-            return;
-        
         bool solved = false;
 
         if (t_seenObstacle.CompareTag("Inpenetrable"))
@@ -132,9 +127,6 @@ public class AIBrain : NetworkBehaviour
     /// </summary>
     private void Start()
     {
-        if (!isLocalPlayer)
-            return;
-        
         rb = GetComponent<Rigidbody>();
 
         AIScale = AIObj.localScale;
@@ -146,9 +138,6 @@ public class AIBrain : NetworkBehaviour
     /// <param name="collision">The object the Runner has collided with.</param>
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isLocalPlayer)
-            return;
-        
         if (collision.transform.CompareTag("Ground"))
         {
             Land();
@@ -204,9 +193,6 @@ public class AIBrain : NetworkBehaviour
     /// </summary>
     private void Update()
     {
-        if (!isLocalPlayer)
-            return;
-        
         if (_sliding && slideTimer > 0)
         {
             slideTimer -= Time.deltaTime;

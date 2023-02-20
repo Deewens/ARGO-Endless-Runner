@@ -1,6 +1,8 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
+                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,6 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
 using System.Linq;
+using Mirror;
 using UnityEngine;
 
 /// <summary>
@@ -33,6 +36,7 @@ public class BushSpawner : MonoBehaviour
     /// <summary>
     /// Start spawns the first 15 pairs of columns that line the track
     /// </summary>
+    [ServerCallback]
     private void Start()
     {
         _sideObjectPrefabs.Add(Resources.Load("FoilagePrefabs/Bush0") as GameObject);
@@ -55,13 +59,14 @@ public class BushSpawner : MonoBehaviour
         }
         
         // Active randomly selected 14 bushes from the object pool
-        for (var i = 0; i < 15; i++)
+        for (var i = 0; i < 14; i++)
         {
             var inactiveBush = _sideBushPool.Where(bush => !bush.gameObject.activeSelf).ToList();
-        
+            
             var rand = Random.Range(0, inactiveBush.Count);
             inactiveBush[rand].transform.position = new Vector3(0, 1, _nextSpawnPos.z);
             inactiveBush[rand].gameObject.SetActive(true);
+            NetworkServer.Spawn(inactiveBush[rand].gameObject);
             _nextSpawnPos = inactiveBush[rand].transform.GetChild(1).transform.position;
         }
     }
@@ -69,6 +74,7 @@ public class BushSpawner : MonoBehaviour
     /// <summary>
     /// Randomly select a bush from the pool and place it at the end of the track
     /// </summary>
+    [Server]
     public void PlaceRandomBush()
     {
         var inactiveBush = _sideBushPool.Where(bush => !bush.gameObject.activeSelf).ToList();
@@ -76,6 +82,7 @@ public class BushSpawner : MonoBehaviour
         var rand = Random.Range(0, inactiveBush.Count);
         inactiveBush[rand].transform.position = new Vector3(0, 1, _nextSpawnPos.z);
         inactiveBush[rand].gameObject.SetActive(true);
+        NetworkServer.Spawn(inactiveBush[rand].gameObject);
         _nextSpawnPos = inactiveBush[rand].transform.GetChild(1).transform.position;
     }
 }

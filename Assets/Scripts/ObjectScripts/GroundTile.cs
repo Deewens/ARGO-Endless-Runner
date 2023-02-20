@@ -1,6 +1,8 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
+                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,6 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 using System.Collections;
+using Mirror;
 using UnityEngine;
 
 /// <summary>
@@ -27,11 +30,13 @@ public class GroundTile : MonoBehaviour
 {
     private GroundSpawner _groundSpawner;
 
+    [ServerCallback]
     private void Start()
     {
         _groundSpawner = FindObjectOfType<GroundSpawner>();
     }
 
+    [ServerCallback]
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Runner"))
@@ -46,10 +51,10 @@ public class GroundTile : MonoBehaviour
     /// <summary>
     /// Hide the tile after 2 seconds and move it behind the player.
     /// </summary>
+    [Server]
     private IEnumerator ReplaceTile()
     {
         yield return new WaitForSeconds(2);
-        gameObject.SetActive(false);
         _groundSpawner.MoveTile(this);
     }
 }

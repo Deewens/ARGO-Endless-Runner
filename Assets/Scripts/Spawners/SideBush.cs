@@ -17,6 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 using System.Collections;
+using Mirror;
 using UnityEngine;
 
 /// <summary>
@@ -29,6 +30,7 @@ public class SideBush : MonoBehaviour
     /// <summary>
     /// Finds the spawner of this object in the scene
     /// </summary>
+    [ServerCallback]
     private void Start()
     {
         _bushSpawner = FindObjectOfType<BushSpawner>();
@@ -38,6 +40,7 @@ public class SideBush : MonoBehaviour
     /// Checks for collision with the collider behind the player to
     /// check if off screen. Spawns a new side object and destroys the old one
     /// </summary>
+    [ServerCallback]
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Runner"))
@@ -46,10 +49,12 @@ public class SideBush : MonoBehaviour
         }
     }
 
+    [Server]
     private IEnumerator ReplaceAndMove()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         gameObject.SetActive(false);
+        NetworkServer.UnSpawn(gameObject);
         _bushSpawner.PlaceRandomBush();
     }
 }

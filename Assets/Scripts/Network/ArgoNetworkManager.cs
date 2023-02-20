@@ -225,7 +225,6 @@ public class ArgoNetworkManager : NetworkManager
 
         if (!clientLoadedScene)
         {
-            Debug.Log("AddPlayer called");
             NetworkClient.AddPlayer();
         }
     }

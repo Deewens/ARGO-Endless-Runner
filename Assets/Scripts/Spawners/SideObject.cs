@@ -17,21 +17,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 using System.Collections;
+using Mirror;
 using UnityEngine;
 
 /// <summary>
 /// A class that defines the side objects that line the path,
-/// checks for collision to detect when they are off screen
-/// </summary>
+/// checks for collision to detect when they are off screen.<br />
+/// This is a Networked GameObject controlled by the Server.
+/// </summary>=
 public class SideObject : MonoBehaviour
 {
     private SideObjectSpawner _sideObjectSpawner;
     
+    [ServerCallback]
     private void Start()
     {
         _sideObjectSpawner = FindObjectOfType<SideObjectSpawner>();
     }
-    
+   
+    [ServerCallback]
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Runner"))
@@ -43,10 +47,10 @@ public class SideObject : MonoBehaviour
     /// <summary>
     /// Hide the object after 2 seconds and move it behind the player.
     /// </summary>
+    [Server]
     private IEnumerator ReplaceSideObject()
     {
         yield return new WaitForSeconds(2);
-        gameObject.SetActive(false);
         _sideObjectSpawner.MoveSideObject(this);
     }
 }

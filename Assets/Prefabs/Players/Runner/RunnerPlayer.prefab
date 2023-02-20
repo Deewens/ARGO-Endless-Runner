@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b80e1576aa7ec48afbf43116db1147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poiName: Player
+  _poiName: Player
 --- !u!1 &3738126537246893508
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,10 +223,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2787079065683197256}
+  - component: {fileID: 3738126537374670540}
   - component: {fileID: 6000024369619491180}
   - component: {fileID: 7807032835916809974}
   - component: {fileID: 7869008503816964129}
-  - component: {fileID: 3738126537374670540}
   - component: {fileID: 3738126537374670543}
   - component: {fileID: 2123888526971081566}
   - component: {fileID: -3576427142159529889}
@@ -259,6 +259,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &3738126537374670540
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526052688654139066}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!114 &6000024369619491180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,9 +306,11 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  uiPrefab: {fileID: 2768402589989850454, guid: eb9c1fd7a5867f940b96a601a882a003,
+  _uiPrefab: {fileID: 2768402589989850454, guid: eb9c1fd7a5867f940b96a601a882a003,
     type: 3}
-  cameraPrefab: {fileID: 3659733665701409566, guid: e97058af52484194aa65ca55333c7198,
+  _runnerCameraPrefab: {fileID: 3659733665701409566, guid: e97058af52484194aa65ca55333c7198,
+    type: 3}
+  _fakeEnvBackgroundPrefab: {fileID: 4412648783981138556, guid: 8a640f3b16a30df429d9290830383355,
     type: 3}
 --- !u!114 &7869008503816964129
 MonoBehaviour:
@@ -309,31 +327,14 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  minimumDistance: 0.01
-  maximumTime: 1
-  directionThreshold: 0.7
-  laneSize: 2
-  laneCount: 3
-  playerObj: {fileID: 2787079065683197256}
-  maxSlideTime: 1.5
-  slideYScale: 0.3
-  slideZScale: 1
---- !u!54 &3738126537374670540
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5526052688654139066}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 1
+  _minimumDistance: 0.01
+  _maximumTime: 1
+  _directionThreshold: 0.7
+  _laneSize: 2
+  _laneCount: 3
+  MaxSlideTime: 1.5
+  SlideYScale: 0.3
+  SlideZScale: 1
 --- !u!114 &3738126537374670543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,9 +347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a8ae17570267e4599b6fe830744f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
   maxSlideTime: 1.5
   slideForce: 0
   slideYScale: 0.3
@@ -366,7 +364,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decaf7c7aa365e14080d11ec52acc008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarPrefab: {fileID: 2912570192183561412, guid: 95fbe4c477f5d144d92dda38ce70d6b8,
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0.1
+  _healthBarPrefab: {fileID: 2912570192183561412, guid: 95fbe4c477f5d144d92dda38ce70d6b8,
     type: 3}
 --- !u!114 &-3576427142159529889
 MonoBehaviour:
@@ -384,7 +385,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   _rb: {fileID: 3738126537374670540}
-  _obstaclesAvoided: 0
+  ObstaclesAvoided: 0
 --- !u!114 &-3594936904190199961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,7 +437,7 @@ MonoBehaviour:
   clientAuthority: 0
   syncPosition: 1
   syncRotation: 1
-  syncScale: 0
+  syncScale: 1
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -462,7 +463,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   target: {fileID: 3738126537374670540}
-  clientAuthority: 0
+  clientAuthority: 1
   syncVelocity: 1
   clearVelocity: 0
   velocitySensitivity: 0.1

@@ -75,11 +75,11 @@ public class CollectibleController : MonoBehaviour
             }
             else if (gameObject.transform.tag == "MaxHealth")
             {
-                if(GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().GetHealth() == GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().GetMaxHealth())
+                if(GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().GetCurrentHealth() == GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().GetMaxHealth())
                 {
                     GameObject.Find("PickupController").GetComponent<GoalController>().CheckHealth();
                 }
-                GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().InstaHeal();
+                GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().InstantHeal();
                 GetComponent<PointOfInterest>().StartHit(other);
             }
             else if (gameObject.transform.tag == "PartHealth")
