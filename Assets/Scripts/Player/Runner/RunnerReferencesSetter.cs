@@ -68,6 +68,7 @@ public class RunnerReferencesSetter : NetworkBehaviour
 
         GameObject ui = Instantiate(_uiPrefab);
         var uiManager = ui.GetComponentInChildren<UIManager>();
+        Debug.Log("happen first right");
         if (uiManager != null)
         {
             uiManager.Runner = gameObject;

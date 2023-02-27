@@ -1209,7 +1209,7 @@ GameObject:
   - component: {fileID: 2768402589989850455}
   m_Layer: 0
   m_Name: RunnerDisplay
-  m_TagString: Untagged
+  m_TagString: RunnerDisplay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
