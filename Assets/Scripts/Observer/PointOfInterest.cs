@@ -1,7 +1,7 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
 Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
-                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Izabela Zelek <izabelawzelek@gmail.com>, Danial Hakim <danialhakim01@gmail.com>, 
                    Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
@@ -30,10 +30,9 @@ public class PointOfInterest : Subject
     private void Start()
     {
         _poiName = gameObject.name;
-        if (_poiName != "Player")
-        { 
-            RegisterObserver(GameObject.Find("AudioManager").GetComponent<AudioSystem>());
-        }
+
+        RegisterObserver(GameObject.Find("AudioManager").GetComponent<AudioSystem>());
+        
     }
 
     /// <summary>
@@ -41,7 +40,7 @@ public class PointOfInterest : Subject
     /// </summary>
     private void Update()
     {
-        if (_poiName == "Player")
+        if (_poiName.Contains("Player"))
         {
             if (!GetComponentInParent<RunnerPlayer>().Sliding && !GetComponentInParent<RunnerPlayer>().Jumping)
             {

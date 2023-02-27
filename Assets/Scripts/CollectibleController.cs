@@ -44,24 +44,29 @@ public class CollectibleController : MonoBehaviour
     {
         _pointsForCoins = 5;
     }
-
     private void OnTriggerStay(Collider other)
     {
-        if (_runner == null)
-            return;
-        
         if (other.tag == "Inpenetrable" || other.tag == "JumpObstacle" || other.tag == "SlideObstacle")
         {
             Destroy(gameObject);
         }
         else if (other.tag == "BehindPlayer")
-        { 
+        {
             Destroy(gameObject);
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (_runner == null)
+        {
+            _runner = GameObject.FindGameObjectWithTag("Runner");
+            _runnerScoreScript = _runner.GetComponent<Score>();
+        }
+
         else if (other.tag == "Runner")
         {
             Debug.Log("PlayerCollision");
-            if(gameObject.transform.tag == "SpeedUp")
+            if (gameObject.transform.tag == "SpeedUp")
             {
                 GameObject.Find("PickupController").GetComponent<PickupController>().SpeedUp();
                 GameObject.Find("PickupController").GetComponent<GoalController>().AddSpeedUp();
@@ -75,16 +80,16 @@ public class CollectibleController : MonoBehaviour
             }
             else if (gameObject.transform.tag == "MaxHealth")
             {
-                if(GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().GetCurrentHealth() == GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().GetMaxHealth())
+                if (GameObject.FindGameObjectWithTag("Runner").GetComponent<RunnerHealthController>().GetCurrentHealth() == GameObject.FindGameObjectWithTag("Runner").GetComponent<RunnerHealthController>().GetMaxHealth())
                 {
                     GameObject.Find("PickupController").GetComponent<GoalController>().CheckHealth();
                 }
-                GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().InstantHeal();
+                GameObject.FindGameObjectWithTag("Runner").GetComponent<RunnerHealthController>().InstantHeal();
                 GetComponent<PointOfInterest>().StartHit(other);
             }
             else if (gameObject.transform.tag == "PartHealth")
             {
-                GameObject.Find("RunnerPlayer").GetComponent<RunnerHealthController>().PartialHeal();
+                GameObject.FindGameObjectWithTag("Runner").GetComponent<RunnerHealthController>().PartialHeal();
                 GetComponent<PointOfInterest>().StartHit(other);
             }
             else if (gameObject.transform.tag == "Apple")
