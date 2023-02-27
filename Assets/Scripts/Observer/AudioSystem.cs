@@ -1,6 +1,6 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <izabelawzelek@gmail.com>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -42,28 +42,28 @@ public class AudioSystem : Observer
         /// <summary>
         /// Plays the 'Hit' audio when the player interacts with an obstacle
         /// </summary>
-        if (notificationType == NotificationType.Hit && value.ToString() == "Player" && collValue == LayerMask.NameToLayer("Obstacle"))
+        if (notificationType == NotificationType.Hit && value.ToString().Contains("Player") && collValue == LayerMask.NameToLayer("Obstacle"))
         {
             transform.Find("Hit").gameObject.GetComponent<AudioSource>().Play();
         }
         /// <summary>
         /// Plays the 'Collect' audio when the player interacts with a collectible 
         /// </summary>
-        else if (notificationType == NotificationType.Hit && value.ToString() == "Player" && collValue == LayerMask.NameToLayer("Item"))
+        else if (notificationType == NotificationType.Hit && value.ToString().Contains("Player") && collValue == LayerMask.NameToLayer("Item"))
         {
             transform.Find("Collect").gameObject.GetComponent<AudioSource>().Play();
         }
         /// <summary>
         /// Plays the 'CollectCoin' audio when the player interacts with a coin 
         /// </summary>
-        else if (notificationType == NotificationType.Hit && value.ToString() == "Player" && collValue == LayerMask.NameToLayer("Coin"))
+        else if (notificationType == NotificationType.Hit && value.ToString().Contains("Player") && collValue == LayerMask.NameToLayer("Coin"))
         {
             transform.Find("CollectCoin").gameObject.GetComponent<AudioSource>().Play();
         }
         /// <summary>
         /// Plays the 'Drink' audio when the player interacts with a potion 
         /// </summary>
-        else if (notificationType == NotificationType.Hit && value.ToString() == "Player" && collValue == LayerMask.NameToLayer("Potion"))
+        else if (notificationType == NotificationType.Hit && value.ToString().Contains("Player") && collValue == LayerMask.NameToLayer("Potion"))
         {
             transform.Find("Drink").gameObject.GetComponent<AudioSource>().Play();
         }

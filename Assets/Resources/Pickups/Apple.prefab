@@ -141,4 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b80e1576aa7ec48afbf43116db1147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poiName: 
+  _poiName: 

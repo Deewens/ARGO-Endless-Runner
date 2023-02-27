@@ -1,7 +1,7 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
 Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, 
-                   Izabela Zelek <C00247865@itcarlow.ie>, Danial Hakim <danialhakim01@gmail.com>, 
+                   Izabela Zelek <izabelawzelek@gmail.com>, Danial Hakim <danialhakim01@gmail.com>, 
                    Adrien Dudon <dudonadrien@gmail.com>
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
