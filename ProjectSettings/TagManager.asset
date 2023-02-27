@@ -21,6 +21,10 @@ TagManager:
   - God
   - Moon
   - Decoration
+  - HealthBar
+  - RunnerDisplay
+  - AI_Inpenetrable
+  - RBS_Manager
   layers:
   - Default
   - TransparentFX

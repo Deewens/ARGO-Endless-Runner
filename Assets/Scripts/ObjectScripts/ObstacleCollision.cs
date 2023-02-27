@@ -34,11 +34,18 @@ public class ObstacleCollision : MonoBehaviour
     public static event Action OnPlayerDeath;
 
     private const int Damage = 20;
-    
+
+    [Header("RBS")]
+    public Rule rule;
+    AIBrain ai_Brain;
+    int izzysWay;
+
     [ServerCallback]
     private void Start()
     {
+        rule = new Rule();
         _runner = GameObject.FindGameObjectWithTag("Runner");
+        ai_Brain = _runner.GetComponent<AIBrain>();
     }
 
     /// <summary>
@@ -66,7 +73,11 @@ public class ObstacleCollision : MonoBehaviour
         
         if (other.CompareTag("BehindPlayer"))
         {
-
+            if (tag == "Inpenetrable")
+            {
+                setupRule();
+                RuleDatabases.AddRule(rule);
+            }
             if (_runner != null)
             {
                 _runner.GetComponent<MoveForward>().ObstaclesAvoided += 1;
@@ -85,5 +96,30 @@ public class ObstacleCollision : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         NetworkServer.Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Setting the current lane , next lane and the type of obstacle the runner avoid to be add to database
+    /// </summary>
+    public void setupRule()
+    {
+        rule.currentLane = ai_Brain.previousLane;
+        rule.nextLane = ai_Brain.currentLane;
+        rule.obstacleTag = "Inpenetrable";
+        switch (transform.position.x)
+        {
+            case -2:
+                izzysWay = 1;
+                break;
+            case 0:
+                izzysWay = 2;
+                break;
+            case 2:
+                izzysWay = 3;
+                break;
+        }
+
+        rule.obstacleLane = izzysWay;
+        ai_Brain.previousLane = ai_Brain.currentLane;
     }
 }

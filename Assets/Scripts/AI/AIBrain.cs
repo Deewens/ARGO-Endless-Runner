@@ -58,14 +58,17 @@ public class AIBrain : MonoBehaviour
     private int laneCount = 3;
 
     /// current lane occupied by runner
-    private int currentLane = 2;
+    public int currentLane { get; private set; } = 2;
 
+    public int previousLane { get; set; } = 2;
     /// Keeps track of whether the AI runner is currently sliding.
     bool _sliding;
     /// Public reference to _sliding.
     public bool sliding { get { return _sliding; } }
 
+    public int getObstacleLane { get; set; }
 
+    AIGod ai_God;
     /// <summary>
     /// Controller of how the AI Runner reacts, once it sees an obstacle.
     /// </summary>
@@ -74,7 +77,7 @@ public class AIBrain : MonoBehaviour
     {
         bool solved = false;
 
-        if (t_seenObstacle.CompareTag("Inpenetrable"))
+        if (t_seenObstacle.CompareTag("Inpenetrable") || t_seenObstacle.CompareTag("AI_Inpenetrable"))
         {
             ///If in the middle lane, randomise left or right
             float lane = laneCount / 2.0f;
@@ -106,6 +109,7 @@ public class AIBrain : MonoBehaviour
                 currentLane++;
                 solved = true;
             }
+            //Debug.Log(currentLane);
         }
 
         if (t_seenObstacle.CompareTag("JumpObstacle") && !solved)
@@ -114,11 +118,11 @@ public class AIBrain : MonoBehaviour
             solved = true;
         }
 
-        
+
         if (t_seenObstacle.CompareTag("SlideObstacle") && !solved)
         {
             StartSlide();
-            solved =true;
+            solved = true;
         }
     }
 
@@ -200,6 +204,30 @@ public class AIBrain : MonoBehaviour
         else
         {
             StopSlide();
+        }
+    }
+
+    public void reactToAI_God(Collider t_seenObstacle)
+    {
+        ai_God = GameObject.FindGameObjectWithTag("God").GetComponent<AIGod>();
+        
+        if (t_seenObstacle.CompareTag("Inpenetrable"))
+        {
+            getObstacleLane = Mathf.CeilToInt(t_seenObstacle.GetComponent<Transform>().position.x);
+
+            switch (getObstacleLane)
+            {
+                case -2:
+                    getObstacleLane = 1;
+                    break;
+                case 0:
+                    getObstacleLane = 2;
+                    break;
+                case 2:
+                    getObstacleLane = 3;
+                    break;
+            }
+            ai_God.predictLaneNow(); // ai god predict the lane before ai runner make a decision 
         }
     }
 }
