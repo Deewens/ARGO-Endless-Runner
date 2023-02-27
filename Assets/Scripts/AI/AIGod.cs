@@ -22,7 +22,18 @@ using UnityEngine;
 public class AIGod : MonoBehaviour
 {
     [SerializeField] private List<GodAttack> attackList = new List<GodAttack>();
-    
+
+    AIBrain runnerBrain;
+    private Transform runner;
+    Vector3 offset;
+
+    [SerializeField] private GameObject obstacleSmall;
+
+    [Header("JUST FOR DISPLAY DONT EDIT")]
+
+    [SerializeField] int runnerLane;
+    [SerializeField] int obstacleLane;
+    [SerializeField] int preditedLane;
     /// <summary>
     /// Simply returns a random attack from the list.
     /// </summary>
@@ -44,5 +55,55 @@ public class AIGod : MonoBehaviour
     public GodAttack GetAttack(int chosenAttack)
     {
         return attackList[chosenAttack];
+    }
+
+    private void Start()
+    {
+        //ruleDatabases = GameObject.FindGameObjectWithTag("RBS_Manager").GetComponent<RuleDatabases>();
+        runnerBrain = GameObject.FindGameObjectWithTag("Runner").GetComponent<AIBrain>();
+
+        runner = GameObject.FindGameObjectWithTag("Runner").gameObject.transform;
+        offset = transform.position - runner.position;
+
+        //StartCoroutine(SpawnObstacle());
+    }
+
+    private void Update()
+    {
+        Vector3 newPos = runner.position + offset;
+        transform.position = new Vector3(transform.position.x, transform.position.y, newPos.z);
+    }
+
+    public void predictLaneNow()
+    {
+        //preditedLane = ruleDatabases.PredictNextLane(runnerBrain.currentLane, "Inpenetrable", runnerBrain.getObstacleLane);
+        preditedLane = RuleDatabases.PredictNextLane(runnerBrain.currentLane, "Inpenetrable", runnerBrain.getObstacleLane);
+
+        //Debug.Log("before obstalce :" + runnerBrain.currentLane + " || obstacle is :" + runnerBrain.getObstacleLane + " || after obstalce :" + preditedLane);
+        obstacleLane = runnerBrain.getObstacleLane;
+        runnerLane = runnerBrain.currentLane;
+        SpawnObstacle();
+    }
+
+    public void SpawnObstacle()
+    {
+        switch (preditedLane)
+        {
+            case 1:
+                preditedLane = -2;
+                break;
+            case 2:
+                preditedLane = 0;
+                break;
+            case 3:
+                preditedLane = 2;
+                break;
+        }
+        Vector3 newPos = runner.position + offset;
+
+        GameObject temp = Instantiate(obstacleSmall, new Vector3(preditedLane, 1, newPos.z + 15f), Quaternion.identity);
+        Debug.Log(temp.transform.position);
+        //Destroy(temp, 2f);
+        //StartCoroutine(SpawnObstacle());
     }
 }
