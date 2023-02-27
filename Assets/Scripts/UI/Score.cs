@@ -296,7 +296,6 @@ public class Score : NetworkBehaviour
             Debug.LogError("AddComboPoints() called on a non-local player.");
             return;
         }
-
         SetComboTimer();
         _currentCombo += 1;
         _totalComboPointsSoFar += collectiblePoints * _currentCombo;
@@ -325,7 +324,6 @@ public class Score : NetworkBehaviour
 
     private void SetBonusPointsText(int bonusPoints)
     {
-        _totalScore += bonusPoints;
         _totalBonusPointsSoFar += bonusPoints;
         _bonusPointsText.text = "";
         SetPopUpTimer();
