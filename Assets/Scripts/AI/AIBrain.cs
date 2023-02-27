@@ -58,7 +58,7 @@ public class AIBrain : MonoBehaviour
     private int laneCount = 3;
 
     /// current lane occupied by runner
-    public int currentLane { get; private set; } = 2;
+    public int currentLane { get;  set; } = 2;
 
     public int previousLane { get; set; } = 2;
     /// Keeps track of whether the AI runner is currently sliding.
@@ -88,12 +88,14 @@ public class AIBrain : MonoBehaviour
                 {
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                     currentLane--;
+                    GetComponent<RunnerPlayer>().CurrentLane = currentLane;
                     solved = true;
                 }
                 else if (rand == 2)
                 {
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                     currentLane++;
+                    GetComponent<RunnerPlayer>().CurrentLane = currentLane;
                     solved = true;
                 }
             }
@@ -101,15 +103,16 @@ public class AIBrain : MonoBehaviour
             {
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                 currentLane--;
+                GetComponent<RunnerPlayer>().CurrentLane = currentLane;
                 solved = true;
             }
             else if (currentLane < laneCount && !solved)
             {
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                 currentLane++;
+                GetComponent<RunnerPlayer>().CurrentLane = currentLane;
                 solved = true;
             }
-            //Debug.Log(currentLane);
         }
 
         if (t_seenObstacle.CompareTag("JumpObstacle") && !solved)

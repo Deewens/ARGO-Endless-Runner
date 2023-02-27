@@ -1,6 +1,6 @@
 ﻿/*
 Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <izabelawzelek@gmail.com>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,7 +17,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 /// <summary>
 /// Handles the spawning of pickups
@@ -38,104 +40,78 @@ public class PickupController : MonoBehaviour
     private GameObject _coin;
     private GameObject _pom;
     private GameObject _apple;
+
+    private List<GameObject> _potions = new List<GameObject>();
+
     private GameObject _speedUp;
     private GameObject _speedDown;
     private GameObject _maxHealth;
     private GameObject _partHealth;
+    private int iterations = 4;
 
-    private float _timer = 0.0f;
+
+    /// <summary>
+    /// Start spawns the pickups that will randomly appear in a random lane
+    [ServerCallback]
     private void Start()
     {
-        _offset = new Vector3(0,0,40);
+        _offset = new Vector3(0, 0, 40);
         _coin = Resources.Load("Pickups/Coin") as GameObject;
         _pom = Resources.Load("Pickups/Pomegranate") as GameObject;
         _apple = Resources.Load("Pickups/Apple") as GameObject;
-        _speedUp = Resources.Load("Pickups/SpeedUpPotion") as GameObject;
-        _speedDown = Resources.Load("Pickups/SpeedDownPotion") as GameObject;
-        _maxHealth = Resources.Load("Pickups/MaxHealthPotion") as GameObject;
-        _partHealth = Resources.Load("Pickups/PartHealthPotion") as GameObject;
-    }
 
-    private void Update()
-    {
+        _potions.Add(Resources.Load("Pickups/SpeedUpPotion") as GameObject);
+        _potions.Add(Resources.Load("Pickups/SpeedDownPotion") as GameObject);
+        _potions.Add(Resources.Load("Pickups/MaxHealthPotion") as GameObject);
+        _potions.Add(Resources.Load("Pickups/PartHealthPotion") as GameObject);
 
-        if (Time.timeScale != 1.0f && _timer > 0.0f)
+        for (int i = 0; i < iterations; i++)
         {
-            _timer -= Time.deltaTime;
-        }
-        if (Time.timeScale != 1.0f && _timer <= 0.0f)
-        {
-            Time.timeScale = 1.0f;
+            GameObject obj = Instantiate(_coin, new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform);
+            obj.SetActive(false);
+            NetworkServer.Spawn(obj);
+
+            obj = Instantiate(_pom, new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform);
+            obj.SetActive(false);
+            NetworkServer.Spawn(obj);
+
+            obj = Instantiate(_apple, new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform);
+            obj.SetActive(false);
+            NetworkServer.Spawn(obj);
+
+            obj = Instantiate(_potions[i], new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform);
+            obj.SetActive(false);
+            NetworkServer.Spawn(obj);
         }
     }
 
     /// <summary>
-    /// Updates the position of the spawner to always be in front of the player
-    /// </summary>
-    private void LateUpdate()
-    {
-        if (_runner == null)
-            return;
-        
-        Vector3 newPos = _runner.position + _offset;
-        transform.position = new Vector3(transform.position.x, transform.position.y, newPos.z);
-    }
-
-    /// <summary>
-    /// Coroutine that handles spawning pickups
+    /// Coroutine that handles spawning pickups by picking a random child object
     /// </summary>
     private IEnumerator SpawnPickup()
     {
         while (_runner.GetChild(0).gameObject.activeSelf)
         {
             yield return new WaitForSeconds(1.0f);
-
-            int pickOrPower = Random.Range(1, 4);
-            int randX = Random.Range(-2, 2);
-            if (randX < 0)
+            if (transform.childCount > 0)
             {
-                randX = -2;
-            }
-            else if (randX > 0)
-            {
-                randX = 2;
-            }
-            Vector3 newPos = _runner.position + _offset;
-            if(pickOrPower == 1 && Time.timeScale == 1.0f)
-            {
-                int randomNumber = Random.Range(1, 5);
-
-                switch (randomNumber)
+                int chosenPickUp = Random.Range(0, transform.childCount);
+                int randX = Random.Range(-2, 2);
+                if (randX < 0)
                 {
-                    case 1:
-                        Instantiate(_speedUp, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                        break;
-                    case 2:
-                        Instantiate(_speedDown, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                        break;
-                    case 3:
-                        Instantiate(_maxHealth, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                        break;
-                    case 4:
-                        Instantiate(_partHealth, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                        break;
+                    randX = -2;
                 }
-            }
-            else
-            {
-                int randomNumber = Random.Range(1, 4);
-
-                switch (randomNumber)
+                else if (randX > 0)
                 {
-                    case 1:
-                        Instantiate(_coin, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                        break;
-                    case 2:
-                        Instantiate(_pom, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                        break;
-                    case 3:
-                        Instantiate(_apple, new Vector3(randX, 2, newPos.z), Quaternion.identity);
-                        break;
+                    randX = 2;
+                }
+                Vector3 newPos = _runner.position + _offset;
+
+                Debug.Log(chosenPickUp);
+                if (!transform.GetChild(chosenPickUp).gameObject.activeInHierarchy)
+                {
+                    transform.GetChild(chosenPickUp).transform.localPosition = new Vector3(randX, 2, newPos.z);
+                    transform.GetChild(chosenPickUp).gameObject.SetActive(true);
                 }
             }
         }

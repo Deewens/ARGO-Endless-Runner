@@ -56,7 +56,7 @@ public class RunnerPlayer : NetworkBehaviour
     public float SlideZScale = 1;
 
     /// The current lane the runner is in.
-    private float _currentLane;
+    public float CurrentLane { get; set; }
 
     /// Is used to detect swipes on the screen.
     private InputManager _inputManager;
@@ -112,7 +112,7 @@ public class RunnerPlayer : NetworkBehaviour
     public override void OnStartAuthority()
     {
         _inputManager = InputManager.Instance;
-        _currentLane = Mathf.Ceil(_laneCount / 2);
+        CurrentLane = Mathf.Ceil(_laneCount / 2);
         
         _rb = GetComponent<Rigidbody>();
         _playerScale = transform.localScale;
@@ -193,23 +193,26 @@ public class RunnerPlayer : NetworkBehaviour
     {
         if (!Sliding)
         {
-            if (_currentLane > 1)
+            if (CurrentLane > 1)
             {
                 if (Vector2.Dot(Vector2.left, direction) > _directionThreshold)
                 {
                     _moving = true;
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x - _laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                    _currentLane--;
+                    CurrentLane--;
+                    GetComponent<AIBrain>().currentLane = (int)CurrentLane;
                 }
 
             }
-            if (_currentLane < _laneCount)
+            if (CurrentLane < _laneCount)
             {
                 if (Vector2.Dot(Vector2.right, direction) > _directionThreshold)
                 {
                     _moving = true;
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x + _laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                    _currentLane++;
+                    CurrentLane++;
+                    GetComponent<AIBrain>().currentLane = (int)CurrentLane;
+
                 }
             }
             if (Vector2.Dot(Vector2.down, direction) > _directionThreshold && !_moving)

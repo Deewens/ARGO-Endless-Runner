@@ -73,7 +73,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         while (true)
         {
-            var randomNumber = 1; //Random.Range(1, 4);
+            var randomNumber = Random.Range(1, 4);
             yield return new WaitForSeconds(2.0f);
             Vector3 newPos = _runner.position + _offset;
             if (randomNumber == 1)
