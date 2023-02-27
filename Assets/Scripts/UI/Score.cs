@@ -53,6 +53,11 @@ public class Score : NetworkBehaviour
 
     private MoveForward _moveForwardScript;
 
+    public int GetScore()
+    {
+        return _totalScore;
+    }
+
     private void Awake()
     {
         // Disable the script by default. It will be enabled only by the local player
@@ -93,7 +98,7 @@ public class Score : NetworkBehaviour
 
         _moveForwardScript = GetComponent<MoveForward>();
         _currentPlayTime = 0;
-        _currentSpeed = 0;
+        _currentSpeed = 8;
         
         enabled = true;
     }
@@ -153,9 +158,9 @@ public class Score : NetworkBehaviour
 
         //Debug.Log(_moveForwardScript.GetPlayTime());
 
-        CheckDistanceBonusPoints();
-        CheckSpeedBonusPoints();
-        CheckTimeAliveBonusPoints();
+        CheckDistanceBonusPoints(_moveForwardScript.GetDistanceTravelled());
+        CheckSpeedBonusPoints(_moveForwardScript.GetSpeed());
+        CheckTimeAliveBonusPoints(_moveForwardScript.GetPlayTime());
     }
 
     public int GetScore()
@@ -163,30 +168,30 @@ public class Score : NetworkBehaviour
         return _totalScore;
     }
 
-    private void CheckSpeedBonusPoints()
+    public void CheckSpeedBonusPoints(int Speed)
     {
-        if (CheckIfSpeedChanged())
+        if (CheckIfSpeedChanged(Speed))
         {
-            if (_moveForwardScript.GetSpeed() < 24)
+            if (Speed < 24)
             {
-                if (_moveForwardScript.GetSpeed() % 4 == 0 && _moveForwardScript.GetSpeed() > 8)
+                if (Speed % 4 == 0 && Speed > 8)
                 {
                     _speedMissionComplete = true;
                     _baseIncrease = 50;
-                    AddMissionPoints(_moveForwardScript.GetSpeed() / 4);
+                    AddMissionPoints(Speed / 4);
                 }
             }
-            else if (_moveForwardScript.GetSpeed() == 24)
+            else if (Speed == 24)
             {
                 _speedMissionComplete = true;
                 _baseIncrease = 100;
-                AddMissionPoints(_moveForwardScript.GetSpeed() / 6);
+                AddMissionPoints(Speed / 6);
             }
-            else if (_moveForwardScript.GetSpeed() == 30)
+            else if (Speed == 30)
             {
                 _speedMissionComplete = true;
                 _baseIncrease = 100;
-                AddMissionPoints(_moveForwardScript.GetSpeed() / 5);
+                AddMissionPoints(Speed / 5);
             }
         }
     }
@@ -196,11 +201,11 @@ public class Score : NetworkBehaviour
     /// once and not multiple times
     /// </summary>
     /// <returns></returns>
-    private bool CheckIfDistanceTravelledChanged()
+    private bool CheckIfDistanceTravelledChanged(int DistanceTravelled)
     {
-        if (_currentDistanceTravelled < _moveForwardScript.GetDistanceTravelled())
+        if (_currentDistanceTravelled < DistanceTravelled)
         {
-            _currentDistanceTravelled = _moveForwardScript.GetDistanceTravelled();
+            _currentDistanceTravelled = DistanceTravelled;
             return true;
         }
 
@@ -212,11 +217,11 @@ public class Score : NetworkBehaviour
     /// once and not multiple times
     /// </summary>
     /// <returns></returns>
-    private bool CheckIfSpeedChanged()
+    private bool CheckIfSpeedChanged(int Speed)
     {
-        if (_currentSpeed < _moveForwardScript.GetSpeed())
+        if (_currentSpeed < Speed)
         {
-            _currentSpeed = _moveForwardScript.GetSpeed();
+            _currentSpeed = Speed;
             return true;
         }
 
@@ -228,41 +233,41 @@ public class Score : NetworkBehaviour
     /// once and not multiple times
     /// </summary>
     /// <returns></returns>
-    private bool CheckIfPlayTimeChanged()
+    private bool CheckIfPlayTimeChanged(int PlayTime)
     {
-        if (_currentPlayTime < _moveForwardScript.GetPlayTime())
+        if (_currentPlayTime < PlayTime)
         {
-            _currentPlayTime = _moveForwardScript.GetPlayTime();
+            _currentPlayTime = PlayTime;
             return true;
         }
 
         return false;
     }
 
-    private void CheckTimeAliveBonusPoints()
+    public void CheckTimeAliveBonusPoints(int PlayTime)
     {
-        if (CheckIfPlayTimeChanged())
+        if (CheckIfPlayTimeChanged(PlayTime))
         {
-            if (_moveForwardScript.GetPlayTime() >= 30)
+            if (PlayTime >= 30)
             {
-                if (_moveForwardScript.GetPlayTime() == 30)
+                if (PlayTime == 30)
                 {
                     _timeAliveMissionComplete = true;
                     _baseIncrease = 100;
-                    AddMissionPoints(_moveForwardScript.GetPlayTime() / 15);
+                    AddMissionPoints(PlayTime / 15);
                 }
 
-                else if (_moveForwardScript.GetPlayTime() == 60)
+                else if (PlayTime == 60)
                 {
                     _timeAliveMissionComplete = true;
                     _baseIncrease = 100;
-                    AddMissionPoints(_moveForwardScript.GetPlayTime() / 12);
+                    AddMissionPoints(PlayTime / 12);
                 }
-                else if (_moveForwardScript.GetPlayTime() % 60 == 0)
+                else if (PlayTime % 60 == 0)
                 {
                     _timeAliveMissionComplete = true;
                     _baseIncrease = 100;
-                    AddMissionPoints(_moveForwardScript.GetPlayTime() / 12);
+                    AddMissionPoints(PlayTime / 12);
                 }
             }
         }
@@ -383,32 +388,37 @@ public class Score : NetworkBehaviour
         _scoreText.text = "" + _totalScore + "";
     }
 
-    private void CheckDistanceBonusPoints()
+    public void CheckDistanceBonusPoints(int DistanceTravelled)
     {
-        if (CheckIfDistanceTravelledChanged())
+        if (CheckIfDistanceTravelledChanged(DistanceTravelled))
         {
-            if (_moveForwardScript.GetDistanceTravelled() > 0)
+            if (DistanceTravelled > 0)
             {
-                if (_moveForwardScript.GetDistanceTravelled() == 100)
+                if (DistanceTravelled == 100)
                 {
                     _distanceMissionComplete = true;
                     _baseIncrease = 50;
-                    AddMissionPoints(_moveForwardScript.GetDistanceTravelled() / 100);
+                    AddMissionPoints(DistanceTravelled / 100);
                 }
-                else if (_moveForwardScript.GetDistanceTravelled() % 250 == 0 &&
-                         _moveForwardScript.GetDistanceTravelled() <= 1000)
+                else if (DistanceTravelled % 250 == 0 &&
+                         DistanceTravelled <= 1000)
                 {
                     _distanceMissionComplete = true;
                     _baseIncrease = 50;
-                    AddMissionPoints(_moveForwardScript.GetDistanceTravelled() / 125);
+                    AddMissionPoints(DistanceTravelled / 125);
                 }
-                else if (_moveForwardScript.GetDistanceTravelled() % 500 == 0)
+                else if (DistanceTravelled % 500 == 0)
                 {
                     _distanceMissionComplete = true;
                     _baseIncrease = 100;
-                    AddMissionPoints(_moveForwardScript.GetDistanceTravelled() / 250);
+                    AddMissionPoints(DistanceTravelled / 250);
                 }
             }
         }
+    }
+
+    public void ResetScore()
+    {
+        _totalScore = 0;
     }
 }

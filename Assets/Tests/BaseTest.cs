@@ -21,7 +21,7 @@ public class BaseTest
     /// Sets up the testing script
     /// </summary>
     [SetUp]
-    public void Setup()
+    public virtual void Setup()
     {
         GameObject gameGameObject =
           MonoBehaviour.Instantiate(

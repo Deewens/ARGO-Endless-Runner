@@ -32,13 +32,14 @@ public class MoveForward : NetworkBehaviour
     
     [HideInInspector] public int ObstaclesAvoided;
 
-    private double _startTime;
-    private double _endTime;
-    private double _playTime;
-    private int _speed;
+    protected double _startTime;
+    protected double _endTime;
+    protected double _playTime;
+    protected int _speed;
     private const int MaxSpeed = 30;
-    private int _distanceTravelled;
-    private int _startingPos;
+    private const int MinSpeed = 8;
+    protected int _distanceTravelled;
+    protected int _startingPos;
     private int _increaseWhen;
 
     BoxCollider fieldOfVIew;
@@ -103,7 +104,7 @@ public class MoveForward : NetworkBehaviour
             Debug.LogError("GetDistanceTravelled called on non-local player. Default value returned.");
             return 0;
         }
-        
+        _distanceTravelled = (int)transform.position.z - (int)_startingPos;
         return _distanceTravelled;
     }
 
@@ -115,7 +116,7 @@ public class MoveForward : NetworkBehaviour
             Debug.LogError("GetSpeed called on non-local player. Default value returned.");
             return 0;
         }
-        
+
         return _speed;
     }
 
@@ -127,7 +128,7 @@ public class MoveForward : NetworkBehaviour
             Debug.LogError("GetPlayTime called on non-local player. Default value returned.");
             return 0;
         }
-        
+
         _endTime = DateTimeOffset.Now.ToUnixTimeSeconds();
         _playTime = _endTime - _startTime;
         return (int) _playTime;
@@ -146,22 +147,48 @@ public class MoveForward : NetworkBehaviour
             return;
         }
         
-        if (-speedChange < MaxSpeed)
+        if (speedChange < 0 && _speed > MinSpeed )
+        {
+            _speed += speedChange;
+        }
+        else if(speedChange > 0 && _speed < MaxSpeed)
         {
             _speed += speedChange;
         }
     }
 
-    public void TestSetSpeed(int speedChange)
+    public int TestGetDistanceTravelled()
     {
-        if (-speedChange < MaxSpeed)
+        if (!isLocalPlayer)
         {
-            _speed += speedChange;
+            Debug.LogError("GetDistanceTravelled called on non-local player. Default value returned.");
+            return 0;
         }
+        _distanceTravelled = (int)transform.position.z - (int)_startingPos;
+        return _distanceTravelled;
     }
 
     public int TestGetSpeed()
     {
+        if (!isLocalPlayer)
+        {
+            Debug.LogError("GetSpeed called on non-local player. Default value returned.");
+            return 0;
+        }
+
         return _speed;
+    }
+
+    public int TestGetPlayTime()
+    {
+        if (!isLocalPlayer)
+        {
+            Debug.LogError("GetPlayTime called on non-local player. Default value returned.");
+            return 0;
+        }
+
+        _endTime = DateTimeOffset.Now.ToUnixTimeSeconds();
+        _playTime = _endTime - _startTime;
+        return (int)_playTime;
     }
 }
