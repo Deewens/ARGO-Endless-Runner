@@ -1,21 +1,10 @@
-﻿/*
-Olympus Run - A game made as part of the ARGO Project at SETU Carlow
-Copyright (C) 2023 Caroline Percy <lineypercy@me.com>, Patrick Donnelly <patrickdonnelly3759@gmail.com>, Izabela Zelek <C00247865@itcarlow.ie>, Danial-hakim <danialhakim01@gmail.com>, Adrien Dudon <dudonadrien@gmail.com>
+﻿// Coders:
+// Caroline Percy
+// ...
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
-
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core;
 using UnityEngine;
 
 
@@ -53,7 +42,12 @@ public class GameScript : MonoBehaviour
     /// <returns>The instance of the runner player script.</returns>
     public RunnerPlayer GetRunner()
     {
-        return runner.GetComponent<RunnerPlayer>();
+        RunnerPlayer p = runner.GetComponent<RunnerPlayer>();
+
+        p.OnStartAuthority();
+        p.GetComponent<MoveForward>().OnStartLocalPlayer();
+
+        return p;
     }
 
     /// <summary>
@@ -62,15 +56,30 @@ public class GameScript : MonoBehaviour
     /// <returns>The instance of the runner's AI.</returns>
     public AIBrain GetRunnerAI()
     {
-        return runner.GetComponent<AIBrain>();
+        AIBrain p = runner.GetComponent<AIBrain>();
+
+        p.GetComponent<RunnerPlayer>().OnStartAuthority();
+        p.GetComponent<MoveForward>().OnStartLocalPlayer();
+
+        return p;
     }
 
     /// <summary>
     /// Gets the obstacle spawner script from the object.
     /// </summary>
     /// <returns>The instance of the obstacle spawner script.</returns>
-    public ObstacleSpawner GetObstacleSpawner() 
-    { 
+    public ObstacleSpawner GetObstacleSpawner()
+    {
         return obstacleSpawner.GetComponent<ObstacleSpawner>();
+    }
+
+    public GodPlayer GetGod()
+    {
+        return gods[0].GetComponent<GodPlayer>();
+    }
+
+    public AIGod GetGodAI()
+    {
+        return gods[0].GetComponent<AIGod>();
     }
 }

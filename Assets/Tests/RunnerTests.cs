@@ -1,10 +1,10 @@
-/*
 // Coders:
 // Caroline Percy
 // ...
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -13,32 +13,8 @@ using UnityEngine.TestTools;
 /// The class that will be in charge of all tests relating to the Runner.
 /// </summary>
 
-public class RunnerTests
+public class RunnerTests : BaseTest
 {
-    /// An instance of the main game
-    private GameScript game;
-
-    /// <summary>
-    /// Sets up the testing script
-    /// </summary>
-    [SetUp]
-    public void Setup()
-    {
-        GameObject gameGameObject =
-          MonoBehaviour.Instantiate(
-            Resources.Load<GameObject>("GamePrefab"));
-        game = gameGameObject.GetComponent<GameScript>();
-    }
-
-    /// <summary>
-    /// Undoes the set up for the script, clearing memory.
-    /// </summary>
-    [TearDown]
-    public void Teardown()
-    {
-        Object.Destroy(game.gameObject);
-    }
-
     /// <summary>
     /// Test to make sure the swipe left and right are working.
     /// </summary>
@@ -83,6 +59,7 @@ public class RunnerTests
     public IEnumerator RunnerJumpTest()
     {
         RunnerPlayer runner = game.GetRunner();
+
         float oldY = runner.transform.position.y;
 
         runner.Jump();
@@ -110,7 +87,7 @@ public class RunnerTests
 
         yield return new WaitForSeconds(1);
 
-        Assert.IsTrue(runner.sliding);
+        Assert.IsTrue(runner.Sliding);
     }
 
     /// <summary>
@@ -121,7 +98,8 @@ public class RunnerTests
     public IEnumerator RunnerAIJumpTest()
     {
         RunnerPlayer runner = game.GetRunner();
-        AI_Brain ai = game.GetRunnerAI();
+
+        AIBrain ai = game.GetRunnerAI();
         ObstacleSpawner spawner = game.GetObstacleSpawner();
 
         ai.enabled = true;
@@ -148,7 +126,8 @@ public class RunnerTests
     public IEnumerator RunnerAISlidingTest()
     {
         RunnerPlayer runner = game.GetRunner();
-        AI_Brain ai = game.GetRunnerAI();
+
+        AIBrain ai = game.GetRunnerAI();
         ObstacleSpawner spawner = game.GetObstacleSpawner();
 
         ai.enabled = true;
@@ -165,4 +144,3 @@ public class RunnerTests
         Assert.IsTrue(ai.sliding);
     }
 }
-*/

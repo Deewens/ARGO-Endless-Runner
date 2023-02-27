@@ -152,7 +152,7 @@ public class RunnerPlayer : NetworkBehaviour
     /// </summary>
     /// <param name="position">The starting position of the swipe.</param>
     /// <param name="time">The start time of the swipe.</param>
-    private void SwipeStart(Vector2 position, float time)
+    public void SwipeStart(Vector2 position, float time)
     {
         _startPosition = position;
         _startTime = time;
@@ -163,7 +163,7 @@ public class RunnerPlayer : NetworkBehaviour
     /// </summary>
     /// <param name="position">The end position of the swipe.</param>
     /// <param name="time">The end time of the swipe.</param>
-    private void SwipeEnd(Vector2 position, float time)
+    public void SwipeEnd(Vector2 position, float time)
     {
         _endPosition = position;
         _endTime = time;
@@ -262,7 +262,7 @@ public class RunnerPlayer : NetworkBehaviour
     /// <summary>
     /// Performs the jump command.
     /// </summary>
-    private void Jump()
+    public void Jump()
     {
         if (_grounded && !Sliding)
         {
