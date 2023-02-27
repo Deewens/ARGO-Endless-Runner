@@ -56,6 +56,7 @@ public class GameScript : MonoBehaviour
 
         p.OnStartAuthority();
         p.GetComponent<MoveForward>().OnStartLocalPlayer();
+        p.GetComponent<Score>().OnStartAuthority();
 
         return p;
     }
