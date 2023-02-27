@@ -32,7 +32,7 @@ public class PointOfInterest : Subject
         _poiName = gameObject.name;
 
         RegisterObserver(GameObject.Find("AudioManager").GetComponent<AudioSystem>());
-        
+
     }
 
     /// <summary>

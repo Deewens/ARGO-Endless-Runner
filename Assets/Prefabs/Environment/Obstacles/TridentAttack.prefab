@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 344522506847329652}
   - component: {fileID: 344522506847329653}
   - component: {fileID: 344522506847329658}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackArea
   m_TagString: Inpenetrable
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6996552793636023484}
   - component: {fileID: 344522506933938196}
   - component: {fileID: 524009870846021597}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TridentAttack
   m_TagString: Inpenetrable
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 344522507747621458}
   - component: {fileID: 344522507747621459}
   - component: {fileID: 344522507747621456}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5003,7 +5003,7 @@ GameObject:
   m_Component:
   - component: {fileID: 344522507906438015}
   - component: {fileID: 344522507906438012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trident
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5088,7 +5088,7 @@ GameObject:
   - component: {fileID: 1001972392419037186}
   - component: {fileID: 1001972392419037196}
   - component: {fileID: 1001972392419037187}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackArea (2)
   m_TagString: Inpenetrable
   m_Icon: {fileID: 0}
@@ -5171,7 +5171,7 @@ GameObject:
   - component: {fileID: 1001972392512796021}
   - component: {fileID: 1001972392512796023}
   - component: {fileID: 1001972392512796022}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackArea (1)
   m_TagString: Inpenetrable
   m_Icon: {fileID: 0}
@@ -5254,7 +5254,7 @@ GameObject:
   - component: {fileID: 1001972393909533210}
   - component: {fileID: 1001972393909533284}
   - component: {fileID: 1001972393909533211}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackArea (3)
   m_TagString: Inpenetrable
   m_Icon: {fileID: 0}
@@ -5337,7 +5337,7 @@ GameObject:
   - component: {fileID: 1001972393965976096}
   - component: {fileID: 1001972393965976098}
   - component: {fileID: 1001972393965976097}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackArea (4)
   m_TagString: Inpenetrable
   m_Icon: {fileID: 0}

@@ -123,4 +123,19 @@ public class RunnerHealthController : NetworkBehaviour
     {
         return _healthBar.MaxHealth;
     }
+
+    public void TestDamage(int damage)
+    {
+        _healthBar.TakeDamage(damage);
+    }
+
+    public void TestPartial()
+    {
+        _healthBar.PartialHeal();
+    }
+
+    public void TestMax()
+    {
+        _healthBar.SetHealth(_healthBar.MaxHealth);
+    }
 }

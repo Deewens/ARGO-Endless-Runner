@@ -73,3 +73,7 @@ crashlytics-build.properties
 
 /[Aa]ssets/[Ss]cenes/PersonalScenes/*
 !/[Aa]ssets/[Ss]cenes/PersonalScenes/.gitkeep
+
+# Unity auto-generated test scenes when using Unity Test Runner
+InitTestScene*.unity
+InitTestScene*.unity.meta
