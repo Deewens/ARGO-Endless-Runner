@@ -136,7 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 0
   scrollRight: 1
 --- !u!61 &778368532944401265
@@ -254,7 +255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533029206931
@@ -346,7 +348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533094038345
@@ -476,7 +479,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533168170904
@@ -568,7 +572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533188699877
@@ -736,7 +741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533400547290
@@ -828,7 +834,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533575321380
@@ -920,7 +927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533646892210
@@ -1012,7 +1020,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533664408935
@@ -1105,7 +1114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!61 &778368533664408929
@@ -1223,7 +1233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533903377360
@@ -1315,7 +1326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533933650955
@@ -1407,7 +1419,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368533961319043
@@ -1543,7 +1556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 0
   scrollRight: 1
 --- !u!61 &778368534053124256
@@ -1807,7 +1821,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368534260011684
@@ -1899,7 +1914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368534348567897
@@ -1991,7 +2007,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368534392243779
@@ -2165,7 +2182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368534537409444
@@ -2258,7 +2276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!61 &778368534537409446
@@ -2376,7 +2395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368534590492067
@@ -2468,7 +2488,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368534700242844
@@ -2560,7 +2581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368534712381374
@@ -2768,7 +2790,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368534817803964
@@ -2860,7 +2883,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &778368534858802715
@@ -2952,7 +2976,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eed5ed9a321684a8da6666f33ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 10
+  width: 137
   scrollLeft: 1
   scrollRight: 0
 --- !u!1 &3646416021687002665
@@ -4283,7 +4308,7 @@ Canvas:
   m_GameObject: {fileID: 8020056278311138465}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

@@ -22,6 +22,8 @@ public class Scroll : MonoBehaviour
 {
     [SerializeField]
     public float speed =0f;
+
+    [SerializeField]
     float width = 3410;
     public bool scrollLeft = false;
     public bool scrollRight = false;
@@ -55,6 +57,6 @@ public class Scroll : MonoBehaviour
     }
     public void SetPosition(float t_position)
     {
-        transform.position = new Vector3(t_position, transform.position.y, 0f); 
+        transform.position = new Vector3(t_position, transform.position.y, transform.position.z); 
     }
 }
