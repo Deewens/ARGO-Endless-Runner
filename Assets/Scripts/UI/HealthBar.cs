@@ -86,5 +86,4 @@ public class HealthBar : NetworkBehaviour
 
         _currentHealth = newHealth;
     }
-
 }
