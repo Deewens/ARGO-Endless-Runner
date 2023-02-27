@@ -48,11 +48,11 @@ public class CollectibleController : MonoBehaviour
     {
         if (other.tag == "Inpenetrable" || other.tag == "JumpObstacle" || other.tag == "SlideObstacle")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         else if (other.tag == "BehindPlayer")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -107,7 +107,7 @@ public class CollectibleController : MonoBehaviour
                 GetComponent<PointOfInterest>().StartHit(other);
                 _runnerScoreScript.AddComboPoints(_pointsForCoins);
             }
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
     }
