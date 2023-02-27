@@ -128,12 +128,12 @@ public class GodPlayer : NetworkBehaviour
     /// <param name="t_attack">The number of the attack clicked on.</param>
     public void ChooseAttack(int t_attack)
     {
-        foreach (GameObject g in AttackButtons)
-        {
-            g.transform.Find("Selected").gameObject.SetActive(false);
-        }
+        //foreach (GameObject g in AttackButtons)
+        //{
+        //    g.transform.Find("Selected").gameObject.SetActive(false);
+        //}
 
-        AttackButtons[t_attack - 1].transform.Find("Selected").gameObject.SetActive(true);
+        //AttackButtons[t_attack - 1].transform.Find("Selected").gameObject.SetActive(true);
 
         _activeAttack = _ai.GetAttack(t_attack);
         _chosenAttack = t_attack;
@@ -179,7 +179,7 @@ public class GodPlayer : NetworkBehaviour
     /// <summary>
     /// Performs the player attack and start the cooldown.
     /// </summary>
-    private void PlayerAttack()
+    public void PlayerAttack()
     {
         if (!_canAttack)
             return;
