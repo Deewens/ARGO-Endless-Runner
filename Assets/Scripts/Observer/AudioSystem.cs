@@ -42,28 +42,28 @@ public class AudioSystem : Observer
         /// <summary>
         /// Plays the 'Hit' audio when the player interacts with an obstacle
         /// </summary>
-        if (notificationType == NotificationType.Hit && value.ToString().Contains("Player") && collValue == LayerMask.NameToLayer("Obstacle"))
+        if (notificationType == NotificationType.Hit && (value.ToString().Contains("Player") || value.ToString().Contains("AI_God")) && collValue == LayerMask.NameToLayer("Obstacle"))
         {
             transform.Find("Hit").gameObject.GetComponent<AudioSource>().Play();
         }
         /// <summary>
         /// Plays the 'Collect' audio when the player interacts with a collectible 
         /// </summary>
-        else if (notificationType == NotificationType.Hit && value.ToString().Contains("Player") && collValue == LayerMask.NameToLayer("Item"))
+        else if (notificationType == NotificationType.Hit && (value.ToString().Contains("Player") || value.ToString().Contains("AI_God")) && collValue == LayerMask.NameToLayer("Item"))
         {
             transform.Find("Collect").gameObject.GetComponent<AudioSource>().Play();
         }
         /// <summary>
         /// Plays the 'CollectCoin' audio when the player interacts with a coin 
         /// </summary>
-        else if (notificationType == NotificationType.Hit && value.ToString().Contains("Player") && collValue == LayerMask.NameToLayer("Coin"))
+        else if (notificationType == NotificationType.Hit && (value.ToString().Contains("Player") || value.ToString().Contains("AI_God")) && collValue == LayerMask.NameToLayer("Coin"))
         {
             transform.Find("CollectCoin").gameObject.GetComponent<AudioSource>().Play();
         }
         /// <summary>
         /// Plays the 'Drink' audio when the player interacts with a potion 
         /// </summary>
-        else if (notificationType == NotificationType.Hit && value.ToString().Contains("Player") && collValue == LayerMask.NameToLayer("Potion"))
+        else if (notificationType == NotificationType.Hit && (value.ToString().Contains("Player") || value.ToString().Contains("AI_God")) && collValue == LayerMask.NameToLayer("Potion"))
         {
             transform.Find("Drink").gameObject.GetComponent<AudioSource>().Play();
         }

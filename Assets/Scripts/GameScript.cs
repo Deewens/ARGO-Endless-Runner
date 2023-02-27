@@ -83,6 +83,44 @@ public class GameScript : MonoBehaviour
         return obstacleSpawner.GetComponent<ObstacleSpawner>();
     }
 
+    /// <summary>
+    /// Gets the runner health controller script from the object.
+    /// </summary>
+    /// <returns>The instance of the runner health controller script.</returns>
+    public RunnerHealthController GetHealthController()
+    {
+
+        RunnerPlayer p = runner.GetComponent<RunnerPlayer>();
+
+        p.OnStartAuthority();
+        p.GetComponent<MoveForward>().OnStartLocalPlayer();
+
+        RunnerHealthController health = p.GetComponent<RunnerHealthController>();
+
+        health.OnStartLocalPlayer();
+
+        return health;
+    }
+
+    /// <summary>
+    /// Gets the move forward script from the object.
+    /// </summary>
+    /// <returns>The instance of the move forward script.</returns>
+    public MoveForward GetMoveForward()
+    {
+
+        RunnerPlayer p = runner.GetComponent<RunnerPlayer>();
+
+        p.OnStartAuthority();
+        p.GetComponent<MoveForward>().OnStartLocalPlayer();
+
+        MoveForward moveF = p.GetComponent<MoveForward>();
+
+        moveF.OnStartLocalPlayer();
+
+        return moveF;
+    }
+
     public GodPlayer GetGod()
     {
         return gods[0].GetComponent<GodPlayer>();

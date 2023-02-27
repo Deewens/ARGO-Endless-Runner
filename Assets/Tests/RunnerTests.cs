@@ -118,6 +118,29 @@ public class RunnerTests : BaseTest
         Assert.IsTrue(oldY < runner.transform.position.y);
     }
 
+    [UnityTest]
+    public IEnumerator RunnerAILaneChangeTest()
+    {
+        RunnerPlayer runner = game.GetRunner();
+
+        AIBrain ai = game.GetRunnerAI();
+        ObstacleSpawner spawner = game.GetObstacleSpawner();
+
+        ai.enabled = true;
+        runner.enabled = false;
+        runner.transform.GetChild(1).gameObject.SetActive(true);
+
+        GameObject temp = spawner.SpawnSmallObstacle();
+
+        temp.gameObject.transform.position = new Vector3(runner.gameObject.transform.position.x, 1, 15);
+        yield return new WaitForSeconds(2);
+
+        float posX = temp.gameObject.transform.position.x;
+        Object.Destroy(temp);
+        Assert.IsFalse(posX == ai.transform.position.x);
+
+    }
+
     /// <summary>
     /// Test to make sure the AI slides when it should.
     /// </summary>
@@ -142,5 +165,47 @@ public class RunnerTests : BaseTest
 
         Object.Destroy(temp);
         Assert.IsTrue(ai.sliding);
+    }
+
+    /// <summary>
+    /// Test to make sure the powerups work as they should
+    /// </summary>
+    /// <returns></returns>
+    [UnityTest]
+    public IEnumerator PowerUpTest()
+    {
+        RunnerPlayer runner = game.GetRunner();
+        RunnerHealthController health = game.GetHealthController();
+        MoveForward moveF = game.GetMoveForward();
+
+        health.TestDamage(20);
+
+        Assert.IsTrue(health.GetCurrentHealth() < health.GetMaxHealth());
+        yield return new WaitForSeconds(0.5f);
+
+
+        health.TestMax();
+
+        Assert.IsTrue(health.GetCurrentHealth() == health.GetMaxHealth());
+        yield return new WaitForSeconds(0.5f);
+
+        health.TestDamage(20);
+        health.TestDamage(20);
+        int afterDamage = health.GetCurrentHealth();
+        health.TestPartial();
+
+        Assert.IsTrue(health.GetCurrentHealth() < health.GetMaxHealth());
+        Assert.IsTrue(health.GetCurrentHealth() > afterDamage);
+        yield return new WaitForSeconds(0.5f);
+
+        int prevSpeed = moveF.TestGetSpeed();
+        moveF.TestSetSpeed(2);
+
+        Assert.IsTrue(prevSpeed < moveF.TestGetSpeed());
+
+        prevSpeed = moveF.TestGetSpeed();
+        moveF.TestSetSpeed(-2);
+
+        Assert.IsTrue(prevSpeed > moveF.TestGetSpeed());
     }
 }

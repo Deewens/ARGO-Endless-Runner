@@ -151,4 +151,17 @@ public class MoveForward : NetworkBehaviour
             _speed += speedChange;
         }
     }
+
+    public void TestSetSpeed(int speedChange)
+    {
+        if (-speedChange < MaxSpeed)
+        {
+            _speed += speedChange;
+        }
+    }
+
+    public int TestGetSpeed()
+    {
+        return _speed;
+    }
 }
