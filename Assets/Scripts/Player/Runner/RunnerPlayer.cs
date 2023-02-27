@@ -83,7 +83,7 @@ public class RunnerPlayer : NetworkBehaviour
     private Vector3 _playerScale;
 
     /// The amount of force applied to the Runner in order to get them off the ground.
-    private const float JumpForce = 80.0f;
+    private const float JumpForce = 7.0f;
 
     /// Bool that keeps track of whether the Runner is on the ground or not.
     private bool _grounded;
@@ -268,7 +268,8 @@ public class RunnerPlayer : NetworkBehaviour
         {
             transform.GetChild(0).GetComponent<PointOfInterest>().StartJump();
             Jumping = true;
-            _rb.AddForce(transform.up * JumpForce * 6);
+            //_rb.AddForce(transform.up * JumpForce * 6);
+            _rb.velocity = transform.up * JumpForce;
             _grounded = false;
         }
     }

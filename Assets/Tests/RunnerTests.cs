@@ -64,7 +64,7 @@ public class RunnerTests : BaseTest
 
         runner.Jump();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
 
         Assert.IsTrue(oldY < runner.transform.position.y);
     }

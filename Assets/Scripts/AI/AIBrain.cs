@@ -27,7 +27,7 @@ public class AIBrain : MonoBehaviour
     Rigidbody rb;
 
     /// The amount of force applied to the Runner in order to get them off the ground.
-    float jumpForce = 80.0f;
+    float jumpForce = 7.0f;
 
     /// Bool that keeps track of whether the Runner is on the ground or not.
     bool grounded = false;
@@ -159,7 +159,7 @@ public class AIBrain : MonoBehaviour
     {
         if (grounded)
         {
-            rb.AddForce(transform.up * jumpForce * 5);
+            rb.velocity = transform.up * jumpForce;
             grounded = false;
         }
     }
