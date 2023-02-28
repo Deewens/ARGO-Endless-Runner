@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MultiplayerMainScene.unity
     guid: 3f80eb675b0b8d94087f6440218650f7
+  - enabled: 1
+    path: Assets/Scenes/PersonalScenes/TempMenu.unity
+    guid: 9067ae52089dfc44d94816eda5db1efa
+  - enabled: 1
+    path: Assets/Scenes/PersonalScenes/RBS_Test.unity
+    guid: 0d8c677b4691a2e4e86ba2b747331786
   m_configObjects: {}
