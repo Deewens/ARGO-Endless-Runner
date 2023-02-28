@@ -113,22 +113,22 @@ public class RunnerPlayer : NetworkBehaviour
     {
         _inputManager = InputManager.Instance;
         CurrentLane = Mathf.Ceil(_laneCount / 2);
-
+        
         _rb = GetComponent<Rigidbody>();
         _playerScale = transform.localScale;
-
+        
         // Enable this script for the local player only
         // IMPORTANT: Keep this line at the end of OnStartAuthority otherwise OnEnable will be called before everything
         // is initialized
         enabled = true;
-        transform.GetChild(0).GetComponent<PointOfInterest>().enabled = true;    
+        transform.GetChild(0).GetComponent<PointOfInterest>().enabled = true;
     }
 
     public override void OnStopAuthority()
     {
         enabled = false;
     }
-    
+
     private void OnEnable()
     {
         if (_inputManager == null)
@@ -284,7 +284,7 @@ public class RunnerPlayer : NetworkBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Ground"))
-        {  
+        {
             Land();
         }
     }
