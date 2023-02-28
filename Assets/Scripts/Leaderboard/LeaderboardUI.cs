@@ -32,16 +32,21 @@ public class LeaderboardUI : MonoBehaviour
 
         foreach (var value in data)
         {
-            var newRow = Instantiate(rowTemplatePrefab, content.transform);
-            LeaderboardRowUI rowUI = newRow.GetComponent<LeaderboardRowUI>();
-            if (rowUI == null)
-            {
-                Debug.LogError("The row template prefab does not have a LeaderboardRowUI component.");
-                return;
-            }
-            
-            rowUI.SetData(value.no, value.username, value.bestRunnerScore, value.bestGodScore);
+            AddRow(value);
         }
+    }
+
+    public void AddRow(LeaderboardData data)
+    {
+        var newRow = Instantiate(rowTemplatePrefab, content.transform);
+        LeaderboardRowUI rowUI = newRow.GetComponent<LeaderboardRowUI>();
+        if (rowUI == null)
+        {
+            Debug.LogError("The row template prefab does not have a LeaderboardRowUI component.");
+            return;
+        }
+            
+        rowUI.SetData(data.No, data.Username, data.BestRunnerScore, data.BestGodScore);
     }
     
     public void OnCloseButtonClicked()

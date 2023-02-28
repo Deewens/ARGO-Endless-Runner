@@ -20,14 +20,14 @@ public struct LeaderboardData
 {
     public LeaderboardData(int no, string username, int bestRunnerScore, int bestGodScore)
     {
-        this.no = no;
-        this.username = username;
-        this.bestRunnerScore = bestRunnerScore;
-        this.bestGodScore = bestGodScore;
+        No = no;
+        Username = username;
+        BestRunnerScore = bestRunnerScore;
+        BestGodScore = bestGodScore;
     }
 
-    public int no;
-    public string username;
-    public int bestRunnerScore;
-    public int bestGodScore;
+    public readonly int No;
+    public readonly string Username;
+    public readonly int BestRunnerScore;
+    public readonly int BestGodScore;
 }
