@@ -32,7 +32,7 @@ public class ObstacleCollision : MonoBehaviour
 {
     private GameObject _runner;
     public static event Action OnPlayerDeath;
-
+    private int _pointsForAvoidingObstacle;
     private const int Damage = 20;
 
     [Header("RBS")]
@@ -46,6 +46,7 @@ public class ObstacleCollision : MonoBehaviour
         rule = new Rule();
         _runner = GameObject.FindGameObjectWithTag("Runner");
         ai_Brain = _runner.GetComponent<AIBrain>();
+        _pointsForAvoidingObstacle = 5;
     }
 
     /// <summary>
@@ -62,6 +63,7 @@ public class ObstacleCollision : MonoBehaviour
             if (!_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
             {
                 _runner.GetComponent<RunnerHealthController>().TakeDamage(Damage);
+                _runner.GetComponent<Score>().ResetCombo();
             }
             if (_runner.GetComponent<RunnerHealthController>().IsRunnerDead())
             {
@@ -81,6 +83,7 @@ public class ObstacleCollision : MonoBehaviour
             if (_runner != null)
             {
                 _runner.GetComponent<MoveForward>().ObstaclesAvoided += 1;
+                _runner.GetComponent<Score>().AddComboPoints(_pointsForAvoidingObstacle);
             }
             else
             {

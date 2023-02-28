@@ -24,7 +24,7 @@ using UnityEngine;
 /// </summary>
 public class CollectibleController : MonoBehaviour
 {
-    private int _pointsForCoins;
+    private int _pointsForPickUp;
     public static event Action OnPlayerDeath;
     private Score _runnerScoreScript;
     
@@ -42,7 +42,7 @@ public class CollectibleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _pointsForCoins = 5;
+        _pointsForPickUp = 5;
     }
     private void OnTriggerStay(Collider other)
     {
@@ -96,16 +96,18 @@ public class CollectibleController : MonoBehaviour
             {
                 GameObject.Find("PickupController").GetComponent<GoalController>().AddApple();
                 GetComponent<PointOfInterest>().StartHit(other);
+                _runnerScoreScript.AddComboPoints(_pointsForPickUp);
             }
             else if (gameObject.transform.tag == "Pomegranate")
             {
                 GameObject.Find("PickupController").GetComponent<GoalController>().AddPom();
                 GetComponent<PointOfInterest>().StartHit(other);
+                _runnerScoreScript.AddComboPoints(_pointsForPickUp);
             }
             else if (gameObject.transform.tag == "Coin")
             {
                 GetComponent<PointOfInterest>().StartHit(other);
-                _runnerScoreScript.AddComboPoints(_pointsForCoins);
+                _runnerScoreScript.AddComboPoints(_pointsForPickUp);
             }
             gameObject.SetActive(false);
         }
