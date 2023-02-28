@@ -31,6 +31,7 @@ public class Score : NetworkBehaviour
     private float _comboTimeRemaining;
     private int _totalComboPointsSoFar;
     private int _currentCombo;
+    private int MaxComboCount =20;
 
     private TextMeshProUGUI _bonusPointsText;
     private GameObject _bonusPointsCanvas;
@@ -44,6 +45,7 @@ public class Score : NetworkBehaviour
     private bool _distanceMissionComplete;
     private bool _speedMissionComplete;
     private bool _timeAliveMissionComplete;
+    private bool _goalComplete;
 
     private TextMeshProUGUI _scoreText;
     private GameObject _scoreCanvas;
@@ -271,6 +273,7 @@ public class Score : NetworkBehaviour
         _distanceMissionComplete = false;
         _speedMissionComplete = false;
         _timeAliveMissionComplete = false;
+        _goalComplete = false;
     }
 
     public void ResetCombo()
@@ -298,11 +301,33 @@ public class Score : NetworkBehaviour
         }
 
         SetComboTimer();
+
         _currentCombo += 1;
-        _totalComboPointsSoFar += collectiblePoints * _currentCombo;
-        _totalScore += collectiblePoints * _currentCombo;
+        if (_currentCombo <= MaxComboCount)
+        {
+            _totalComboPointsSoFar += collectiblePoints * _currentCombo;
+            _totalScore += collectiblePoints * _currentCombo;
+        }
+        else
+        {
+            _totalComboPointsSoFar += collectiblePoints * MaxComboCount;
+            _totalScore += collectiblePoints * MaxComboCount;
+        }
         SetComboText(_currentCombo);
         _scoreText.text = "" + _totalScore + "";
+    }
+
+    public void AddGoalPoints(int GoalPoints)
+    {
+        _goalComplete = true;
+        if (!isLocalPlayer)
+        {
+            Debug.LogError("AddComboPoints() called on a non-local player.");
+            return;
+        }
+        _totalScore += GoalPoints;
+        _scoreText.text = "" + _totalScore + "";
+        SetBonusPointsText(GoalPoints);
     }
 
     private void SetComboTimer()
@@ -342,6 +367,11 @@ public class Score : NetworkBehaviour
         if (_timeAliveMissionComplete)
         {
             _bonusPointsText.text += ("Seconds Survived " + _moveForwardScript.GetPlayTime() + "\r\n");
+        }
+
+        if(_goalComplete)
+        {
+            _bonusPointsText.text += ("Goal Complete ");
         }
 
         _bonusPointsText.text += "+" + _totalBonusPointsSoFar + " Points";
