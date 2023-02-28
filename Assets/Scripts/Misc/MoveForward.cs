@@ -19,6 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 using System;
+using Codice.CM.Common.Tree;
 using Mirror;
 using UnityEngine;
 
@@ -41,9 +42,12 @@ public class MoveForward : NetworkBehaviour
     private int _startingPos;
     private int _increaseWhen;
 
+    BoxCollider fieldOfVIew;
+
     private void Awake()
     {
         enabled = false;
+        fieldOfVIew = transform.Find("Field Of View").GetComponent<BoxCollider>();
     }
 
     public override void OnStartLocalPlayer()
@@ -78,6 +82,9 @@ public class MoveForward : NetworkBehaviour
             {
                 _speed += 2;
                 _increaseWhen += 100;
+
+                fieldOfVIew.size = new Vector3(fieldOfVIew.size.x, fieldOfVIew.size.y, fieldOfVIew.size.z + 1);
+                fieldOfVIew.center = new Vector3(fieldOfVIew.center.x, fieldOfVIew.center.y, fieldOfVIew.center.z + 0.5f);
             }
             else
             {
