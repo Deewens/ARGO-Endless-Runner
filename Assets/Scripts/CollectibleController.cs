@@ -80,10 +80,7 @@ public class CollectibleController : MonoBehaviour
             }
             else if (gameObject.transform.tag == "MaxHealth")
             {
-                if (GameObject.FindGameObjectWithTag("Runner").GetComponent<RunnerHealthController>().GetCurrentHealth() == GameObject.FindGameObjectWithTag("Runner").GetComponent<RunnerHealthController>().GetMaxHealth())
-                {
-                    GameObject.Find("PickupController").GetComponent<GoalController>().CheckHealth();
-                }
+                GameObject.Find("PickupController").GetComponent<GoalController>().AddMaxHealth();
                 GameObject.FindGameObjectWithTag("Runner").GetComponent<RunnerHealthController>().InstantHeal();
                 GetComponent<PointOfInterest>().StartHit(other);
             }
@@ -106,6 +103,7 @@ public class CollectibleController : MonoBehaviour
             }
             else if (gameObject.transform.tag == "Coin")
             {
+                GameObject.Find("PickupController").GetComponent<GoalController>().AddCoins();
                 GetComponent<PointOfInterest>().StartHit(other);
                 _runnerScoreScript.AddComboPoints(_pointsForPickUp);
             }

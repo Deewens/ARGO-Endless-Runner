@@ -22,10 +22,24 @@ using TMPro;
 
 public class GoalController : MonoBehaviour
 {
-    private List<string> _goals = new List<string>();
+
+    private Score _runnerScoreScript;
+
+    private GameObject _runner;
+    public GameObject Runner
+    {
+        set
+        {
+            _runner = value;
+            _runnerScoreScript = _runner.GetComponent<Score>();
+        }
+    }
+
+
+    private List<int> _noToCollect = new List<int>();
+
     private int _chosenGoal = -1;
     private int _lastGoal = -1;
-    private int _maxGoal = 7;
     private TextMeshProUGUI _goalText;
     private bool _goalComplete = false;
 
@@ -33,146 +47,215 @@ public class GoalController : MonoBehaviour
     private int _pomCount = 0;
     private int _speedUpCount = 0;
     private int _speedDownCount = 0;
+    private int _maxHealthCount = 0;
+    private int _coinCount = 0;
+    private int _leftToCollect;
 
-    private int _twenty = 5;
-    private int _fiveteen = 15;
-    private int _ten = 10;
-    private int _five = 5;
-    private int _one = 5;
-    private int _two = 5;
+    private int _currentCollectionGoal = 0;
 
-
-    private bool _healthGoalComplete = false;
+    private bool _collectApples = false;
+    private bool _collectPoms = false;
+    private bool _collectSpeedUpPotions = false;
+    private bool _collectSpeedDownPotions = false;
+    private bool _collectMaxHealthPotions = false;
+    private bool _collectCoins = false;
 
     // Start is called before the first frame update
     void Start()
     {
         _goalText = GameObject.Find("Goal").GetComponent<TextMeshProUGUI>();
-        AddGoals();
+        AddCollectionGoals();
 
-        _chosenGoal = Random.Range(0, _maxGoal);
+        _currentCollectionGoal = _noToCollect[Random.Range(0, 7)];
+        _leftToCollect = _currentCollectionGoal;
+        _chosenGoal = Random.Range(0, 6);
 
         _lastGoal = _chosenGoal;
-        _goalText.text = _goals[_chosenGoal];
-
+        ChooseGoal();
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch(_chosenGoal)
+        if (_runner == null)
         {
-            case 0:
-                if(_appleCount >= 10)
-                {
-                    _appleCount = 0;
-                    _goalComplete = true;
-                }
-                break;
-            case 1:
-                if (_appleCount >= 20)
-                {
-                    _appleCount = 0;
-                    _goalComplete = true;
-                }
-                break;
-            case 2:
-                if (_pomCount >= 15)
-                {
-                    _pomCount = 0;
-                    _goalComplete = true;
-                }
-                break;
-            case 3:
-                if (_pomCount >= 5)
-                {
-                    _pomCount = 0;
-                    _goalComplete = true;
-                }
-                break;
-            case 4:
-                if (_speedUpCount >= 2)
-                {
-                    _speedUpCount = 0;
-                    _goalComplete = true;
-                }
-                break;
-            case 5:
-                if (_speedDownCount >= 1)
-                {
-                    _speedDownCount = 0;
-                    _goalComplete = true;
-                }
-                break;
-            case 6:
-                if(_healthGoalComplete)
-                {
-                    _healthGoalComplete = false;
-                    _goalComplete = true;
-                }
-                break;
+            _runner = GameObject.FindGameObjectWithTag("Runner");
+            _runnerScoreScript = _runner.GetComponent<Score>();
         }
 
-        if(_goalComplete)
+        if (_collectApples)
         {
-            _chosenGoal = Random.Range(0, _maxGoal);
-            while(_lastGoal == _chosenGoal)
+            _goalText.text = "Collect " + _leftToCollect + " Apples";
+            if (_appleCount >= _currentCollectionGoal && !_goalComplete)
             {
-                _chosenGoal = Random.Range(0, _maxGoal);
+                _appleCount = 0;
+                _goalComplete = true;
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal *100);
             }
+        }
+        else if (_collectPoms)
+        {
+            _goalText.text = "Collect " + _leftToCollect + " Poms";
+            if (_pomCount >= _currentCollectionGoal && !_goalComplete)
+            {
+                _pomCount = 0;
+                _goalComplete = true;
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+            }
+        }
+        else if (_collectSpeedUpPotions)
+        {
+            _goalText.text = "Use " + _leftToCollect + " Speed Up Potions";
+            if (_speedUpCount >= _currentCollectionGoal && !_goalComplete)
+            {
+                _speedUpCount = 0;
+                _goalComplete = true;
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+            }
+        }
+        else if (_collectSpeedDownPotions)
+        {
+            _goalText.text = "Use " + _leftToCollect + " Speed Down Potions";
 
-            _goalText.text = _goals[_chosenGoal];
+            if (_speedDownCount >= _currentCollectionGoal && !_goalComplete)
+            {
+                _speedDownCount = 0;
+                _goalComplete = true;
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+            }
+        }
+        else if (_collectMaxHealthPotions)
+        {
+            _goalText.text = "Use " + _leftToCollect + " Max Health Potions";
 
+            if (_maxHealthCount >= _currentCollectionGoal && !_goalComplete)
+            {
+                _maxHealthCount = 0;
+                _goalComplete = true;
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+            }
+        }
+        else if (_collectCoins)
+        {
+            _goalText.text = "Collect " + _leftToCollect + " Coins";
+
+            if (_coinCount >= _currentCollectionGoal && !_goalComplete)
+            {
+                _coinCount = 0;
+                _goalComplete = true;
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+            }
+        }
+
+        if (_goalComplete)
+        {
+            _chosenGoal = Random.Range(0, 6);
+            while (_lastGoal == _chosenGoal)
+            {
+                _chosenGoal = Random.Range(0, 6);
+            }
+            _currentCollectionGoal = _noToCollect[Random.Range(0, 7)];
+            _leftToCollect = _currentCollectionGoal;
             _goalComplete = false;
+            ResetGoals();
+            ChooseGoal();
             _lastGoal = _chosenGoal;
         }
     }
 
-    private void AddGoals()
+    private void ResetGoals()
     {
-        _goals.Add("Collect 10 apples");
-        _goals.Add("Collect 20 apples");
-        _goals.Add("Collect 15 pomegranates");
-        _goals.Add("Collect 5 pomegranates");
-        _goals.Add("Use 2 SpeedUp Potions");
-        _goals.Add("Use 1 SpeedDown Potion");
-        _goals.Add("Use MaxHealth Potion on full health");
+        _collectApples = false;
+        _collectPoms = false;
+        _collectSpeedUpPotions = false;
+        _collectSpeedDownPotions = false;
+        _collectMaxHealthPotions = false;
+        _collectCoins = false;
+    }
+
+
+    private void ChooseGoal()
+    {
+        switch (_chosenGoal)
+        {
+            case 0:
+                _collectApples = true;
+                break;
+            case 1:
+                _collectPoms = true;
+                break;
+            case 2:
+                _collectSpeedUpPotions = true;
+                break;
+            case 3:
+                _collectSpeedDownPotions = true;
+                break;
+            case 4:
+                _collectMaxHealthPotions = true;
+                break;
+            case 5:
+                _collectCoins = true;
+                break;
+        }
+    }
+
+    private void AddCollectionGoals()
+    {
+        _noToCollect.Add(2);
+        _noToCollect.Add(3);
+        _noToCollect.Add(4);
+        _noToCollect.Add(5);
+        _noToCollect.Add(6);
+        _noToCollect.Add(8);
+        _noToCollect.Add(10);
     }
 
     public void AddApple()
     {
-        if (_chosenGoal == 0 || _chosenGoal == 1)
-        { 
-            _appleCount++; 
+        _appleCount++;
+        if (_collectApples)
+        {
+            _leftToCollect--;
         }
     }
     public void AddPom()
     {
-        if (_chosenGoal == 2 || _chosenGoal == 3)
+        _pomCount++;
+        if (_collectPoms)
         {
-            _pomCount++;
+            _leftToCollect--;
         }
     }
     public void AddSpeedUp()
     {
-        if(_chosenGoal == 4)
+         _speedUpCount++;
+        if (_collectSpeedUpPotions)
         {
-            _speedUpCount++;
+            _leftToCollect--;
         }
     }
     public void AddSpeedDown()
     {
-        if (_chosenGoal == 5)
+        _speedDownCount++;
+        if (_collectSpeedDownPotions)
         {
-            _speedDownCount++;
+            _leftToCollect--;
         }
     }
-
-     public void CheckHealth()
+    public void AddCoins()
     {
-        if (_chosenGoal == 6)
+        _coinCount++;
+        if (_collectCoins)
         {
-            _healthGoalComplete = true;
+            _leftToCollect--;
+        }
+    }
+    public void AddMaxHealth()
+    {
+         _maxHealthCount++;
+        if (_collectMaxHealthPotions)
+        {
+            _leftToCollect--;
         }
     }
 }

@@ -32,7 +32,7 @@ public class ObstacleCollision : MonoBehaviour
 {
     private GameObject _runner;
     public static event Action OnPlayerDeath;
-    private int _pointsForAvoidingObstacle;
+    private int _pointsForAvoidingObstacle = 5;
     private const int Damage = 20;
 
     [Header("RBS")]
@@ -46,7 +46,6 @@ public class ObstacleCollision : MonoBehaviour
         rule = new Rule();
         _runner = GameObject.FindGameObjectWithTag("Runner");
         ai_Brain = _runner.GetComponent<AIBrain>();
-        _pointsForAvoidingObstacle = 5;
     }
 
     /// <summary>
