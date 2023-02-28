@@ -273,7 +273,7 @@ public class Score : NetworkBehaviour
         _timeAliveMissionComplete = false;
     }
 
-    private void ResetCombo()
+    public void ResetCombo()
     {
         _currentCombo = 0;
         _totalComboPointsSoFar = 0;
@@ -325,7 +325,6 @@ public class Score : NetworkBehaviour
 
     private void SetBonusPointsText(int bonusPoints)
     {
-        _totalScore += bonusPoints;
         _totalBonusPointsSoFar += bonusPoints;
         _bonusPointsText.text = "";
         SetPopUpTimer();

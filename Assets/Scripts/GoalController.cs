@@ -34,6 +34,14 @@ public class GoalController : MonoBehaviour
     private int _speedUpCount = 0;
     private int _speedDownCount = 0;
 
+    private int _twenty = 5;
+    private int _fiveteen = 15;
+    private int _ten = 10;
+    private int _five = 5;
+    private int _one = 5;
+    private int _two = 5;
+
+
     private bool _healthGoalComplete = false;
 
     // Start is called before the first frame update
