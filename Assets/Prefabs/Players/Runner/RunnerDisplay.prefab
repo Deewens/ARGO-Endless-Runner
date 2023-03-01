@@ -124,7 +124,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1552379830044947382}
         m_TargetAssemblyTypeName: UIManager, Source
-        m_MethodName: RestartLevel
+        m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -927,8 +927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuScene: Assets/Scenes/MainMenu.unity
-  gameOverMenu: {fileID: 1096734331604288729}
-  toggleAIButton: {fileID: 1552379831461259607}
+  GameOverMenu: {fileID: 1096734331604288729}
+  ToggleAIButton: {fileID: 1552379831461259607}
 --- !u!1 &1552379831461259605
 GameObject:
   m_ObjectHideFlags: 0

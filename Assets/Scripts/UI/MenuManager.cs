@@ -34,10 +34,6 @@ public class MenuManager : MonoBehaviour
     [Scene] 
     [SerializeField] 
     private string multiplayerMenuScene = "";
-    
-    [Scene]
-    [SerializeField] 
-    private string singleplayerMainScene = "";
 
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject leaderboardPanel;
@@ -66,6 +62,8 @@ public class MenuManager : MonoBehaviour
     public void LoadSinglePlayerScene()
     {
         ArgoNetworkManager.singleton.maxConnections = 1;
+        ArgoNetworkManager.singleton.GameMode = NetworkGameMode.SinglePlayer;
+        
         ArgoNetworkManager.singleton.StartHost();
     }
     

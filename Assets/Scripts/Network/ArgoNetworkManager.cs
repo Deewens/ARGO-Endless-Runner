@@ -30,19 +30,21 @@ public class ArgoNetworkManager : NetworkManager
 {
     public struct SpawnedPlayer
     {
-        public NetworkConnectionToClient conn;
-        public GameObject                gameObject;
-        public PlayerType                type;
+        public NetworkConnectionToClient Conn;
+        public GameObject                GameObject;
+        public PlayerType                Type;
     }
-    
+
     // Overrides the base singleton so we don't
     // have to cast to this type everywhere.
-    public static new ArgoNetworkManager singleton { get; private set; }
+    public new static ArgoNetworkManager singleton { get; private set; }
     
     private SceneOperation _clientSceneOperation;
 
-    private List<SpawnedPlayer> _spawnedPlayers = new List<SpawnedPlayer>();
-    public ReadOnlyCollection<SpawnedPlayer> SpawnedPlayers { get; }
+    private readonly List<SpawnedPlayer> _spawnedPlayers = new List<SpawnedPlayer>();
+    public ReadOnlyCollection<SpawnedPlayer> SpawnedPlayers => _spawnedPlayers.AsReadOnly();
+
+    public NetworkGameMode GameMode { get; set; } = NetworkGameMode.SinglePlayer;
 
     /// <summary>
     /// Runs on both Server and Client
@@ -118,8 +120,9 @@ public class ArgoNetworkManager : NetworkManager
     /// <param name="newSceneName"></param>
     public override void ServerChangeScene(string newSceneName)
     {
+        _spawnedPlayers.Clear();
+        
         base.ServerChangeScene(newSceneName);
-
     }
 
     /// <summary>
@@ -197,7 +200,7 @@ public class ArgoNetworkManager : NetworkManager
         {
             var playerScript = conn.identity.gameObject;
             if (playerScript != null)
-                _spawnedPlayers.Remove(_spawnedPlayers.Find(x => x.conn == conn));
+                _spawnedPlayers.Remove(_spawnedPlayers.Find(x => x.Conn == conn));
         }
         
         base.OnServerDisconnect(conn);
@@ -289,9 +292,9 @@ public class ArgoNetworkManager : NetworkManager
             if (playerScript != null)
             {
                 SpawnedPlayer playerSpawned;
-                playerSpawned.conn = conn;
-                playerSpawned.gameObject = player;
-                playerSpawned.type = playerScript.PlayerType;
+                playerSpawned.Conn = conn;
+                playerSpawned.GameObject = player;
+                playerSpawned.Type = playerScript.PlayerType;
                 _spawnedPlayers.Add(playerSpawned);
             }
         }
@@ -306,9 +309,9 @@ public class ArgoNetworkManager : NetworkManager
             if (playerScript != null)
             {
                 SpawnedPlayer playerSpawned;
-                playerSpawned.conn = conn;
-                playerSpawned.gameObject = player;
-                playerSpawned.type = playerScript.PlayerType;
+                playerSpawned.Conn = conn;
+                playerSpawned.GameObject = player;
+                playerSpawned.Type = playerScript.PlayerType;
                 _spawnedPlayers.Add(playerSpawned);
             }
         }
@@ -338,6 +341,6 @@ public class ArgoNetworkManager : NetworkManager
     
     private bool IsRunnerSpawned()
     {
-        return _spawnedPlayers.Exists(spawnedPlayer => spawnedPlayer.type == PlayerType.Runner);
+        return _spawnedPlayers.Exists(spawnedPlayer => spawnedPlayer.Type == PlayerType.Runner);
     }
 }

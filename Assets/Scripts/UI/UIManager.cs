@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
+using System.Linq;
 using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,13 +29,15 @@ using UnityEngine.UI;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    private struct RestartGameMessage : NetworkMessage {}
+    
     [Header("Scenes (scene added here must be in build settings)")]
     [Scene] 
     [SerializeField] 
     private string mainMenuScene = "";
 
-    [FormerlySerializedAs("GameOverMenu")] public GameObject gameOverMenu;
-    [FormerlySerializedAs("_toggleAIButton")] public Button toggleAIButton;
+    public GameObject GameOverMenu;
+    public Button ToggleAIButton;
     
     private bool _isRunnerAIOn = false;
     private bool _isGodAIOn = false;
@@ -44,12 +48,54 @@ public class UIManager : MonoBehaviour
         set => _runner = value;
     }
 
+    private void Start()
+    {
+        NetworkServer.RegisterHandler<RestartGameMessage>(OnRestartGameRequest);
+    }
+
+    private void OnDestroy()
+    {
+        NetworkServer.UnregisterHandler<RestartGameMessage>();
+    }
+
+    /// <summary>
+    /// Reset the state of the game and restart it from the beginning
+    /// </summary>
+    [Client]
+    public void RestartGame()
+    {
+        NetworkClient.Send(new RestartGameMessage());
+    }
+
+    [Server]
+    private void OnRestartGameRequest(NetworkConnectionToClient conn, RestartGameMessage msg)
+    {
+        if (ArgoNetworkManager.singleton.GameMode == NetworkGameMode.SinglePlayer)
+        {
+
+            var spawnedPlayers = ArgoNetworkManager.singleton.SpawnedPlayers.ToList();
+            try
+            {
+                var runner = spawnedPlayers.Find(spawnedPlayer => spawnedPlayer.Type == PlayerType.Runner);
+            }
+            catch (ArgumentNullException)
+            {
+                Debug.LogError("Runner player not spawned. Closing server...");
+                ArgoNetworkManager.singleton.StopServer();
+            }
+
+            var mainScene = NetworkManager.singleton.onlineScene;
+            ArgoNetworkManager.singleton.ServerChangeScene(mainScene);
+        }
+    }
+
     /// <summary>
     /// Loads the MainMenu upon button press 
     /// </summary>
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene(mainMenuScene);
+        // ONLY SINGLEPLAYER
+        ArgoNetworkManager.singleton.StopHost();
     }
 
     /// <summary>
@@ -70,7 +116,7 @@ public class UIManager : MonoBehaviour
 
     public void EnableGameOvermenu()
     {
-        gameOverMenu.SetActive(true);
+        GameOverMenu.SetActive(true);
     }
 
     /// <summary>
@@ -83,7 +129,7 @@ public class UIManager : MonoBehaviour
         if (!_isRunnerAIOn)
         {
             _isRunnerAIOn = true;
-            toggleAIButton.image.color = Color.red;
+            ToggleAIButton.image.color = Color.red;
             _runner.transform.GetChild(1).gameObject.SetActive(true);
             _runner.GetComponent<AIBrain>().enabled = true;
             _runner.GetComponent<RunnerPlayer>().enabled = false;
@@ -91,7 +137,7 @@ public class UIManager : MonoBehaviour
         else
         {
             _isRunnerAIOn = false;
-            toggleAIButton.image.color = Color.white;
+            ToggleAIButton.image.color = Color.white;
             _runner.transform.GetChild(1).gameObject.SetActive(false);
             _runner.GetComponent<AIBrain>().enabled = false;
             _runner.GetComponent<RunnerPlayer>().enabled = true;
