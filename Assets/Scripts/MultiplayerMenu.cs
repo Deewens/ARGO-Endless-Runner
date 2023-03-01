@@ -40,12 +40,14 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void StartHostButton()
     {
-        NetworkManager.singleton.StartHost();
+        ArgoNetworkManager.singleton.StartHost();
     }
     
     public void StartClientButton()
     {
+        ArgoNetworkManager.singleton.maxConnections = 3;
+
         var uri = new Uri($"kcp://{_ipInputField.text}:7777");
-        NetworkManager.singleton.StartClient(uri);
+        ArgoNetworkManager.singleton.StartClient(uri);
     }
 }
