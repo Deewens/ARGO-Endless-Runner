@@ -51,6 +51,16 @@ PrefabInstance:
       objectReference: {fileID: 3636384563548647918}
     - target: {fileID: 90407633425382537, guid: 4050f2388a0032345bb2481d0427a9eb,
         type: 3}
+      propertyPath: gameOverMenu
+      value: 
+      objectReference: {fileID: 3636384563548647918}
+    - target: {fileID: 90407633425382537, guid: 4050f2388a0032345bb2481d0427a9eb,
+        type: 3}
+      propertyPath: mainMenuScene
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 90407633425382537, guid: 4050f2388a0032345bb2481d0427a9eb,
+        type: 3}
       propertyPath: _toggleAIButton
       value: 
       objectReference: {fileID: 0}
