@@ -5,9 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class MenuMusicController : MonoBehaviour
 {
+    public static MenuMusicController Instance;
     private AudioSource _audioSource;
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
         DontDestroyOnLoad(this.gameObject);
         _audioSource = GetComponent<AudioSource>();
     }
