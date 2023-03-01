@@ -39,7 +39,7 @@ public class RegisterLoginManagement : MonoBehaviour
     private GameObject _popUpUnsuccessfulRegistrationButton;
     private GameObject _popUpSuccessfulRegistrationButton;
     private GameObject _popUpUserNameTaken;
-
+    private GameObject _hud;
 
 
 
@@ -90,6 +90,10 @@ public class RegisterLoginManagement : MonoBehaviour
 
         _popUpUserNameTaken = GameObject.Find("PopUpUserNameTaken");
 
+        _hud = GameObject.Find("HUD");
+
+
+
 
         passwordInput.contentType = TMPro.TMP_InputField.ContentType.Password;
         TogglePasswordCensorIcon.sprite = Locked;
@@ -97,6 +101,12 @@ public class RegisterLoginManagement : MonoBehaviour
         _validPassword = false;
         _validUsername = false;
         ClosePopUp();
+        _hud.SetActive(false);
+        if (_hud.GetComponent<HudManager>().GetLoggedIn())
+        {
+            _logInButton.SetActive(false);
+            _hud.SetActive(true);
+        }
         this.gameObject.SetActive(false);
     }
 
@@ -181,6 +191,8 @@ public class RegisterLoginManagement : MonoBehaviour
                 //Debug.Log("Can log in valid details entered");
                 UsernameHud.text = _loginData.username;
                 _logInButton.SetActive(false);
+                _hud.SetActive(true);
+                _hud.GetComponent<HudManager>().SetLoggedIn();
                 _loggedIn = true;
                 GoToMainMenu();
             }
