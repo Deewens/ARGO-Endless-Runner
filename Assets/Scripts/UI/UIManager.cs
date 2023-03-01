@@ -94,8 +94,14 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void GoToMainMenu()
     {
-        // ONLY SINGLEPLAYER
-        ArgoNetworkManager.singleton.StopHost();
+        if (ArgoNetworkManager.singleton.GameMode == NetworkGameMode.SinglePlayer)
+        {
+            ArgoNetworkManager.singleton.StopHost();
+        }
+        else
+        {
+            ArgoNetworkManager.singleton.StopClient();
+        }
     }
 
     /// <summary>
