@@ -16,10 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Mirror;
 
 /// <summary>
 /// A class which adds functionality to main menu buttons,game over buttons, and the 'Auto' game button
@@ -61,11 +61,12 @@ public class MenuManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Loads the MainScene upon button press
+    /// Start game server as host in single player mode
     /// </summary>
-    public void LoadSingleplayerScene()
+    public void LoadSinglePlayerScene()
     {
-        SceneManager.LoadScene(singleplayerMainScene);
+        ArgoNetworkManager.singleton.maxConnections = 1;
+        ArgoNetworkManager.singleton.StartHost();
     }
     
     public void LoadMultiplayerMenuScene()
