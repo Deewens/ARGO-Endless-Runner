@@ -23,6 +23,7 @@ using UnityEngine.UI;
 using System.Net;
 using UnityEngine.Networking;
 using UnityEngine.Serialization;
+using TMPro;
 
 public class LoginData
 {
@@ -33,6 +34,14 @@ public class LoginData
 public class RegisterLoginManagement : MonoBehaviour
 {
     private readonly LoginData _loginData = new LoginData();
+    private GameObject _logInButton;
+    private GameObject _popUpUnsuccessfulLoginButton;
+    private GameObject _popUpUnsuccessfulRegistrationButton;
+    private GameObject _popUpSuccessfulRegistrationButton;
+    private GameObject _popUpUserNameTaken;
+
+
+
 
     public List<string> ExistingUsernames;
     public string[] ExistingPasswords;
@@ -71,12 +80,24 @@ public class RegisterLoginManagement : MonoBehaviour
         _pathUpdateFeedback = "playtestdata";
         _pathCheckUserName = "checkusername";
         _pathCheckUsernameAndPassword = "checkusernameandpassword";
+        _logInButton = GameObject.Find("LogInButton");
+
+        _popUpUnsuccessfulLoginButton = GameObject.Find("PopUpUnsuccessfulLogin");
+
+        _popUpUnsuccessfulRegistrationButton = GameObject.Find("PopUpUnsuccessfulRegistration");
+
+        _popUpSuccessfulRegistrationButton = GameObject.Find("PopUpSuccessfulRegistration");
+
+        _popUpUserNameTaken = GameObject.Find("PopUpUserNameTaken");
+
 
         passwordInput.contentType = TMPro.TMP_InputField.ContentType.Password;
         TogglePasswordCensorIcon.sprite = Locked;
 
         _validPassword = false;
         _validUsername = false;
+        ClosePopUp();
+        this.gameObject.SetActive(false);
     }
 
     public void clearFields()
@@ -125,7 +146,7 @@ public class RegisterLoginManagement : MonoBehaviour
     {
         Debug.Log("getting Data");
         RemoveSpaces();
-        if (passwordInput.text.Length >= 6 && usernameInput.text.Length >= 6)
+        if (passwordInput.text.Length >= 6 && usernameInput.text.Length <= 10)
         {
            // Debug.Log("Valid username and password Length");
             _loginData.username = usernameInput.text;
@@ -136,7 +157,8 @@ public class RegisterLoginManagement : MonoBehaviour
         }
         else
         {
-           // Debug.Log("Passwords and Usernames need to be at least 6 characters long");
+            ClosePopUp();
+            _popUpUnsuccessfulLoginButton.SetActive(true);
         }
     }
 
@@ -158,12 +180,14 @@ public class RegisterLoginManagement : MonoBehaviour
             {
                 //Debug.Log("Can log in valid details entered");
                 UsernameHud.text = _loginData.username;
+                _logInButton.SetActive(false);
                 _loggedIn = true;
                 GoToMainMenu();
             }
             else
             {
-                //Debug.Log("Can't log in invalid details entered");
+                ClosePopUp();
+                _popUpUnsuccessfulLoginButton.SetActive(true);
             }
 
             if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
@@ -183,7 +207,7 @@ public class RegisterLoginManagement : MonoBehaviour
     {
         //Debug.Log("getting Data");
         RemoveSpaces();
-        if (passwordInput.text.Length >= 6 && usernameInput.text.Length >=6)
+        if (passwordInput.text.Length >= 6 && usernameInput.text.Length <=10)
         {
             _loginData.username = usernameInput.text;
             _loginData.password = passwordInput.text;
@@ -193,7 +217,8 @@ public class RegisterLoginManagement : MonoBehaviour
         }
         else
         {
-            //Debug.Log("Passwords and Usernames need to be at least 6 characters long");
+            ClosePopUp();
+            _popUpUnsuccessfulRegistrationButton.SetActive(true);
         }
         // StartCoroutine(GetUsername());
     }
@@ -212,11 +237,15 @@ public class RegisterLoginManagement : MonoBehaviour
 
             if (request.downloadHandler.text == "NotTaken")
             {
+                ClosePopUp();
+                _popUpSuccessfulRegistrationButton.SetActive(true);
                 StartCoroutine(PostMethod(jsonData, _pathUpdateCredentials));
             }
             else
             {
                 _validUsername = false;
+                ClosePopUp();
+                _popUpUserNameTaken.SetActive(true);
             }
 
             if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
@@ -258,6 +287,19 @@ public class RegisterLoginManagement : MonoBehaviour
                 //Debug.Log("Error sending data to the server: Error " + request.responseCode);
             }
         }
+    }
+
+    public void ActivateLogInScreen()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void ClosePopUp()
+    {
+        _popUpSuccessfulRegistrationButton.SetActive(false);
+        _popUpUnsuccessfulLoginButton.SetActive(false);
+        _popUpUnsuccessfulRegistrationButton.SetActive(false);
+        _popUpUserNameTaken.SetActive(false);
     }
 
 }
