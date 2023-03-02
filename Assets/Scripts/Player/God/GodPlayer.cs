@@ -26,15 +26,7 @@ using UnityEngine;
 /// A class managing the God Player attacks
 /// </summary>
 public class GodPlayer : NetworkBehaviour
-{
-    [Header("The UI linked to the god")]
-    [SerializeField]
-    private GameObject uiPrefab;
-
-    [Header("The camera linked to the god")]
-    [SerializeField]
-    private GodCamera _cameraPrefab;
-    
+{   
     /// Whether the God is controlled by an AI or a user.
     [SerializeField] private bool isAI = true;
     [Header("Delay between attacks (in seconds")]
@@ -42,7 +34,6 @@ public class GodPlayer : NetworkBehaviour
 
     /// Whether the God can currently attack.
     private bool _canAttack = true;
-    private AIGod _ai;
     private GodAttack _activeAttack;
     private int _chosenAttack = -1;
 
@@ -68,18 +59,12 @@ public class GodPlayer : NetworkBehaviour
     /// </summary>
     private void Start()
     {
-        _ai = GetComponent<AIGod>();
-        
-        foreach (GameObject g in AttackButtons)
-        {
-            g.transform.Find("Background").gameObject.SetActive(false);
-            g.transform.Find("Selected").gameObject.SetActive(false);
-        }
-    }
 
-    public override void OnStartLocalPlayer()
-    {
-        GodCamera runnerCamera = Instantiate(_cameraPrefab);
+        //foreach (GameObject g in AttackButtons)
+        //{
+        //    g.transform.Find("Background").gameObject.SetActive(false);
+        //    g.transform.Find("Selected").gameObject.SetActive(false);
+        //}
     }
 
     /// <summary>
@@ -99,7 +84,7 @@ public class GodPlayer : NetworkBehaviour
             {
                 if (PlacementAllow())
                 {
-                    _activeAttack = _ai.GetAttack(_chosenAttack);
+                    _activeAttack = GetComponent<AIGod>().GetAttack(_chosenAttack);
                     Vector3 pos = Input.mousePosition;
                     pos.z = Camera.main.nearClipPlane + 25;
                     pos = Camera.main.ScreenToWorldPoint(pos);
@@ -116,7 +101,7 @@ public class GodPlayer : NetworkBehaviour
                 }
                 else
                 {
-                    //Debug.Log("pick another place");
+                    Debug.Log("pick another place");
                 }
             }
         }
@@ -128,15 +113,11 @@ public class GodPlayer : NetworkBehaviour
     /// <param name="t_attack">The number of the attack clicked on.</param>
     public void ChooseAttack(int t_attack)
     {
-        //foreach (GameObject g in AttackButtons)
-        //{
-        //    g.transform.Find("Selected").gameObject.SetActive(false);
-        //}
-
-        //AttackButtons[t_attack - 1].transform.Find("Selected").gameObject.SetActive(true);
-
-        _activeAttack = _ai.GetAttack(t_attack);
-        _chosenAttack = t_attack;
+        if (t_attack < 4 && t_attack >= 0)
+        {
+            _activeAttack = GetComponent<AIGod>().GetAttack(t_attack - 1);
+            _chosenAttack = t_attack;
+        }
     }
 
     /// <summary>
@@ -149,7 +130,7 @@ public class GodPlayer : NetworkBehaviour
 
         if (isAI)
         {
-            _activeAttack = _ai.GetRandomAttack();
+            _activeAttack = GetComponent<AIGod>().GetRandomAttack();
         }
 
         _activeAttack.Attack();
