@@ -193,12 +193,6 @@ MonoBehaviour:
   - {fileID: 3171914337858483159, guid: 77345edbd1d6f1d4db339848de51980d, type: 3}
   - {fileID: 2690188247395928747, guid: aa54878b345ba1a4b98f365fd3766b12, type: 3}
   - {fileID: 7165099910908643630, guid: 1531f6e5b9326a64f8ff39beeb86f4c9, type: 3}
-  JumpObstacle: {fileID: 2095361754395054288, guid: 55405ff44b6044c4ba45ee32842be972,
-    type: 3}
-  SlideObstacle: {fileID: 6901037333560088150, guid: c2f5c1a852bae174a83f7849472fe5ed,
-    type: 3}
-  DodgeObstacle: {fileID: 344522506933938203, guid: 2184e85c5ae269d49b2e7bee49fbf484,
-    type: 3}
   runnerLane: 0
   obstacleLane: 0
   preditedLane: 0
