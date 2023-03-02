@@ -201,7 +201,7 @@ public class AIBrain : MonoBehaviour
     {
         _ai_God = GameObject.FindGameObjectWithTag("God").GetComponent<AIGod>();
         
-        if (t_seenObstacle.CompareTag("Inpenetrable"))
+        if (t_seenObstacle.CompareTag("Inpenetrable") || t_seenObstacle.CompareTag("JumpObstacle") || t_seenObstacle.CompareTag("SlideObstacle"))
         {
             GetObstacleLane = Mathf.CeilToInt(t_seenObstacle.GetComponent<Transform>().position.x);
 
