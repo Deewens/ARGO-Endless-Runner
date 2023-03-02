@@ -27,13 +27,20 @@ public class AIGod : MonoBehaviour
     private Transform runner;
     Vector3 offset;
 
-    [SerializeField] private GameObject obstacleSmall;
+    private GameObject JumpObstacle;
+    private GameObject SlideObstacle;
+    private GameObject DodgeObstacle;
 
     [Header("JUST FOR DISPLAY DONT EDIT")]
 
     [SerializeField] int runnerLane;
     [SerializeField] int obstacleLane;
     [SerializeField] int preditedLane;
+
+    private float attacksCooldown = 5.0f;
+    private bool canAttack = true;
+
+    int randomChoice;
     /// <summary>
     /// Simply returns a random attack from the list.
     /// </summary>
@@ -65,6 +72,9 @@ public class AIGod : MonoBehaviour
         runner = GameObject.FindGameObjectWithTag("Runner").gameObject.transform;
         offset = transform.position - runner.position;
 
+        JumpObstacle = Resources.Load("JumpAttackObstacle") as GameObject;
+        SlideObstacle = Resources.Load("SlideAttackObstacle") as GameObject;
+        DodgeObstacle = Resources.Load("TridentAttack") as GameObject;
         //StartCoroutine(SpawnObstacle());
     }
 
@@ -72,6 +82,15 @@ public class AIGod : MonoBehaviour
     {
         Vector3 newPos = runner.position + offset;
         transform.position = new Vector3(transform.position.x, transform.position.y, newPos.z);
+
+        if(attacksCooldown <= 0)
+        {
+            canAttack = true;
+        }
+        else
+        {
+            attacksCooldown -= Time.deltaTime;
+        }
     }
 
     public void predictLaneNow()
@@ -82,7 +101,14 @@ public class AIGod : MonoBehaviour
         //Debug.Log("before obstalce :" + runnerBrain.currentLane + " || obstacle is :" + runnerBrain.getObstacleLane + " || after obstalce :" + preditedLane);
         obstacleLane = runnerBrain.GetObstacleLane;
         runnerLane = runnerBrain.CurrentLane;
-        SpawnObstacle();
+
+        if(canAttack)
+        {
+            SpawnObstacle();
+            attacksCooldown = 5.0f;
+            canAttack = false;
+        }
+       
     }
 
     public void SpawnObstacle()
@@ -101,9 +127,19 @@ public class AIGod : MonoBehaviour
         }
         Vector3 newPos = runner.position + offset;
 
-        GameObject temp = Instantiate(obstacleSmall, new Vector3(preditedLane, 1, newPos.z + 15f), Quaternion.identity);
-        Debug.Log(temp.transform.position);
-        //Destroy(temp, 2f);
-        //StartCoroutine(SpawnObstacle());
+        randomChoice = Random.Range(0, 3);
+
+        switch (randomChoice)
+        {
+            case 0:
+                Instantiate(DodgeObstacle, new Vector3(preditedLane, 1, newPos.z + 15f), Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(JumpObstacle, new Vector3(-2, 0, newPos.z + 15f), Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(SlideObstacle, new Vector3(-2, 2, newPos.z + 15f), Quaternion.identity);
+                break;
+        }
     }
 }
