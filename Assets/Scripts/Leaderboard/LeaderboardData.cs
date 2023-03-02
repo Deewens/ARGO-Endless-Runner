@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 public struct LeaderboardData
 {
-    public LeaderboardData(int no, string username, int bestRunnerScore, int bestGodScore)
+    public LeaderboardData(int no, string username, string bestRunnerScore, int bestGodScore)
     {
         No = no;
         Username = username;
@@ -28,6 +28,6 @@ public struct LeaderboardData
 
     public readonly int No;
     public readonly string Username;
-    public readonly int BestRunnerScore;
+    public readonly string BestRunnerScore;
     public readonly int BestGodScore;
 }

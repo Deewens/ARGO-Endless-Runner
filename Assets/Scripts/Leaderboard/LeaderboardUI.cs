@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class LeaderboardUI : MonoBehaviour
@@ -24,15 +28,41 @@ public class LeaderboardUI : MonoBehaviour
     [SerializeField] private RectTransform content;
 
     private Leaderboard _leaderboard;
+    private bool _loaded = false;
+    private List<LeaderboardData> _data;
 
     private void Awake()
     {
         _leaderboard = new Leaderboard();
-        var data = _leaderboard.FetchLeaderboardData();
         StartCoroutine(_leaderboard.GetData());
-        foreach (var value in data)
+        _data = _leaderboard.FetchLeaderboardData();
+        foreach (var value in _data)
         {
             AddRow(value);
+        }
+        _loaded = false;
+    }
+
+    private void Update()
+    {
+
+        if (_data == null)
+        {
+            _data = _leaderboard.FetchLeaderboardData();
+        }
+        else
+        {
+            if (_loaded == false)
+            {
+                for(int i =0; i < _data.Count; i++)
+                {
+                    AddRow(_data[i]);
+                    if(i == _data.Count -1)
+                    {
+                        _loaded = true;
+                    }
+                }
+            }
         }
     }
 
@@ -42,10 +72,9 @@ public class LeaderboardUI : MonoBehaviour
         LeaderboardRowUI rowUI = newRow.GetComponent<LeaderboardRowUI>();
         if (rowUI == null)
         {
-            Debug.LogError("The row template prefab does not have a LeaderboardRowUI component.");
+            UnityEngine.Debug.LogError("The row template prefab does not have a LeaderboardRowUI component.");
             return;
         }
-            
         rowUI.SetData(data.No, data.Username, data.BestRunnerScore, data.BestGodScore);
     }
     

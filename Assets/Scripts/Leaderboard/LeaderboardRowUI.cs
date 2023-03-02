@@ -19,11 +19,11 @@ public class LeaderboardRowUI : MonoBehaviour
         _bestGodScoreText = transform.Find("BestGodScoreText").GetComponent<TextMeshProUGUI>();
     }
     
-    public void SetData(int no, string username, int bestRunnerScore, int bestGodScore)
+    public void SetData(int no, string username, string bestRunnerScore, int bestGodScore)
     {
         _noText.text = no.ToString();
         _usernameScoreText.text = username;
-        _bestRunnerScoreText.text = bestRunnerScore.ToString();
+        _bestRunnerScoreText.text = bestRunnerScore;
         _bestGodScoreText.text = bestGodScore.ToString();
     }
 }

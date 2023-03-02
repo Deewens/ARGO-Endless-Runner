@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 namespace Tests
@@ -75,6 +77,23 @@ namespace Tests
             Assert.True(content.childCount > 0);
         }
 
+        //[UnityTest]
+        //public IEnumerator IsLeaderboardDataFetched()
+        //{
+        //    var leaderboardUI = InstantiateLeaderboardUI();
+        //    leaderboardUI.SetActive(true);
+
+        //    var scrollRect = leaderboardUI.GetComponentInChildren<ScrollRect>();
+        //    var content = scrollRect.transform
+        //        .Find("Viewport")
+        //        .Find("Content");
+
+        //    // TODO: for now, data are fake in the actual code, but later data will be fetched async from a real DB.
+        //    // so this will have to be changed to use fakeData only for this test!
+        //    yield return new WaitForSeconds(5);
+        //    Assert.True(content.childCount > 0);
+        //}
+
         [Test]
         public void IsRowAddedToLeaderboard()
         {
@@ -82,7 +101,7 @@ namespace Tests
             leaderboardUI.SetActive(true);
             
             LeaderboardUI leaderboardUIScript = leaderboardUI.GetComponent<LeaderboardUI>();
-            leaderboardUIScript.AddRow(new LeaderboardData(0, "Test", 50, 100));
+            leaderboardUIScript.AddRow(new LeaderboardData(0, "Test", "50", 100));
 
             var rows = leaderboardUI.GetComponentsInChildren<LeaderboardRowUI>();
             var lastInsertedRow = rows.Last();
