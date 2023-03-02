@@ -163,11 +163,6 @@ public class Score : NetworkBehaviour
         CheckTimeAliveBonusPoints(_moveForwardScript.GetPlayTime());
     }
 
-    public int GetScore()
-    {
-        return _totalScore;
-    }
-
     public void CheckSpeedBonusPoints(int Speed)
     {
         if (CheckIfSpeedChanged(Speed))
