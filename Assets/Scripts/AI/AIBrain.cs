@@ -27,105 +27,92 @@ public class AIBrain : MonoBehaviour
     Rigidbody rb;
 
     /// The amount of force applied to the Runner in order to get them off the ground.
-    float jumpForce = 7.0f;
+    private float _jumpForce = 7.0f;
 
     /// Bool that keeps track of whether the Runner is on the ground or not.
-    bool grounded = false;
+    private bool _grounded = false;
 
     [Header("AI_Sliding")]
     /// Maximum slide time 
-    public float maxSlideTime = 1.0f;
+    public float MaxSlideTime = 1.0f;
     /// How much force is applied to gameobject when sliding  
-    public float slideForce;
+    public float SlideForce;
     /// Timer to check how long the gameobject is sliding for before going back to running 
-    private float slideTimer;
+    private float SlideTimer;
 
     /// The scale will be half of what the gameobject is to show that it is currently sliding 
-    public float slideYScale;
+    public float SlideYScale;
     /// The scale will be double of what the gameobject is to show that it is currently sliding
-    public float slideZScale;
+    public float SlideZScale;
 
     ///The current scale of the AI Runner.
-    private Vector3 AIScale;
+    private Vector3 _AIScale;
 
     ///
     public Transform AIObj;
 
     /// How much the runner moves when changing lanes
-    private int laneSize = 2;
-
-    /// max amount of lanes
-    private int laneCount = 3;
+    private int _laneSize = 2;
 
     /// current lane occupied by runner
-    public int currentLane { get;  set; } = 2;
+    public int CurrentLane { get;  set; } = 2;
 
-    public int previousLane { get; set; } = 2;
+    public int PreviousLane { get; set; } = 2;
     /// Keeps track of whether the AI runner is currently sliding.
     bool _sliding;
     /// Public reference to _sliding.
     public bool sliding { get { return _sliding; } }
 
-    public int getObstacleLane { get; set; }
+    public int GetObstacleLane { get; set; }
 
-    AIGod ai_God;
+    AIGod _ai_God;
     /// <summary>
     /// Controller of how the AI Runner reacts, once it sees an obstacle.
     /// </summary>
     /// <param name="t_seenObstacle">The obstacle it sees ahead.</param>
     public void React(Collider t_seenObstacle)
     {
-        bool solved = false;
+        float i = 0.0f;
 
         if (t_seenObstacle.CompareTag("Inpenetrable") || t_seenObstacle.CompareTag("AI_Inpenetrable"))
+            i = 0.3f;
+
+        if (t_seenObstacle.CompareTag("JumpObstacle"))
+            i = 0.666f;
+
+        if (t_seenObstacle.CompareTag("SlideObstacle"))
+            i = 0.8f;
+
+        float result = GetComponent<FuzzyLogic>().SetMemberShipFunctions(CurrentLane / 3.1f, i);
+
+        Debug.Log("RESULT: " + result);
+        bool solved = false;
+
+        switch(result)
         {
-            ///If in the middle lane, randomise left or right
-            float lane = laneCount / 2.0f;
-            if (currentLane == Mathf.Ceil(lane))
-            {
-                int rand = Random.Range(1, 3);
-                if (rand == 1)
-                {
-                    gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                    currentLane--;
-                    GetComponent<RunnerPlayer>().CurrentLane = currentLane;
-                    solved = true;
-                }
-                else if (rand == 2)
-                {
-                    gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                    currentLane++;
-                    GetComponent<RunnerPlayer>().CurrentLane = currentLane;
-                    solved = true;
-                }
-            }
-            else if (currentLane > 1 && !solved)
-            {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x - laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                currentLane--;
-                GetComponent<RunnerPlayer>().CurrentLane = currentLane;
+            case 2:
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + _laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+                CurrentLane++;
+                GetComponent<RunnerPlayer>().CurrentLane = CurrentLane;
                 solved = true;
-            }
-            else if (currentLane < laneCount && !solved)
-            {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x + laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
-                currentLane++;
-                GetComponent<RunnerPlayer>().CurrentLane = currentLane;
+                break;
+
+            case 3:
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x - _laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
+                CurrentLane--;
+                GetComponent<RunnerPlayer>().CurrentLane = CurrentLane;
                 solved = true;
-            }
-        }
+                break;
 
-        if (t_seenObstacle.CompareTag("JumpObstacle") && !solved)
-        {
-            Jump();
-            solved = true;
-        }
+            case 4:
+                Jump();
+                solved = true;
+                break;
 
-
-        if (t_seenObstacle.CompareTag("SlideObstacle") && !solved)
-        {
-            StartSlide();
-            solved = true;
+            case 5:
+                StartSlide();
+                solved = true;
+                break;
         }
     }
 
@@ -136,7 +123,7 @@ public class AIBrain : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        AIScale = AIObj.localScale;
+        _AIScale = AIObj.localScale;
     }
 
     /// <summary>
@@ -156,7 +143,7 @@ public class AIBrain : MonoBehaviour
     /// </summary>
     void Land()
     {
-        grounded = true;
+        _grounded = true;
     }
 
     /// <summary>
@@ -164,10 +151,10 @@ public class AIBrain : MonoBehaviour
     /// </summary>
     void Jump()
     {
-        if (grounded)
+        if (_grounded)
         {
-            rb.velocity = transform.up * jumpForce;
-            grounded = false;
+            rb.velocity = transform.up * _jumpForce;
+            _grounded = false;
         }
     }
 
@@ -178,10 +165,10 @@ public class AIBrain : MonoBehaviour
     {
         _sliding = true;
 
-        AIObj.localScale = new Vector3(AIObj.localScale.x, slideYScale, slideZScale);
+        AIObj.localScale = new Vector3(AIObj.localScale.x, SlideYScale, SlideZScale);
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
 
-        slideTimer = maxSlideTime;
+        SlideTimer = MaxSlideTime;
     }
 
     /// <summary>
@@ -191,7 +178,7 @@ public class AIBrain : MonoBehaviour
     {
         _sliding = false;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        AIObj.localScale = AIScale;
+        AIObj.localScale = _AIScale;
     }
 
 
@@ -200,9 +187,9 @@ public class AIBrain : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (_sliding && slideTimer > 0)
+        if (_sliding && SlideTimer > 0)
         {
-            slideTimer -= Time.deltaTime;
+            SlideTimer -= Time.deltaTime;
         }
         else
         {
@@ -212,25 +199,25 @@ public class AIBrain : MonoBehaviour
 
     public void reactToAI_God(Collider t_seenObstacle)
     {
-        ai_God = GameObject.FindGameObjectWithTag("God").GetComponent<AIGod>();
+        _ai_God = GameObject.FindGameObjectWithTag("God").GetComponent<AIGod>();
         
         if (t_seenObstacle.CompareTag("Inpenetrable"))
         {
-            getObstacleLane = Mathf.CeilToInt(t_seenObstacle.GetComponent<Transform>().position.x);
+            GetObstacleLane = Mathf.CeilToInt(t_seenObstacle.GetComponent<Transform>().position.x);
 
-            switch (getObstacleLane)
+            switch (GetObstacleLane)
             {
                 case -2:
-                    getObstacleLane = 1;
+                    GetObstacleLane = 1;
                     break;
                 case 0:
-                    getObstacleLane = 2;
+                    GetObstacleLane = 2;
                     break;
                 case 2:
-                    getObstacleLane = 3;
+                    GetObstacleLane = 3;
                     break;
             }
-            ai_God.predictLaneNow(); // ai god predict the lane before ai runner make a decision 
+            _ai_God.predictLaneNow(); // ai god predict the lane before ai runner make a decision 
         }
     }
 }

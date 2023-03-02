@@ -77,11 +77,11 @@ public class AIGod : MonoBehaviour
     public void predictLaneNow()
     {
         //preditedLane = ruleDatabases.PredictNextLane(runnerBrain.currentLane, "Inpenetrable", runnerBrain.getObstacleLane);
-        preditedLane = RuleDatabases.PredictNextLane(runnerBrain.currentLane, "Inpenetrable", runnerBrain.getObstacleLane);
+        preditedLane = RuleDatabases.PredictNextLane(runnerBrain.CurrentLane, "Inpenetrable", runnerBrain.GetObstacleLane);
 
         //Debug.Log("before obstalce :" + runnerBrain.currentLane + " || obstacle is :" + runnerBrain.getObstacleLane + " || after obstalce :" + preditedLane);
-        obstacleLane = runnerBrain.getObstacleLane;
-        runnerLane = runnerBrain.currentLane;
+        obstacleLane = runnerBrain.GetObstacleLane;
+        runnerLane = runnerBrain.CurrentLane;
         SpawnObstacle();
     }
 
