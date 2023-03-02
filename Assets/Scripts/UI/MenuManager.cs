@@ -33,41 +33,15 @@ public class MenuManager : MonoBehaviour
     
     [Scene] 
     [SerializeField] 
-    private string multiplayerMenuScene = "";
+    private string _playMenuScene = "";
 
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject leaderboardPanel;
-    [SerializeField] private GameObject _roleSelectionCanvas;
-
-    /// <summary>
-    /// Upon clicking, opens rating form in browser
-    /// </summary>
-    /// 
-    public void GoToFormRatingForm()
-    {
-        Application.OpenURL(
-            "https://docs.google.com/forms/d/e/1FAIpQLScP_TMz7UApxi89AMviheraT5H10M79u2_8E2bpfZZvgiWpZw/viewform?usp=sf_link");
-    }
-
-    /// <summary>
-    /// Loads the MainScene again upon button press
-    /// </summary>
-    public void RestartLevel()
-    {
-        Debug.Log("Button deactivated for now.");
-    }
-
-    /// <summary>
-    /// Start game server as host in single player mode
-    /// </summary>
-    public void OnSinglePlayerBtnClick()
-    {
-        _roleSelectionCanvas.SetActive(true);
-    }
     
-    public void LoadMultiplayerMenuScene()
+
+    public void OnPlayClick()
     {
-        SceneManager.LoadScene(multiplayerMenuScene);
+        SceneManager.LoadScene(_playMenuScene);
     }
 
     public void DisplayLeaderboard()
@@ -108,6 +82,16 @@ public class MenuManager : MonoBehaviour
         leaderboardPanel.SetActive(false);
     }
 
+    /// <summary>
+    /// Upon clicking, opens rating form in browser
+    /// </summary>
+    /// 
+    public void GoToFormRatingForm()
+    {
+        Application.OpenURL(
+            "https://docs.google.com/forms/d/e/1FAIpQLScP_TMz7UApxi89AMviheraT5H10M79u2_8E2bpfZZvgiWpZw/viewform?usp=sf_link");
+    }
+    
     /// <summary>
     /// Quits game upon button press
     /// </summary>

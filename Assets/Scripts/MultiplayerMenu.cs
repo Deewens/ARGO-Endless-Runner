@@ -31,27 +31,39 @@ public class MultiplayerMenu : MonoBehaviour
     [SerializeField] 
     private string mainMenuScene = "";
 
+    [SerializeField] private GameObject _roleSelectorCanvas;
+
     [SerializeField] private TMP_InputField _ipInputField;
 
+    public void OnSinglePlayerBtnClick()
+    {
+        var roleSelectionScript = _roleSelectorCanvas.GetComponent<RoleSelectionCanvas>();
+        roleSelectionScript.SetNetworkMode(NetworkManagerMode.Host);
+        roleSelectionScript.SetGameMode(NetworkGameMode.SinglePlayer);
+        _roleSelectorCanvas.SetActive(true);
+    }
+    
+    public void OnHostBtnClick()
+    {
+        var roleSelectionScript = _roleSelectorCanvas.GetComponent<RoleSelectionCanvas>();
+        roleSelectionScript.SetNetworkMode(NetworkManagerMode.Host);
+        roleSelectionScript.SetGameMode(NetworkGameMode.MultiPlayer);
+        _roleSelectorCanvas.SetActive(true);
+    }
+    
+    public void OnJoinBtnClick()
+    {
+        var uri = new Uri($"kcp://{_ipInputField.text}:7777");
+        
+        var roleSelectionScript = _roleSelectorCanvas.GetComponent<RoleSelectionCanvas>();
+        roleSelectionScript.SetNetworkMode(NetworkManagerMode.ClientOnly);
+        roleSelectionScript.SetServerUri(uri);
+        roleSelectionScript.SetGameMode(NetworkGameMode.MultiPlayer);
+        _roleSelectorCanvas.SetActive(true);
+    }
+    
     public void LoadMainMenuScene()
     {
         SceneManager.LoadScene(mainMenuScene);
-    }
-
-    public void StartHostButton()
-    {
-        ArgoNetworkManager.singleton.maxConnections = 2;
-        ArgoNetworkManager.singleton.GameMode = NetworkGameMode.MultiPlayer;
-        
-        ArgoNetworkManager.singleton.StartHost();
-    }
-    
-    public void StartClientButton()
-    {
-        ArgoNetworkManager.singleton.maxConnections = 2;
-        ArgoNetworkManager.singleton.GameMode = NetworkGameMode.MultiPlayer;
-
-        var uri = new Uri($"kcp://{_ipInputField.text}:7777");
-        ArgoNetworkManager.singleton.StartClient(uri);
     }
 }

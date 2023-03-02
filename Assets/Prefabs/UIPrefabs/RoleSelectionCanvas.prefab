@@ -1002,6 +1002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameMode: 0
+  _mainScene: Assets/Scenes/MainScene.unity
 --- !u!1 &7931611602236622617
 GameObject:
   m_ObjectHideFlags: 0
