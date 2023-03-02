@@ -157,6 +157,18 @@ public class MoveForward : NetworkBehaviour
         }
     }
 
+    public void TestSetSpeed(int speedChange)
+    {
+        if (speedChange < 0 && _speed > MinSpeed)
+        {
+            _speed += speedChange;
+        }
+        else if (speedChange > 0 && _speed < MaxSpeed)
+        {
+            _speed += speedChange;
+        }
+    }
+
     public int TestGetDistanceTravelled()
     {
         if (!isLocalPlayer)
@@ -170,12 +182,6 @@ public class MoveForward : NetworkBehaviour
 
     public int TestGetSpeed()
     {
-        if (!isLocalPlayer)
-        {
-            Debug.LogError("GetSpeed called on non-local player. Default value returned.");
-            return 0;
-        }
-
         return _speed;
     }
 
