@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
@@ -45,6 +46,8 @@ public class ArgoNetworkManager : NetworkManager
     public ReadOnlyCollection<SpawnedPlayer> SpawnedPlayers => _spawnedPlayers.AsReadOnly();
 
     public NetworkGameMode GameMode { get; set; } = NetworkGameMode.SinglePlayer;
+
+    public event Action ClientConnect;
 
     /// <summary>
     /// Runs on both Server and Client
@@ -164,7 +167,7 @@ public class ArgoNetworkManager : NetworkManager
         if (NetworkClient.connection.isAuthenticated && _clientSceneOperation == SceneOperation.Normal && NetworkClient.localPlayer == null)
         {
             // add player if existing one is null
-            NetworkClient.AddPlayer();
+            //NetworkClient.AddPlayer();
         }
     }
 
@@ -226,10 +229,7 @@ public class ArgoNetworkManager : NetworkManager
     {
         base.OnClientConnect();
 
-        if (!clientLoadedScene)
-        {
-            NetworkClient.AddPlayer();
-        }
+        ClientConnect?.Invoke();
     }
 
     /// <summary>
@@ -271,20 +271,25 @@ public class ArgoNetworkManager : NetworkManager
     public override void OnStartServer()
     {
         base.OnStartServer();
+        
+        NetworkServer.RegisterHandler<RoleSelectionMessage>(OnPlayerRoleSelected);
     }
 
-    /// <summary>
-    /// Called on server when a client requests to add a player. Replace the default OnServerAddPlayer message handler.
-    /// This method will instantiate the prefab for the player in the caller scene and then tell the Server to connect the player (so it will be instantiated for every clients).
-    /// </summary>
-    /// <param name="conn"></param>
-    /// <param name="message"></param>
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    private void OnPlayerRoleSelected(NetworkConnectionToClient conn, RoleSelectionMessage msg)
     {
-        if (!IsRunnerSpawned()) // Create runner if not already spawned
+        if (msg.Role == PlayerType.Runner)
         {
             GameObject player = Instantiate(spawnPrefabs[0]);
             player.name = $"{spawnPrefabs[0].name} [connId={conn.connectionId}]";
+
+            
+            if (GameMode == NetworkGameMode.SinglePlayer)
+            {
+                // Activate the GameObject required by the God AI in the Runner GO.
+                
+                var aiGodPlacementGO = player.GetComponentInChildren<AI_God_ViewForward>(true).gameObject;
+                aiGodPlacementGO.SetActive(true);
+            }
 
             NetworkServer.AddPlayerForConnection(conn, player);
 
@@ -297,9 +302,30 @@ public class ArgoNetworkManager : NetworkManager
                 playerSpawned.Type = playerScript.PlayerType;
                 _spawnedPlayers.Add(playerSpawned);
             }
+
+            if (GameMode == NetworkGameMode.SinglePlayer)
+            {
+                GameObject godAI = Instantiate(spawnPrefabs[1]);
+                godAI.name = $"{spawnPrefabs[1].name} [AI]";
+                var aiGodScript = godAI.GetComponent<AIGod>();
+                aiGodScript.enabled = true;
+
+                NetworkServer.Spawn(godAI);
+            }
         }
-        else // Create god
+        else
         {
+            if (GameMode == NetworkGameMode.SinglePlayer)
+            {
+                GameObject runnerAI = Instantiate(spawnPrefabs[0]);
+                runnerAI.name = $"{spawnPrefabs[0].name} [AI]";
+                runnerAI.transform.GetChild(1).gameObject.SetActive(true);
+                runnerAI.GetComponent<AIBrain>().enabled = true;
+                runnerAI.GetComponent<RunnerPlayer>().enabled = false;
+
+                NetworkServer.Spawn(runnerAI);
+            }
+            
             GameObject player = Instantiate(spawnPrefabs[1]);
             player.name = $"{spawnPrefabs[1].name} [connId={conn.connectionId}]";
 

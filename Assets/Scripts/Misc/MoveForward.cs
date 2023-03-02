@@ -45,11 +45,10 @@ public class MoveForward : NetworkBehaviour
 
     private void Awake()
     {
-        enabled = false;
         fieldOfVIew = transform.Find("Field Of View").GetComponent<BoxCollider>();
     }
-
-    public override void OnStartLocalPlayer()
+    
+    private void Start()
     {
         _endTime = 0;
         _playTime = 0;
@@ -61,12 +60,6 @@ public class MoveForward : NetworkBehaviour
 
         enabled = true;
     }
-
-    public override void OnStopLocalPlayer()
-    {
-        enabled = false;
-    }
-
 
     /// <summary>
     /// Calculates the distance travelled by the runner and increases speed based on distance travelled
