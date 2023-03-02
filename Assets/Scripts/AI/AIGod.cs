@@ -108,7 +108,7 @@ public class AIGod : MonoBehaviour
             attacksCooldown = 5.0f;
             canAttack = false;
         }
-       
+
     }
 
     public void SpawnObstacle()

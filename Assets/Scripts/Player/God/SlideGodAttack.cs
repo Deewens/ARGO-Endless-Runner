@@ -28,7 +28,7 @@ public class SlideGodAttack : GodAttack
     private void Start()
     {
         attackType = GodAttackType.Slide;
-        _avoidThunder = Resources.Load("AvoidThunder") as GameObject;
+        _avoidThunder = Resources.Load("SlideAttackObstacle") as GameObject;
     }
 
     /// <summary>
