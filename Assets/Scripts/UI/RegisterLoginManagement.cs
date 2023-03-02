@@ -72,7 +72,7 @@ public class RegisterLoginManagement : MonoBehaviour
     [FormerlySerializedAs("LoggedInUser")] public string loggedInUser;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _loggedIn = false;
         _urlGameServer = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/";
@@ -158,7 +158,7 @@ public class RegisterLoginManagement : MonoBehaviour
         RemoveSpaces();
         if (passwordInput.text.Length >= 6 && usernameInput.text.Length <= 10)
         {
-           // Debug.Log("Valid username and password Length");
+            Debug.Log("Valid username and password Length");
             _loginData.username = usernameInput.text;
             _loginData.password = passwordInput.text;
             clearFields();
@@ -188,9 +188,13 @@ public class RegisterLoginManagement : MonoBehaviour
 
             if (request.downloadHandler.text == "CanLogIn")
             {
-                //Debug.Log("Can log in valid details entered");
+                Debug.Log("Can log in valid details entered");
                 UsernameHud.text = _loginData.username;
                 _logInButton.SetActive(false);
+                if(_hud == null)
+                {
+                    
+                }
                 _hud.SetActive(true);
                 _hud.GetComponent<HudManager>().SetLoggedIn();
                 _loggedIn = true;
