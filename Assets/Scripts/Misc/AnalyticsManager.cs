@@ -36,6 +36,12 @@ public class Data
     public double timePlayed = 0;
 }
 
+public class LeaderBoardData
+{
+    public string username = " ";
+    public int score = 0;
+}
+
 /// <summary>
 /// Receives, stores, packs and sends player data to an external database hosted on anvil
 /// </summary>
@@ -61,6 +67,7 @@ public class AnalyticsManager : MonoBehaviour
     private readonly Data _runnerData = new Data(); //initialise all data
     private readonly Data _zeusData = new Data(); //initialise all data
     private readonly Data _poseidonData = new Data(); //initialise all data
+    private readonly LeaderBoardData _leaderboardData = new LeaderBoardData();
 
     bool _dataSent;
 
@@ -85,9 +92,12 @@ public class AnalyticsManager : MonoBehaviour
     {
         if (_runner == null)
             return;
-        
-        if(!_dataSent && _runner.transform.GetChild(0).gameObject.activeSelf == false)
+
+        if (!_dataSent && _runner.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            _dataSent = true;
             sendData();
+        }
     }
 
     /// <summary>
@@ -98,7 +108,7 @@ public class AnalyticsManager : MonoBehaviour
         _endTime = System.DateTimeOffset.Now.ToUnixTimeSeconds();
         _playTime = _endTime - _startTime;
         Debug.Log("Sending Data");
-        _dataSent = true;
+
         if (_runner.CompareTag("Runner"))
         {
             _runnerData.role = "Runner";
@@ -107,11 +117,19 @@ public class AnalyticsManager : MonoBehaviour
             _runnerData.obstaclesAvoided = _runner.GetComponent<MoveForward>().ObstaclesAvoided;
             _runnerData.obstaclesHit = 1;
             _runnerData.obstaclesPlaced = objectSpawner.GetComponent<ObstacleSpawner>().ObstaclesPlaced;
-            _runnerData.score = _runnerData.distanceTravelled + (_runnerData.obstaclesAvoided * _runnerData.obstaclesPlaced);
+            _runnerData.score = _runner.GetComponent<Score>().GetScore();
             _runnerData.timePlayed = _playTime;
+
+
 
             string jsonData = JsonUtility.ToJson(_runnerData);
             StartCoroutine(PostMethod(jsonData));
+
+            _leaderboardData.username = "temp";
+            _leaderboardData.score = _runnerData.score;
+            Debug.Log("Score" + _leaderboardData.score);
+            string jsonData2 = JsonUtility.ToJson(_leaderboardData);
+            StartCoroutine(PostMethodLeaderBoard(jsonData2));
 
         }
         if (_god.CompareTag("God"))
@@ -151,6 +169,33 @@ public class AnalyticsManager : MonoBehaviour
             else
             {
                 Debug.Log("Error sending data to the server: Error " + request.responseCode);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Sends the data to an external database hosted on anvil
+    /// </summary>
+    public static IEnumerator PostMethodLeaderBoard(string jsonData)
+    {
+        string url = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/leaderboard";
+
+        using (UnityWebRequest request = UnityWebRequest.Put(url, jsonData))
+        {
+            request.method = UnityWebRequest.kHttpVerbPOST;
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Accept", "application/json");
+            Debug.Log(jsonData);
+            yield return request.SendWebRequest();
+
+            if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
+            {
+                Debug.Log("Data successfully sent to the leaderboard server");
+
+            }
+            else
+            {
+                Debug.Log("Error sending data to the leaderboard server: Error " + request.responseCode);
             }
         }
     }
