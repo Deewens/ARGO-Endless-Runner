@@ -61,7 +61,7 @@ public class Score : NetworkBehaviour
         _comboCanvas = GameObject.Find("ComboCanvas");
         _bonusPointsCanvas = GameObject.Find("BonusPointsCanvas");
         _scoreCanvas = GameObject.Find("ScoreCanvas");
-        
+
         // Deactivate every UI by default if you're not the local player
         _comboCanvas.SetActive(false);
         _bonusPointsCanvas.SetActive(false);
@@ -156,6 +156,11 @@ public class Score : NetworkBehaviour
         CheckDistanceBonusPoints();
         CheckSpeedBonusPoints();
         CheckTimeAliveBonusPoints();
+    }
+
+    public int GetScore()
+    {
+        return _totalScore;
     }
 
     private void CheckSpeedBonusPoints()
