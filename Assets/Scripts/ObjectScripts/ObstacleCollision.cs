@@ -105,8 +105,8 @@ public class ObstacleCollision : MonoBehaviour
     /// </summary>
     public void setupRule()
     {
-        rule.currentLane = ai_Brain.previousLane;
-        rule.nextLane = ai_Brain.currentLane;
+        rule.currentLane = ai_Brain.PreviousLane;
+        rule.nextLane = ai_Brain.CurrentLane;
         rule.obstacleTag = "Inpenetrable";
         switch (transform.position.x)
         {
@@ -122,6 +122,6 @@ public class ObstacleCollision : MonoBehaviour
         }
 
         rule.obstacleLane = izzysWay;
-        ai_Brain.previousLane = ai_Brain.currentLane;
+        ai_Brain.PreviousLane = ai_Brain.CurrentLane;
     }
 }
