@@ -28,7 +28,7 @@ public class JumpGodAttack : GodAttack
     private void Start()
     {
         attackType = GodAttackType.Jump;
-        jumpAttack = Resources.Load("God Jump Attack") as GameObject;
+        jumpAttack = Resources.Load("JumpAttackObstacle") as GameObject;
     }
 
     /// <summary>

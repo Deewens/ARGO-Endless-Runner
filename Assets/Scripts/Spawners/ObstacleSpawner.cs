@@ -90,9 +90,9 @@ public class ObstacleSpawner : MonoBehaviour
                 NetworkServer.Spawn(obstacle);
                 ObstaclesPlaced += 1;
             }
-            else if(randomNumber == 2)
+            else if(randomNumber == 2) // slide obstacle
             {
-                GameObject obstacle = Instantiate(_obstacleHighPrefab, new Vector3(0, 2, newPos.z), Quaternion.identity);
+                GameObject obstacle = Instantiate(_obstacleHighPrefab, new Vector3(-3.5f, 0, newPos.z), Quaternion.identity);
                 NetworkServer.Spawn(obstacle);
                 ObstaclesPlaced += 1;
             }

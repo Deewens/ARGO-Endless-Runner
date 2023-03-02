@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 344522506847329658}
   m_Layer: 8
   m_Name: AttackArea
-  m_TagString: Inpenetrable
+  m_TagString: AI_Inpenetrable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 524009870846021597}
   m_Layer: 8
   m_Name: TridentAttack
-  m_TagString: Inpenetrable
+  m_TagString: AI_Inpenetrable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 11.03, z: 1}
-  m_Center: {x: -0.32, y: 2.47, z: -0.7}
+  m_Center: {x: -0.32, y: 2.47, z: 0}
 --- !u!114 &6996552793636023484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5005,7 +5005,7 @@ GameObject:
   - component: {fileID: 344522507906438012}
   m_Layer: 8
   m_Name: Trident
-  m_TagString: Untagged
+  m_TagString: AI_Inpenetrable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5018,9 +5018,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344522507906438013}
   m_LocalRotation: {x: -0, y: -0, z: -0.95105654, w: 0.30901697}
-  m_LocalPosition: {x: -0.27454686, y: -1.5508406, z: -0.000028014183}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.27454686, y: 0.01, z: -0.000028014183}
+  m_LocalScale: {x: 1.79, y: 1.79, z: 1.79}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 344522506933938202}
   m_RootOrder: 1
@@ -5071,7 +5071,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 64, y: 64}
+  m_Size: {x: 3.4133334, y: 3.4133334}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5090,7 +5090,7 @@ GameObject:
   - component: {fileID: 1001972392419037187}
   m_Layer: 8
   m_Name: AttackArea (2)
-  m_TagString: Inpenetrable
+  m_TagString: AI_Inpenetrable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5173,7 +5173,7 @@ GameObject:
   - component: {fileID: 1001972392512796022}
   m_Layer: 8
   m_Name: AttackArea (1)
-  m_TagString: Inpenetrable
+  m_TagString: AI_Inpenetrable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5256,7 +5256,7 @@ GameObject:
   - component: {fileID: 1001972393909533211}
   m_Layer: 8
   m_Name: AttackArea (3)
-  m_TagString: Inpenetrable
+  m_TagString: AI_Inpenetrable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5339,7 +5339,7 @@ GameObject:
   - component: {fileID: 1001972393965976097}
   m_Layer: 8
   m_Name: AttackArea (4)
-  m_TagString: Inpenetrable
+  m_TagString: AI_Inpenetrable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
