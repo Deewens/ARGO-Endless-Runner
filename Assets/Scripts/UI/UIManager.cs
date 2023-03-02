@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
     [Server]
     private void OnRestartGameRequest(NetworkConnectionToClient conn, RestartGameMessage msg)
     {
-        if (ArgoNetworkManager.singleton.GameMode == NetworkGameMode.SinglePlayer)
+        /*if (ArgoNetworkManager.singleton.GameMode == NetworkGameMode.SinglePlayer)
         {
 
             var spawnedPlayers = ArgoNetworkManager.singleton.SpawnedPlayers.ToList();
@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour
 
             var mainScene = NetworkManager.singleton.onlineScene;
             ArgoNetworkManager.singleton.ServerChangeScene(mainScene);
-        }
+        }*/
     }
 
     /// <summary>

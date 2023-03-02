@@ -48,7 +48,7 @@ namespace Mirror
         public virtual void OnClientAuthenticate() {}
 
         protected void ClientAccept()
-        {
+        {   
             OnClientAuthenticated.Invoke();
         }
 

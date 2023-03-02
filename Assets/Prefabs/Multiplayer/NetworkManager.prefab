@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3685801276173538489}
   - component: {fileID: 2991765555192271063}
   - component: {fileID: 3685801276173538492}
+  - component: {fileID: 7601013743115847372}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -50,12 +51,12 @@ MonoBehaviour:
   autoStartServerBuild: 1
   autoConnectClientBuild: 0
   sendRate: 30
-  offlineScene: Assets/Scenes/MainMenu.unity
+  offlineScene: Assets/Scenes/PlayMenu.unity
   onlineScene: Assets/Scenes/MainScene.unity
   transport: {fileID: 3685801276173538492}
   networkAddress: localhost
   maxConnections: 3
-  authenticator: {fileID: 0}
+  authenticator: {fileID: 7601013743115847372}
   playerPrefab: {fileID: 0}
   autoCreatePlayer: 0
   playerSpawnMethod: 0
@@ -103,3 +104,21 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
+--- !u!114 &7601013743115847372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685801276173538488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c76a52b845fb5b46b9c2f6325a00fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnServerAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []

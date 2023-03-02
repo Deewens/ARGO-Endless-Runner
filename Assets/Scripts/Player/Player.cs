@@ -18,10 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
 public class Player : NetworkBehaviour
 {
     [field: SerializeField] public PlayerType PlayerType { get; private set; }
+    public bool IsAI { get; set; } = false;
 }

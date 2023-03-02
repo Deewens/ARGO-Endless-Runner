@@ -107,7 +107,6 @@ public class PickupController : MonoBehaviour
                 }
                 Vector3 newPos = _runner.position + _offset;
 
-                //Debug.Log(chosenPickUp);
                 if (!transform.GetChild(chosenPickUp).gameObject.activeInHierarchy)
                 {
                     transform.GetChild(chosenPickUp).transform.localPosition = new Vector3(randX, 2, newPos.z);
