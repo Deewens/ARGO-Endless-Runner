@@ -19,7 +19,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+/// <summary>
+/// Deals with randomising and completing runner goals
+/// </summary>
 public class GoalController : MonoBehaviour
 {
 
@@ -61,7 +63,6 @@ public class GoalController : MonoBehaviour
     private bool _collectMaxHealthPotions = false;
     private bool _collectCoins = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         _goalText = GameObject.Find("Goal").GetComponent<TextMeshProUGUI>();
@@ -75,7 +76,6 @@ public class GoalController : MonoBehaviour
         ChooseGoal();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (_runner == null)
@@ -164,6 +164,9 @@ public class GoalController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Resets all bools for goals
+    /// </summary>
     private void ResetGoals()
     {
         _collectApples = false;
@@ -174,7 +177,9 @@ public class GoalController : MonoBehaviour
         _collectCoins = false;
     }
 
-
+    /// <summary>
+    /// Turns on appropriate bool based on chosen goals
+    /// </summary>
     private void ChooseGoal()
     {
         switch (_chosenGoal)
