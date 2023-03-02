@@ -407,10 +407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a8ae17570267e4599b6fe830744f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSlideTime: 1
-  slideForce: 0
-  slideYScale: 0.3
-  slideZScale: 1
+  MaxSlideTime: 1
+  SlideForce: 0
+  SlideYScale: 0.3
+  SlideZScale: 1
   AIObj: {fileID: 2787079065683197256}
 --- !u!114 &2123888526971081566
 MonoBehaviour:
