@@ -29,7 +29,7 @@ public class LeaderboardUI : MonoBehaviour
     {
         _leaderboard = new Leaderboard();
         var data = _leaderboard.FetchLeaderboardData();
-
+        StartCoroutine(_leaderboard.GetData());
         foreach (var value in data)
         {
             AddRow(value);

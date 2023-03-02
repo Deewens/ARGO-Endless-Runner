@@ -16,19 +16,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
+using UnityEngine.Networking;
 
 /// <summary>
 /// Take care of fetching and converting data from Anvil to LeaderboardData.
 /// </summary>
-public class Leaderboard
+public class Leaderboard : MonoBehaviour
 {
     private readonly List<LeaderboardData> _fakeDatabase = new();
 
     public Leaderboard()
     {
         // TODO: To be replaced with a real database. To be replaced with real data fetched from anvil.
-        FillFakeDatabase();
+        //FetchLeaderboardData();
+       // FillFakeDatabase();
     }
 
     /// <summary>
@@ -38,7 +44,29 @@ public class Leaderboard
     /// <returns>The data from anvil stored as LeaderboardData struct.</returns>
     public List<LeaderboardData> FetchLeaderboardData()
     {
+
         return _fakeDatabase;
+    }
+
+    public IEnumerator GetData()
+    {
+        string url = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/getleaderboard";
+
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+        
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            UnityEngine.Debug.Log(www.error);
+        }
+        else
+        {
+            // Show results as text
+            UnityEngine.Debug.Log(www.downloadHandler.text);
+
+            // Or retrieve results as binary data
+            byte[] results = www.downloadHandler.data;
+        }
     }
 
     /// <summary>
