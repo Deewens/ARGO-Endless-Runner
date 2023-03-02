@@ -65,7 +65,6 @@ public class CollectibleController : MonoBehaviour
 
         else if (other.tag == "Runner")
         {
-            //Debug.Log("PlayerCollision");
             if (gameObject.transform.tag == "SpeedUp")
             {
                 GameObject.Find("PickupController").GetComponent<PickupController>().SpeedUp();
