@@ -561,15 +561,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5126554548242837500}
     m_Modifications:
+    - target: {fileID: 4571814650862940922, guid: b462f37e8b6800846b3f81ec513e246a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572315159762007768, guid: b462f37e8b6800846b3f81ec513e246a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572476744296264058, guid: b462f37e8b6800846b3f81ec513e246a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572678622085326576, guid: b462f37e8b6800846b3f81ec513e246a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4572696946790908298, guid: b462f37e8b6800846b3f81ec513e246a,
         type: 3}
       propertyPath: m_Name
-      value: Chr_Adventure_Peasant_01
+      value: PlayerCharacter
       objectReference: {fileID: 0}
     - target: {fileID: 4572696946790908298, guid: b462f37e8b6800846b3f81ec513e246a,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572700016969555730, guid: b462f37e8b6800846b3f81ec513e246a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572987074696631914, guid: b462f37e8b6800846b3f81ec513e246a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573239250392998074, guid: b462f37e8b6800846b3f81ec513e246a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4575230835211442074, guid: b462f37e8b6800846b3f81ec513e246a,
         type: 3}

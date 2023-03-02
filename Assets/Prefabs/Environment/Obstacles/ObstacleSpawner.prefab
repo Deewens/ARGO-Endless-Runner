@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde1d51ca28c23b408485d11a74a77e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obstacleWidePrefab: {fileID: 2095361754395054288, guid: 4a66c3625678f65499e2b6a209bc9c9c,
+  _obstacleWidePrefab: {fileID: 1087981985605317977, guid: 2be7c42ffebd68248852107bdf59cfce,
     type: 3}
   _obstacleHighPrefab: {fileID: 6901037333560088150, guid: 16994822081597f41b64ae268f6f6d3f,
     type: 3}
-  _obstacleSmallPrefab: {fileID: 344522506933938203, guid: 2184e85c5ae269d49b2e7bee49fbf484,
+  _obstacleSmallPrefab: {fileID: 1087981985605317977, guid: f58f019e33501154fa01de0f0c56d050,
     type: 3}
   ObstaclesPlaced: 0

@@ -38,7 +38,9 @@ public class ObstacleSpawner : MonoBehaviour
     
     private Transform _runner;
     private bool _isRunnerSet = false;
-    
+
+    private Quaternion _rotation = Quaternion.Euler(0f, 0f, 90f);
+
     public Transform Runner
     {
         [Server]    
@@ -84,7 +86,7 @@ public class ObstacleSpawner : MonoBehaviour
                 else if (randomXPos == 3)
                     randomXPos = 0;
                 
-                GameObject obstacle = Instantiate(_obstacleSmallPrefab, new Vector3(randomXPos,3.5f,newPos.z), Quaternion.identity);
+                GameObject obstacle = Instantiate(_obstacleSmallPrefab, new Vector3(randomXPos,0f,newPos.z), Quaternion.identity);
                 NetworkServer.Spawn(obstacle);
                 ObstaclesPlaced += 1;
             }
@@ -96,7 +98,7 @@ public class ObstacleSpawner : MonoBehaviour
             }
             else if(randomNumber == 3)
             {
-                GameObject obstacle = Instantiate(_obstacleWidePrefab, new Vector3(0, 1, newPos.z), Quaternion.identity);
+                GameObject obstacle = Instantiate(_obstacleWidePrefab, new Vector3(4, 1, newPos.z), _rotation);
                 NetworkServer.Spawn(obstacle);
                 ObstaclesPlaced += 1;
             }
