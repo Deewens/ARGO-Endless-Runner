@@ -37,6 +37,7 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject leaderboardPanel;
+    [SerializeField] private GameObject _roleSelectionCanvas;
 
     /// <summary>
     /// Upon clicking, opens rating form in browser
@@ -59,12 +60,9 @@ public class MenuManager : MonoBehaviour
     /// <summary>
     /// Start game server as host in single player mode
     /// </summary>
-    public void LoadSinglePlayerScene()
+    public void OnSinglePlayerBtnClick()
     {
-        ArgoNetworkManager.singleton.maxConnections = 1;
-        ArgoNetworkManager.singleton.GameMode = NetworkGameMode.SinglePlayer;
-        
-        ArgoNetworkManager.singleton.StartHost();
+        _roleSelectionCanvas.SetActive(true);
     }
     
     public void LoadMultiplayerMenuScene()
