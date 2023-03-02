@@ -35,8 +35,7 @@ public class AIBrain : MonoBehaviour
     [Header("AI_Sliding")]
     /// Maximum slide time 
     public float MaxSlideTime = 1.0f;
-    /// How much force is applied to gameobject when sliding  
-    public float SlideForce;
+
     /// Timer to check how long the gameobject is sliding for before going back to running 
     private float SlideTimer;
 
