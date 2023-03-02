@@ -28,13 +28,15 @@ using UnityEngine.Networking;
 /// </summary>
 public class Leaderboard : MonoBehaviour
 {
-    private readonly List<LeaderboardData> _fakeDatabase = new();
+    private readonly List<LeaderboardData> _database = new List<LeaderboardData>(22);
+    private List<String> _usernames = new List<String>(22);
+    private List<String> _scores = new List<String>(22);
 
     public Leaderboard()
     {
         // TODO: To be replaced with a real database. To be replaced with real data fetched from anvil.
         //FetchLeaderboardData();
-       // FillFakeDatabase();
+       //FillDatabase();
     }
 
     /// <summary>
@@ -44,8 +46,7 @@ public class Leaderboard : MonoBehaviour
     /// <returns>The data from anvil stored as LeaderboardData struct.</returns>
     public List<LeaderboardData> FetchLeaderboardData()
     {
-
-        return _fakeDatabase;
+        return _database;
     }
 
     public IEnumerator GetData()
@@ -63,9 +64,98 @@ public class Leaderboard : MonoBehaviour
         {
             // Show results as text
             UnityEngine.Debug.Log(www.downloadHandler.text);
-
+            String tempData = www.downloadHandler.text;
+            tempData += ",";
+            ParseUsernames(tempData);
+            ParseScores(tempData);
+            FillDatabase();
             // Or retrieve results as binary data
             byte[] results = www.downloadHandler.data;
+        }
+    }
+
+    private void ParseScores(String TextData)
+    {
+        string score = "";
+        bool firstComma = false;
+        bool dontAdd = true;
+
+        for (int i = 0; i < TextData.Length; i++)
+        {
+            char temp = TextData[i];
+            if (temp == ']')
+            {
+                continue;
+            }
+            if (temp == ',')
+            {
+                if (firstComma == false)
+                {
+                    firstComma = true;
+
+                }
+                else
+                {
+                    firstComma = false;
+                    _scores.Add(score);
+                    score = "";
+                    dontAdd = true;
+                }
+            }
+            if (firstComma == true)
+            {
+                if (dontAdd == false)
+                {
+                    score += temp;
+                }
+                dontAdd = false;
+            }
+        }
+    }
+
+    private void ParseUsernames(String TextData)
+    {
+        string name = "";
+        bool firstComma = false;
+        bool dontAdd = true;
+
+        for(int i = 0; i < TextData.Length; i++)
+        {
+            char temp = TextData[i];
+            if (temp == '\"')
+            {
+                if(firstComma == false)
+                {
+                    firstComma = true;
+                }
+                else
+                {
+                    firstComma = false;
+                    _usernames.Add(name);
+                    name = "";
+                    dontAdd = true;
+                }
+            }
+            if (firstComma == true)
+            {
+                if (dontAdd == false)
+                {
+                    name += temp;
+                }
+                dontAdd = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Fills the fake database with fake data.
+    /// To be replaced with real data fetched from anvil.
+    /// </summary>
+    private void FillDatabase()
+    {
+        for(int i = 0; i < _usernames.Count; i++)
+        {
+            _database.Add(new LeaderboardData(i+1, _usernames[i], _scores[i], 0));
         }
     }
 
@@ -75,27 +165,27 @@ public class Leaderboard : MonoBehaviour
     /// </summary>
     private void FillFakeDatabase()
     {
-        _fakeDatabase.Add(new LeaderboardData(1, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(2, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(3, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(4, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(5, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(6, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(7, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(8, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(9, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(10, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(11, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(12, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(13, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(14, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(15, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(16, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(17, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(18, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(19, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(20, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(21, "Deewens", 100, 150));
-        _fakeDatabase.Add(new LeaderboardData(22, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(1, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(2, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(3, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(4, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(5, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(6, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(7, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(8, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(9, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(10, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(11, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(12, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(13, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(14, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(15, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(16, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(17, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(18, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(19, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(20, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(21, "Deewens", 100, 150));
+        //_fakeDatabase.Add(new LeaderboardData(22, "Deewens", 100, 150));
     }
 }
