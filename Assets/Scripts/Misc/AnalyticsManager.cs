@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System.Collections;
 using System.Net;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -60,6 +61,8 @@ public class AnalyticsManager : MonoBehaviour
         set => _god = value;
     }
 
+    private static string _userID;
+
     private double _startTime;
     private double _endTime;
     private double _playTime;
@@ -83,6 +86,14 @@ public class AnalyticsManager : MonoBehaviour
         _runnerData.playerID = Random.Range(1, 100000000);
         _zeusData.playerID = Random.Range(1, 100000000);
         _poseidonData.playerID = Random.Range(1, 100000000);
+        if (GameObject.Find("PlayerUserName") != null)
+        {
+            _userID = GameObject.Find("PlayerUserName").GetComponent<TextMeshProUGUI>().text;
+        }
+        else
+        {
+            _userID = "None";
+        }
     }
 
     /// <summary>
@@ -90,13 +101,15 @@ public class AnalyticsManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+  
+
         if (_runner == null)
             return;
 
         if (!_dataSent && _runner.transform.GetChild(0).gameObject.activeSelf == false)
         {
-            _dataSent = true;
-            sendData();
+                _dataSent = true;
+                sendData();
         }
     }
 
@@ -107,7 +120,7 @@ public class AnalyticsManager : MonoBehaviour
     {
         _endTime = System.DateTimeOffset.Now.ToUnixTimeSeconds();
         _playTime = _endTime - _startTime;
-        Debug.Log("Sending Data");
+       // Debug.Log("Sending Data");
 
         if (_runner.CompareTag("Runner"))
         {
@@ -124,12 +137,15 @@ public class AnalyticsManager : MonoBehaviour
 
             string jsonData = JsonUtility.ToJson(_runnerData);
             StartCoroutine(PostMethod(jsonData));
-
-            _leaderboardData.username = "temp";
-            _leaderboardData.score = _runnerData.score;
-            Debug.Log("Score" + _leaderboardData.score);
-            string jsonData2 = JsonUtility.ToJson(_leaderboardData);
-            StartCoroutine(PostMethodLeaderBoard(jsonData2));
+            //Debug.Log(_userID);
+            if (_userID != "None" || _userID == null)
+            {
+                _leaderboardData.username = _userID;
+                _leaderboardData.score = _runnerData.score;
+                Debug.Log("Score" + _leaderboardData.score);
+                string jsonData2 = JsonUtility.ToJson(_leaderboardData);
+                StartCoroutine(PostMethodLeaderBoard(jsonData2));
+            }
 
         }
         if (_god.CompareTag("God"))
@@ -185,7 +201,7 @@ public class AnalyticsManager : MonoBehaviour
             request.method = UnityWebRequest.kHttpVerbPOST;
             request.SetRequestHeader("Content-Type", "application/json");
             request.SetRequestHeader("Accept", "application/json");
-            Debug.Log(jsonData);
+            //Debug.Log(jsonData);
             yield return request.SendWebRequest();
 
             if (!request.isNetworkError && request.responseCode == (int)HttpStatusCode.OK)
