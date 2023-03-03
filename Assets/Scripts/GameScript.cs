@@ -35,10 +35,10 @@ public class GameScript : MonoBehaviour
     private GameObject _obstacleSpawner;
 
     [SerializeField]
-    private GameObject pickUpController;/// The god players in the scene.
+    private GameObject pickUpController;
 
     [SerializeField]
-    private GameObject goalController;/// The god players in the scene.
+    private GameObject goalController;
 
     [SerializeField]
     private GameObject[] _gods;

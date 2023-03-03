@@ -25,12 +25,18 @@ using UnityEngine.Networking;
 using UnityEngine.Serialization;
 using TMPro;
 
+/// <summary>
+/// Data needed to validate a login
+/// </summary>
 public class LoginData
 {
     public string username= " ";
     public string password = " ";
 }
 
+/// <summary>
+/// Class that allows the user to register a username and login to the game
+/// </summary>
 public class RegisterLoginManagement : MonoBehaviour
 {
     private readonly LoginData _loginData = new LoginData();
@@ -110,6 +116,9 @@ public class RegisterLoginManagement : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Clears the input fields on the registration menu
+    /// </summary>
     public void clearFields()
     {
         usernameInput.text = "";
@@ -118,6 +127,9 @@ public class RegisterLoginManagement : MonoBehaviour
         _validUsername = false;
     }
 
+    /// <summary>
+    /// Goes to the main menu
+    /// </summary>
     public void GoToMainMenu()
     {
         //Debug.Log("Turn me off");
@@ -125,6 +137,9 @@ public class RegisterLoginManagement : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Toggles the password text between censored and uncensored
+    /// </summary>
     public void CensorText()
     {
        // Debug.Log("Function Called");
@@ -142,6 +157,9 @@ public class RegisterLoginManagement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Removes spaces in a username and password
+    /// </summary>
     public void RemoveSpaces()
     {
         //Debug.Log("With Spaces : " + usernameInput.text);
@@ -152,6 +170,9 @@ public class RegisterLoginManagement : MonoBehaviour
         //Debug.Log("Without Spaces : " + passwordInput.text);
     }
 
+    /// <summary>
+    /// Checks if the username and password was of a valid length to start logging in
+    /// </summary>
     public void Login()
     {
         Debug.Log("getting Data");
@@ -172,6 +193,13 @@ public class RegisterLoginManagement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sends data to the anvil server to verify the username and password entered.
+    /// Logs the user in if the credentials were successful
+    /// Prompts them to try again if not
+    /// </summary>
+    /// <param name="jsonData"></param>
+    /// <returns></returns>
     public IEnumerator LogInAccount(string jsonData)
     {
         //Debug.Log("Made It this far");
@@ -219,6 +247,11 @@ public class RegisterLoginManagement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if the username and password was of a valid length, 
+    /// between 6 and 10 letters
+    /// before sending it to the anvil server to register the details
+    /// </summary>
     public void RegisterData()
     {
         //Debug.Log("getting Data");
@@ -239,6 +272,14 @@ public class RegisterLoginManagement : MonoBehaviour
         // StartCoroutine(GetUsername());
     }
 
+    /// <summary>
+    /// Sends the username and password data to the anvil server.
+    /// Checks if the username has been taken.
+    /// If not the users details are registered successfully.
+    /// If taken a pop up prompts the user to try again
+    /// </summary>
+    /// <param name="jsonData"></param>
+    /// <returns></returns>
     public IEnumerator RegisterUsername(string jsonData)
     {
         string url = _urlGameServer + _pathCheckUserName;
@@ -305,11 +346,17 @@ public class RegisterLoginManagement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the login screen to active, making it visible to the player
+    /// </summary>
     public void ActivateLogInScreen()
     {
         gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Closes the pop ups that display errors and prompts to the user.
+    /// </summary>
     public void ClosePopUp()
     {
         _popUpSuccessfulRegistrationButton.SetActive(false);

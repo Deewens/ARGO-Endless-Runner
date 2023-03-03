@@ -21,6 +21,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using Mirror;
 using UnityEngine;
 
+/// <summary>
+/// Ensures the background is constantly moving away from the player,
+/// kept at a constant distance from the player
+/// </summary>
 public class BGScroller : NetworkBehaviour
 {
     private Transform _runner;

@@ -51,10 +51,19 @@ public class Scroll : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the scroll speed
+    /// </summary>
+    /// <param name="t_speed"></param>
     public void SetSpeed(float t_speed)
     {
         speed = t_speed;
     }
+
+    /// <summary>
+    /// Sets the position
+    /// </summary>
+    /// <param name="t_position"></param>
     public void SetPosition(float t_position)
     {
         transform.position = new Vector3(t_position, transform.position.y, transform.position.z); 

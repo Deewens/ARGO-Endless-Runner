@@ -23,6 +23,9 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Class that updates and manages the player's scores
+/// </summary>
 public class Score : NetworkBehaviour
 {
     private TextMeshProUGUI _comboText;
@@ -52,11 +55,6 @@ public class Score : NetworkBehaviour
     private int _totalScore;
 
     private MoveForward _moveForwardScript;
-
-    public int GetScore()
-    {
-        return _totalScore;
-    }
 
     private void Awake()
     {
@@ -163,6 +161,10 @@ public class Score : NetworkBehaviour
         CheckTimeAliveBonusPoints(_moveForwardScript.GetPlayTime());
     }
 
+    /// <summary>
+    /// Checks if the player has earned any bonus points based on the speed levels they have reached
+    /// </summary>
+    /// <param name="Speed"></param>
     public void CheckSpeedBonusPoints(int Speed)
     {
         if (CheckIfSpeedChanged(Speed))
@@ -239,6 +241,10 @@ public class Score : NetworkBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Checks if the player has earned bonus points based on how long they have survived their run
+    /// </summary>
+    /// <param name="PlayTime"></param>
     public void CheckTimeAliveBonusPoints(int PlayTime)
     {
         if (CheckIfPlayTimeChanged(PlayTime))
@@ -268,6 +274,9 @@ public class Score : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Resets the popup for bonus points
+    /// </summary>
     private void ResetPopUp()
     {
         _popUpTimeRemaining = 0;
@@ -281,11 +290,18 @@ public class Score : NetworkBehaviour
         _goalComplete = false;
     }
 
+    /// <summary>
+    /// Gets and returns the players current combo
+    /// </summary>
+    /// <returns></returns>
     public int GetCurrentCombo()
     {
         return _currentCombo;
     }
 
+    /// <summary>
+    /// Resets the players combo to 0
+    /// </summary>
     public void ResetCombo()
     {
         _currentCombo = 0;
@@ -296,12 +312,20 @@ public class Score : NetworkBehaviour
         _comboCanvas.SetActive(false);
     }
 
+    /// <summary>
+    /// Adds points for any bonus missions the player has achieved to their total score
+    /// </summary>
+    /// <param name="multiplier"></param>
     private void AddMissionPoints(int multiplier)
     {
         _totalScore += _baseIncrease * multiplier;
         SetBonusPointsText(_baseIncrease * multiplier);
     }
 
+    /// <summary>
+    /// Adds any combo points the player has earned on an active combo to the players score
+    /// </summary>
+    /// <param name="collectiblePoints"></param>
     public void AddComboPoints(int collectiblePoints)
     {
         if (!isLocalPlayer)
@@ -327,6 +351,10 @@ public class Score : NetworkBehaviour
         _scoreText.text = "" + _totalScore + "";
     }
 
+    /// <summary>
+    /// Adds points for any pick up goal achievements to the players total score
+    /// </summary>
+    /// <param name="GoalPoints"></param>
     public void AddGoalPoints(int GoalPoints)
     {
         _goalComplete = true;
@@ -340,29 +368,47 @@ public class Score : NetworkBehaviour
         SetBonusPointsText(GoalPoints);
     }
 
+    /// <summary>
+    /// Sets the combo timer to determine how long a combo streak will be active
+    /// </summary>
     private void SetComboTimer()
     {
         _comboTimeRemaining = 3.0f;
         _timerIsRunning = true;
     }
 
+    /// <summary>
+    /// Gets and returns wheter the combo timer is running or not
+    /// </summary>
+    /// <returns></returns>
     public bool GetComboTimer()
     {
         return _timerIsRunning;
     }
 
+    /// <summary>
+    /// Sets the text of the combo canvas to display the players combo
+    /// </summary>
+    /// <param name="currentCombo"></param>
     private void SetComboText(int currentCombo)
     {
         _comboCanvas.SetActive(true);
         _comboText.text = "COMBO X " + currentCombo + " : " + _totalComboPointsSoFar + " Points";
     }
 
+    /// <summary>
+    /// Sets how long the bonus points pop up will be displayed
+    /// </summary>
     private void SetPopUpTimer()
     {
         _popUpTimeRemaining = 3.0f;
         _popUpTimerIsRunning = true;
     }
 
+    /// <summary>
+    /// Sets the pop up text for any bonus points earned
+    /// </summary>
+    /// <param name="bonusPoints"></param>
     private void SetBonusPointsText(int bonusPoints)
     {
         _totalBonusPointsSoFar += bonusPoints;
@@ -393,6 +439,10 @@ public class Score : NetworkBehaviour
         _scoreText.text = "" + _totalScore + "";
     }
 
+    /// <summary>
+    /// Checks if player has earned bonus points based on the distance travelled
+    /// </summary>
+    /// <param name="DistanceTravelled"></param>
     public void CheckDistanceBonusPoints(int DistanceTravelled)
     {
         if (CheckIfDistanceTravelledChanged(DistanceTravelled))
@@ -422,8 +472,20 @@ public class Score : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Resets the Players score to zero
+    /// </summary>
     public void ResetScore()
     {
         _totalScore = 0;
+    }
+
+    /// <summary>
+    /// Gets and returns the players score
+    /// </summary>
+    /// <returns></returns>
+    public int GetScore()
+    {
+        return _totalScore;
     }
 }
