@@ -35,6 +35,7 @@ public class GoalController : MonoBehaviour
         }
     }
 
+    private int _goalMultiplier = 100;
 
     private List<int> _noToCollect = new List<int>();
 
@@ -90,7 +91,7 @@ public class GoalController : MonoBehaviour
             {
                 _appleCount = 0;
                 _goalComplete = true;
-                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal *100);
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * _goalMultiplier);
             }
         }
         else if (_collectPoms)
@@ -100,7 +101,7 @@ public class GoalController : MonoBehaviour
             {
                 _pomCount = 0;
                 _goalComplete = true;
-                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * _goalMultiplier);
             }
         }
         else if (_collectSpeedUpPotions)
@@ -110,7 +111,7 @@ public class GoalController : MonoBehaviour
             {
                 _speedUpCount = 0;
                 _goalComplete = true;
-                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * _goalMultiplier);
             }
         }
         else if (_collectSpeedDownPotions)
@@ -121,7 +122,7 @@ public class GoalController : MonoBehaviour
             {
                 _speedDownCount = 0;
                 _goalComplete = true;
-                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * _goalMultiplier);
             }
         }
         else if (_collectMaxHealthPotions)
@@ -132,7 +133,7 @@ public class GoalController : MonoBehaviour
             {
                 _maxHealthCount = 0;
                 _goalComplete = true;
-                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * _goalMultiplier);
             }
         }
         else if (_collectCoins)
@@ -143,7 +144,7 @@ public class GoalController : MonoBehaviour
             {
                 _coinCount = 0;
                 _goalComplete = true;
-                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * 100);
+                _runnerScoreScript.AddGoalPoints(_currentCollectionGoal * _goalMultiplier);
             }
         }
 
@@ -257,5 +258,50 @@ public class GoalController : MonoBehaviour
         {
             _leftToCollect--;
         }
+    }
+
+    public int GetCurrentCollectionGoal()
+    {
+        return _currentCollectionGoal;
+    }
+
+    public bool isAppleGoal()
+    {
+        if (_collectApples) { return _collectApples; }
+        return false;
+    }
+    public bool isPomGoal()
+    {
+        if (_collectPoms) { return _collectPoms; }
+        return false;
+    }
+
+    public bool isCoinGoal()
+    {
+        if (_collectCoins) { return _collectCoins; }
+        return false;
+    }
+
+    public bool isMaxHealthGoal()
+    {
+        if (_collectMaxHealthPotions) { return _collectMaxHealthPotions; }
+        return false;
+    }
+
+    public bool isSpeedDownGoal()
+    {
+        if (_collectSpeedDownPotions) { return _collectSpeedDownPotions; }
+        return false;
+    }
+
+    public bool isSpeedUpGoal()
+    {
+        if (_collectSpeedUpPotions) { return _collectSpeedUpPotions; }
+        return false;
+    }
+
+    public int GetGoalMultiplier()
+    {
+        return _goalMultiplier;
     }
 }
