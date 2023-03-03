@@ -109,6 +109,10 @@ public class CollectibleController : MonoBehaviour
             }
             gameObject.SetActive(false);
         }
+    }
 
+    public int GetPointsForPickUps()
+    {
+        return _pointsForPickUp;
     }
 }

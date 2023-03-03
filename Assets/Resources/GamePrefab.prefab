@@ -283,6 +283,7 @@ MonoBehaviour:
   runner: {fileID: 8192850146413396301}
   obstacleSpawner: {fileID: 6733981501285317021}
   pickUpController: {fileID: 4502714621476297735}
+  goalController: {fileID: 4502714621476297735}
   gods:
   - {fileID: 1357532481579060476}
 --- !u!1 &4394544597606187796

@@ -35,9 +35,11 @@ public class GameScript : MonoBehaviour
     private GameObject obstacleSpawner;
 
     [SerializeField]
-    private GameObject pickUpController;
+    private GameObject pickUpController;/// The god players in the scene.
 
-    /// The god players in the scene.
+    [SerializeField]
+    private GameObject goalController;/// The god players in the scene.
+
     [SerializeField]
     private GameObject[] gods;
 
@@ -94,6 +96,15 @@ public class GameScript : MonoBehaviour
     public PickupController GetPickupController()
     {
         return pickUpController.GetComponent<PickupController>();
+    }
+
+    /// <summary>
+    /// Gets the pickup controller script from the object.
+    /// </summary>
+    /// <returns>The instance of the obstacle spawner script.</returns>
+    public GoalController GetGoalController()
+    {
+        return goalController.GetComponent<GoalController>();
     }
 
     /// <summary>
