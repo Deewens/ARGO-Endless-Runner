@@ -208,4 +208,40 @@ public class RunnerTests : BaseTest
 
         Assert.IsTrue(prevSpeed > moveF.TestGetSpeed());
     }
+
+    [UnityTest]
+    public IEnumerator BoundaryCheck()
+    {
+        int oldX = 2;
+        RunnerPlayer runner = game.GetRunner();
+
+        // Check the right boundary
+        runner.TestChangePos(3, oldX);
+
+        runner.SwipeStart(new Vector2(0, 0), 1);
+
+        yield return null;
+
+        runner.SwipeEnd(new Vector2(10, 0), 1);
+
+        yield return new WaitForSeconds(1);
+
+        float x = Mathf.Round(runner.transform.position.x);
+        Assert.IsTrue(oldX == Mathf.Round(runner.transform.position.x));
+
+        // Check the left boundary
+        oldX = -2;
+        runner.TestChangePos(1, oldX);
+        
+        runner.SwipeStart(new Vector2(0, 0), 1);
+
+        yield return null;
+
+        runner.SwipeEnd(new Vector2(-10, 0), 1);
+
+        yield return new WaitForSeconds(1);
+
+        x = Mathf.Round(runner.transform.position.x);
+        Assert.IsTrue(oldX == Mathf.Round(runner.transform.position.x));
+    }
 }
