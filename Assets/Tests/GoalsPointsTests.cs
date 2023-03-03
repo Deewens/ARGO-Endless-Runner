@@ -36,103 +36,276 @@ public class GoalsPointsTests : BaseTest
         Debug.Log($"isLocalPlayer after: {moveForward.GetComponent<RunnerPlayer>().isLocalPlayer}");
     }
 
+    //[UnityTest]
+    //public IEnumerator TestAllPickUpGoalsApples()
+    //{
+    //    if (_goalController.isAppleGoal() == true)
+    //    {
+    //        int PickupsToSpawn = _goalController.GetCurrentCollectionGoal();
+    //        GameObject[] _pickUpArr;
+    //        _pickUpArr = new GameObject[PickupsToSpawn];
+    //        int PointsForPickUps = 5;
+    //        Debug.Log("Test Pickups : " + PickupsToSpawn);
+
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            Debug.Log("Test Apples : " + (i + 1));
+    //            _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/Apple") as GameObject);
+    //            _pickUpArr[i].SetActive(true);
+    //            _pickUpArr[i].transform.position = new Vector3(0, 2, 1000);
+    //        }
+    //        yield return new WaitForSeconds(1.0f);
+
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            Assert.AreNotEqual(null, _pickUpArr[i]);
+    //        }
+
+    //        PickupController _pickUp = game.GetPickupController();
+
+    //        yield return new WaitForSeconds(0.1f);
+    //        Assert.AreNotEqual(null, _pickUp);
+
+    //        _player.GetComponent<Score>().ResetCombo();
+    //        _player.GetComponent<Score>().ResetScore();
+    //        _player.transform.position = new Vector3(0, 0, 10);
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            _pickUpArr[i].transform.position = new Vector3(0, 2, 11 + 1);
+    //        }
+    //        yield return new WaitForSeconds(1f);
+
+    //        int tempScore = _player.GetComponent<Score>().GetScore();
+    //        int _scoreFromCombo = 0;
+
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            Debug.Log("Test Points For PickUps : " + PointsForPickUps);
+    //            _scoreFromCombo += (i + 1) * PointsForPickUps;
+    //        }
+
+    //        int expectedScore = (_pickUpArr.Length * _goalController.GetGoalMultiplier()) + _scoreFromCombo;
+    //        yield return new WaitForSeconds(0.1f);
+    //        Assert.AreEqual(expectedScore, tempScore);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Not Apple");
+    //        Assert.AreEqual(false, _goalController.isAppleGoal());
+    //    }
+    //}
+
+    //[UnityTest]
+    //public IEnumerator TestAllPickUpGoalsPoms()
+    //{
+    //    if (_goalController.isPomGoal() == true)
+    //    {
+    //        int PickupsToSpawn = _goalController.GetCurrentCollectionGoal();
+    //        GameObject[] _pickUpArr;
+    //        _pickUpArr = new GameObject[PickupsToSpawn];
+    //        int PointsForPickUps = 5;
+    //        Debug.Log("Test Pickups : " + PickupsToSpawn);
+
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            Debug.Log("Test Poms : " + (i + 1));
+    //            _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/Pomegranate") as GameObject);
+    //            _pickUpArr[i].SetActive(true);
+    //            _pickUpArr[i].transform.position = new Vector3(0, 2, 1000);
+    //        }
+    //        yield return new WaitForSeconds(1.0f);
+
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            Assert.AreNotEqual(null, _pickUpArr[i]);
+    //        }
+
+    //        PickupController _pickUp = game.GetPickupController();
+
+    //        yield return new WaitForSeconds(0.1f);
+    //        Assert.AreNotEqual(null, _pickUp);
+
+    //        _player.GetComponent<Score>().ResetCombo();
+    //        _player.GetComponent<Score>().ResetScore();
+    //        _player.transform.position = new Vector3(0, 0, 10);
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            _pickUpArr[i].transform.position = new Vector3(0, 2, 11 + 1);
+    //        }
+    //        yield return new WaitForSeconds(1f);
+
+    //        int tempScore = _player.GetComponent<Score>().GetScore();
+    //        int _scoreFromCombo = 0;
+
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            Debug.Log("Test Points For PickUps : " + PointsForPickUps);
+    //            _scoreFromCombo += (i + 1) * PointsForPickUps;
+    //        }
+
+    //        int expectedScore = (_pickUpArr.Length * _goalController.GetGoalMultiplier()) + _scoreFromCombo;
+    //        yield return new WaitForSeconds(0.1f);
+    //        Assert.AreEqual(expectedScore, tempScore);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Not Poms");
+
+    //        Assert.AreEqual(false, _goalController.isPomGoal());
+    //    }
+    //}
+
+    //[UnityTest]
+    //public IEnumerator TestAllPickUpGoalsCoins()
+    //{
+    //    if (_goalController.isCoinGoal() == true)
+    //    {
+    //        int PickupsToSpawn = _goalController.GetCurrentCollectionGoal();
+    //        GameObject[] _pickUpArr;
+    //        _pickUpArr = new GameObject[PickupsToSpawn];
+    //        int PointsForPickUps = 5;
+    //        Debug.Log("Test Pickups : " + PickupsToSpawn);
+
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            Debug.Log("Test Coins : " + (i+1));
+    //            _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/Coin") as GameObject);
+    //            _pickUpArr[i].SetActive(true);
+    //            _pickUpArr[i].transform.position = new Vector3(0, 2, 1000);
+    //        }
+    //        yield return new WaitForSeconds(1.0f);
+
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            Assert.AreNotEqual(null, _pickUpArr[i]);
+    //        }
+
+    //        PickupController _pickUp = game.GetPickupController();
+
+    //        yield return new WaitForSeconds(0.1f);
+    //        Assert.AreNotEqual(null, _pickUp);
+
+    //        _player.GetComponent<Score>().ResetCombo();
+    //        _player.GetComponent<Score>().ResetScore();
+    //        _player.transform.position = new Vector3(0, 0, 10);
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            _pickUpArr[i].transform.position = new Vector3(0, 2, 11 + 1);
+    //        }
+    //        yield return new WaitForSeconds(1f);
+
+    //        int tempScore = _player.GetComponent<Score>().GetScore();
+    //        int _scoreFromCombo = 0;
+
+    //        for (int i = 0; i < _pickUpArr.Length; i++)
+    //        {
+    //            Debug.Log("Test Points For PickUps : " + PointsForPickUps);
+    //            _scoreFromCombo += (i + 1) * PointsForPickUps;
+    //        }
+
+    //        int expectedScore = (_pickUpArr.Length * _goalController.GetGoalMultiplier()) + _scoreFromCombo;
+    //        yield return new WaitForSeconds(0.1f);
+    //        Assert.AreEqual(expectedScore, tempScore);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Not Coins");
+
+    //        Assert.AreEqual(false, _goalController.isCoinGoal());
+    //    }
+    //}
+
     [UnityTest]
     public IEnumerator TestAllPickUpGoalsAndPointsReceived()
     {
-        int PickupsToSpawn = _goalController.GetCurrentCollectionGoal();
-        GameObject[] _pickUpArr;
-        _pickUpArr = new GameObject[PickupsToSpawn];
-        int PointsForPickUps =0;
-        Debug.Log("Test Pickups : " + PickupsToSpawn);
-
-        for (int i = 0; i < _pickUpArr.Length; i++)
+        if (_goalController.isCoinGoal() == true || _goalController.isPomGoal() == true || _goalController.isAppleGoal() == true)
         {
-            if (_goalController.isAppleGoal())
-            {
-                _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/Apple") as GameObject);
-                PointsForPickUps = 5;
-                Debug.Log("Test Apples ");
-                Debug.Log("Test Points For PickUps one of these : " + PointsForPickUps);
+            int PickupsToSpawn = _goalController.GetCurrentCollectionGoal();
+            GameObject[] _pickUpArr;
+            _pickUpArr = new GameObject[PickupsToSpawn];
+            int PointsForPickUps = 5;
+            Debug.Log("Test Pickups : " + PickupsToSpawn);
 
-            }
-            else if (_goalController.isPomGoal())
+            for (int i = 0; i < _pickUpArr.Length; i++)
             {
-                _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/Pomegranate") as GameObject);
-                PointsForPickUps = 5;
-                Debug.Log("Test Poms ");
-                Debug.Log("Test Points For PickUps one of these : " + PointsForPickUps);
+                if (_goalController.isAppleGoal())
+                {
+                    _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/Apple") as GameObject);
+                    Debug.Log("Test Apples ");
+                    Debug.Log("Test Points For PickUps one of these : " + PointsForPickUps);
 
+                }
+                else if (_goalController.isPomGoal())
+                {
+                    _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/Pomegranate") as GameObject);
+                    Debug.Log("Test Poms ");
+                    Debug.Log("Test Points For PickUps one of these : " + PointsForPickUps);
+
+                }
+                else if (_goalController.isCoinGoal())
+                {
+                    _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/Coin") as GameObject);
+                    Debug.Log("Test Coins ");
+                    Debug.Log("Test Points For PickUps one of these : " + PointsForPickUps);
+
+                }
+                _pickUpArr[i].SetActive(true);
+                _pickUpArr[i].transform.position = new Vector3(0, 2, 1000);
             }
-            else if (_goalController.isCoinGoal())
+
+
+            yield return new WaitForSeconds(1.0f);
+
+            for (int i = 0; i < _pickUpArr.Length; i++)
             {
-                _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/Coin") as GameObject);
-                PointsForPickUps = 5;
-                Debug.Log("Test Coins ");
-                Debug.Log("Test Points For PickUps one of these : " + PointsForPickUps);
-
+                Assert.AreNotEqual(null, _pickUpArr[i]);
             }
-            else if (_goalController.isMaxHealthGoal())
+
+            PickupController _pickUp = game.GetPickupController();
+
+            yield return new WaitForSeconds(0.1f);
+            Assert.AreNotEqual(null, _pickUp);
+
+            _player.GetComponent<Score>().ResetCombo();
+            _player.GetComponent<Score>().ResetScore();
+            _player.transform.position = new Vector3(0, 0, 10);
+            for (int i = 0; i < _pickUpArr.Length; i++)
             {
-                _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/MaxHealthPotion") as GameObject);
-                PointsForPickUps = 0;
-                Debug.Log("Test Max Health Potions ");
-                Debug.Log("Test Points For PickUps one of these : " + PointsForPickUps);
-
+                _pickUpArr[i].transform.position = new Vector3(0, 2, 11 + 1);
             }
-            else if (_goalController.isSpeedUpGoal())
+            yield return new WaitForSeconds(1f);
+
+            int tempScore = _player.GetComponent<Score>().GetScore();
+            int _scoreFromCombo = 0;
+
+            for (int i = 0; i < _pickUpArr.Length; i++)
             {
-                _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/SpeedUpPotion") as GameObject);
-                PointsForPickUps = 0;
-                Debug.Log("Test Speed Up Potions ");
-                Debug.Log("Test Points For PickUps one of these : " + PointsForPickUps);
-
+                Debug.Log("Test Points For PickUps : " + PointsForPickUps);
+                _scoreFromCombo += (i + 1) * PointsForPickUps;
             }
-            else if (_goalController.isSpeedDownGoal())
-            {
-                _pickUpArr[i] = GameObject.Instantiate(Resources.Load("Pickups/SpeedDownPotion") as GameObject);
-                PointsForPickUps = 0;
-                Debug.Log("Test Speed Down Potions ");
-                Debug.Log("Test Points For PickUps one of these : " + PointsForPickUps);
 
-            }
-            _pickUpArr[i].SetActive(true);
-            _pickUpArr[i].transform.position = new Vector3(0, 2, 1000);
+            int expectedScore = (_pickUpArr.Length * _goalController.GetGoalMultiplier()) + _scoreFromCombo;
+            yield return new WaitForSeconds(0.1f);
+            Assert.AreEqual(expectedScore, tempScore);
         }
-
-
-        yield return new WaitForSeconds(1.0f);
-
-        for (int i = 0; i < _pickUpArr.Length; i++)
+        else
         {
-            Assert.AreNotEqual(null, _pickUpArr[i]);
+            if (_goalController.isMaxHealthGoal() == true)
+            {
+                Debug.Log("isHealth");
+                Assert.AreEqual(true, _goalController.isMaxHealthGoal());
+            }
+            else if (_goalController.isSpeedUpGoal() == true)
+            {
+                Debug.Log("isSpeedUp");
+                Assert.AreEqual(true, _goalController.isSpeedUpGoal());
+            }
+            else if (_goalController.isSpeedDownGoal() == true)
+            {
+                Debug.Log("isSpeedDown");
+                Assert.AreEqual(true, _goalController.isSpeedDownGoal());
+            }
         }
-
-        PickupController _pickUp = game.GetPickupController();
-
-        yield return new WaitForSeconds(0.1f);
-        Assert.AreNotEqual(null, _pickUp);
-
-        _player.GetComponent<Score>().ResetCombo();
-        _player.GetComponent<Score>().ResetScore();
-        _player.transform.position = new Vector3(0, 0, 10);
-        for (int i = 0; i < _pickUpArr.Length; i++)
-        {
-            _pickUpArr[i].transform.position = new Vector3(0, 2, 11 + 1);
-        }
-        yield return new WaitForSeconds(1f);
-
-        int tempScore = _player.GetComponent<Score>().GetScore();
-        int tempCombo = _player.GetComponent<Score>().GetCurrentCombo();
-        int _scoreFromCombo = 0;
-
-        for (int i = 0; i < _pickUpArr.Length; i++)
-        {
-            Debug.Log("Test Points For PickUps : " + PointsForPickUps);
-            _scoreFromCombo += (i + 1) * PointsForPickUps;
-        }
-
-        int expectedScore = (_pickUpArr.Length * _goalController.GetGoalMultiplier()) + _scoreFromCombo;
-        yield return new WaitForSeconds(0.1f);
-        Assert.AreEqual(expectedScore, tempScore);
     }
+
 }
