@@ -3,6 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
@@ -41,6 +42,16 @@ namespace Tests
             Assert.NotNull(closeButton);
             Assert.AreEqual(closeButton.name, "CloseButton");
         }
+        
+        [Test]
+        public void CloseButtonGoBackToMainMenu()
+        {
+            var leaderboardUI = InstantiateLeaderboardUI();
+            var closeButton = leaderboardUI.GetComponentInChildren<Button>();
+
+            Assert.NotNull(closeButton);
+            Assert.AreEqual(closeButton.name, "CloseButton");
+        }
 
         /// <summary>
         /// Check that the view to show the leaderboard is properly instantiated with the proper children GameObjects
@@ -59,6 +70,26 @@ namespace Tests
 
             Assert.NotNull(
                 content); // Check that the "Content" GameObject is present because that were rows should be added
+        }
+
+        [Test]
+        public void LeaderboardUIAccess()
+        {
+            var menuManagerGO = Object.Instantiate(Resources.Load<GameObject>("UI/MenuManager"));
+            var mainMenuAnimatedGO = menuManagerGO.transform.Find("MainMenuAnimated").gameObject;
+            var leaderboardButtonGO = mainMenuAnimatedGO.transform.Find("LeaderboardButton").gameObject;
+
+            var leaderboardGO = menuManagerGO.transform.Find("Leaderboard").gameObject;
+
+            Assert.IsFalse(leaderboardGO.activeSelf);
+            // Leaderboard button exists
+            Assert.NotNull(leaderboardButtonGO);
+
+            var leaderboardButton = leaderboardButtonGO.GetComponent<Button>();
+            leaderboardButton.onClick.Invoke();
+            
+            Assert.IsTrue(leaderboardGO.activeSelf);
+
         }
 
         [Test]

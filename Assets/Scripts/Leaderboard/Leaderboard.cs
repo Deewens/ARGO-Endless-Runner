@@ -32,13 +32,6 @@ public class Leaderboard : MonoBehaviour
     private List<String> _usernames = new List<String>(22);
     private List<String> _scores = new List<String>(22);
 
-    public Leaderboard()
-    {
-        // TODO: To be replaced with a real database. To be replaced with real data fetched from anvil.
-        //FetchLeaderboardData();
-       //FillDatabase();
-    }
-
     /// <summary>
     /// Fetch data from Anvil, convert it to LeaderboardData and return it.
     /// </summary>

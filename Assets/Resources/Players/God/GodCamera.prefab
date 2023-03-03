@@ -131,7 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b25fd8a0582398448da8d1af6336142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
   _angleFromRunner: 10
   _heightFromRunner: 40
   _offset: 18

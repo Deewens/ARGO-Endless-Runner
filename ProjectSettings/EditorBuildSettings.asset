@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Tests/Scenes/GodCameraTest.unity
+    guid: 90c3ff8ed93b28f4a80a1196fdb71b69
   m_configObjects: {}
