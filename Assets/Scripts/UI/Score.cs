@@ -281,6 +281,11 @@ public class Score : NetworkBehaviour
         _goalComplete = false;
     }
 
+    public int GetCurrentCombo()
+    {
+        return _currentCombo;
+    }
+
     public void ResetCombo()
     {
         _currentCombo = 0;
@@ -339,6 +344,11 @@ public class Score : NetworkBehaviour
     {
         _comboTimeRemaining = 3.0f;
         _timerIsRunning = true;
+    }
+
+    public bool GetComboTimer()
+    {
+        return _timerIsRunning;
     }
 
     private void SetComboText(int currentCombo)

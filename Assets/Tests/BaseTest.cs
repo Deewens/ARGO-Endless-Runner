@@ -12,7 +12,7 @@ using UnityEngine.TestTools;
 /// 
 /// </summary>
 
-public class BaseTest
+public class BaseTest : MonoBehaviour
 {
     /// An instance of the main game
     protected GameScript game;
