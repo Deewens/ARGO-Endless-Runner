@@ -80,6 +80,7 @@ public class GodPlayer : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         GodCamera runnerCamera = Instantiate(_cameraPrefab);
+        GameObject ui = Instantiate(uiPrefab);
     }
 
     /// <summary>

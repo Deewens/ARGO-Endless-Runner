@@ -154,4 +154,9 @@ public class GameScript : MonoBehaviour
     {
         return _gods[0].GetComponent<AIGod>();
     }
+
+    public Camera GetGodCamera()
+    {
+        return GameObject.Find("GodCamera").GetComponent<Camera>();
+    }
 }
