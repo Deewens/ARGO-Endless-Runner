@@ -64,11 +64,16 @@ public class Score : NetworkBehaviour
         _comboCanvas = GameObject.Find("ComboCanvas");
         _bonusPointsCanvas = GameObject.Find("BonusPointsCanvas");
         _scoreCanvas = GameObject.Find("ScoreCanvas");
-
+        
         // Deactivate every UI by default if you're not the local player
-        _comboCanvas.SetActive(false);
-        _bonusPointsCanvas.SetActive(false);
-        _scoreCanvas.SetActive(false);
+        if (_comboCanvas != null)
+            _comboCanvas.SetActive(false);
+        
+        if (_bonusPointsCanvas != null)
+            _bonusPointsCanvas.SetActive(false);
+        
+        if (_scoreCanvas != null)
+            _scoreCanvas.SetActive(false);
     }
 
     public override void OnStartAuthority()

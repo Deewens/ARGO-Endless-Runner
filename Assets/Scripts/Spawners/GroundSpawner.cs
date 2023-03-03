@@ -32,13 +32,13 @@ public class GroundSpawner : MonoBehaviour
     /// <summary>
     /// Start spawns the first 15 ground tiles that create the track
     /// </summary>
-    [ServerCallback]
+ //  [ServerCallback]
     private void Start()
     {
         for (var i = 0; i < 15; i++)
         {
             var groundTile = Instantiate(_groundTilePrefab, _nextSpawnPos, Quaternion.identity);
-            NetworkServer.Spawn(groundTile);
+            //NetworkServer.Spawn(groundTile);
             _nextSpawnPos = groundTile.transform.GetChild(1).transform.position;
         }
     }
@@ -47,7 +47,7 @@ public class GroundSpawner : MonoBehaviour
     /// Move the tile that has gone off screen to the end of the track
     /// </summary>
     /// <param name="tile">Tile to be moved</param>
-    [Server]
+    //[Server]
     public void MoveTile(GroundTile tile)
     {
         tile.transform.position = _nextSpawnPos;

@@ -71,7 +71,7 @@ public class GodCamera : MonoBehaviour
     private void CalculateCameraTransform()
     {
         // Caching properties for efficiency
-        var targetPosition = _target.transform.position;
+       var targetPosition = _target.transform.position;
         var targetForward = _target.forward;
 
         // Calculate the initial position of the camera
