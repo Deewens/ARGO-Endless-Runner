@@ -6,13 +6,14 @@ using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 
 /// <summary>
 /// 
 /// </summary>
 
-public class BaseTest : MonoBehaviour
+public class BaseTest : InputTestFixture
 {
     /// An instance of the main game
     protected GameScript game;
@@ -21,8 +22,9 @@ public class BaseTest : MonoBehaviour
     /// Sets up the testing script
     /// </summary>
     [SetUp]
-    public virtual void Setup()
+    public override void Setup()
     {
+        base.Setup();
         GameObject gameGameObject =
           MonoBehaviour.Instantiate(
             Resources.Load<GameObject>("GamePrefab"));

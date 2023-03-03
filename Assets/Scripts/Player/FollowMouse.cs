@@ -25,9 +25,7 @@ public class FollowMouse : MonoBehaviour
             {
                 if (Input.touchCount > trails.Count)
                 {
-                    GameObject j = Instantiate(trailPrefab);
-                    j.transform.SetParent(this.transform);
-                    trails.Add(j);
+                    SpawnTrail();
                 }
 
                 else
@@ -40,6 +38,8 @@ public class FollowMouse : MonoBehaviour
             for (int i = 0; i < trails.Count; i++)
             {
                 var touch = Input.GetTouch(i);
+
+                Debug.Log(touch.position);
 
                 var newPos = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100));
 
@@ -58,6 +58,13 @@ public class FollowMouse : MonoBehaviour
                 trails.Clear();
             }
         }
+    }
+
+    public void SpawnTrail()
+    {
+        GameObject j = Instantiate(trailPrefab);
+        j.transform.SetParent(this.transform);
+        trails.Add(j);
     }
 }
         
