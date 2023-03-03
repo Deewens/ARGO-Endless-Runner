@@ -282,6 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runner: {fileID: 8192850146413396301}
   obstacleSpawner: {fileID: 6733981501285317021}
+  pickUpController: {fileID: 4502714621476297735}
   gods:
   - {fileID: 1357532481579060476}
 --- !u!1 &4394544597606187796
@@ -667,6 +668,12 @@ PrefabInstance:
 --- !u!4 &4502714621476297733 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3748275287971004876, guid: e4b2896b69807634c91658ba18470479,
+    type: 3}
+  m_PrefabInstance: {fileID: 754449232394345929}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4502714621476297735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3748275287971004878, guid: e4b2896b69807634c91658ba18470479,
     type: 3}
   m_PrefabInstance: {fileID: 754449232394345929}
   m_PrefabAsset: {fileID: 0}

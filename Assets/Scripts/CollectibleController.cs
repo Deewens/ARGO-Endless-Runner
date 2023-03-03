@@ -102,6 +102,7 @@ public class CollectibleController : MonoBehaviour
             }
             else if (gameObject.transform.tag == "Coin")
             {
+                Debug.Log("Got Coin");
                 GameObject.Find("PickupController").GetComponent<GoalController>().AddCoins();
                 GetComponent<PointOfInterest>().StartHit(other);
                 _runnerScoreScript.AddComboPoints(_pointsForPickUp);

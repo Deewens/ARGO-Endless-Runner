@@ -107,15 +107,20 @@ public class PickupController : MonoBehaviour
                 }
                 Vector3 newPos = _runner.position + _offset;
 
-                //Debug.Log(chosenPickUp);
-                if (!transform.GetChild(chosenPickUp).gameObject.activeInHierarchy)
-                {
-                    transform.GetChild(chosenPickUp).transform.localPosition = new Vector3(randX, 2, newPos.z);
-                    transform.GetChild(chosenPickUp).gameObject.SetActive(true);
-                }
+                ActivatePickUp(chosenPickUp, randX, newPos.z);
             }
         }
     }
+
+    public void ActivatePickUp(int ChosenPickUp, int XPos, float ZPos)
+    {
+        //Debug.Log(chosenPickUp);
+        if (!transform.GetChild(ChosenPickUp).gameObject.activeInHierarchy)
+        {
+            transform.GetChild(ChosenPickUp).transform.localPosition = new Vector3(XPos, 2, ZPos);
+            transform.GetChild(ChosenPickUp).gameObject.SetActive(true);
+        }
+    }    
 
     public void SpeedUp()
     {
