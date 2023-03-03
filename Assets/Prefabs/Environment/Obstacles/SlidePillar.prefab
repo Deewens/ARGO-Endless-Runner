@@ -93,7 +93,7 @@ MeshCollider:
   m_GameObject: {fileID: 2303620915438472468}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 7955672361361223377}
   - component: {fileID: 4449367719062310902}
   - component: {fileID: 7900122696155204380}
+  - component: {fileID: 5677849355624003328}
   m_Layer: 8
   m_Name: SlidePillar
   m_TagString: SlideObstacle
@@ -159,7 +160,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5209144994584086400}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4b80e1576aa7ec48afbf43116db1147, type: 3}
   m_Name: 
@@ -172,11 +173,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5209144994584086400}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd7e793d12581ac4bb6d04b2ba602e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &5677849355624003328
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5209144994584086400}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9, y: 1.5, z: 1}
+  m_Center: {x: 3.75, y: 2.2, z: 0}
 --- !u!1 &5216288635537659428
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +284,7 @@ MeshCollider:
   m_GameObject: {fileID: 5216288635537659428}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -287,8 +301,6 @@ GameObject:
   - component: {fileID: 7530220745212437983}
   - component: {fileID: 7530220745213568799}
   - component: {fileID: 7530220745217660799}
-  - component: {fileID: 1168594727798184509}
-  - component: {fileID: 2529650347810121729}
   m_Layer: 8
   m_Name: TopPillar
   m_TagString: SlideObstacle
@@ -370,33 +382,8 @@ MeshCollider:
   m_GameObject: {fileID: 7530220745211378143}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: a025cf4bd920b96419febb3a6ca19ae6, type: 3}
---- !u!114 &1168594727798184509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7530220745211378143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4b80e1576aa7ec48afbf43116db1147, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poiName: 
---- !u!114 &2529650347810121729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7530220745211378143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7e793d12581ac4bb6d04b2ba602e99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
