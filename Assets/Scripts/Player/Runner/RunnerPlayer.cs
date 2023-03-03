@@ -200,6 +200,7 @@ public class RunnerPlayer : NetworkBehaviour
                     _moving = true;
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x - _laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                     CurrentLane--;
+                    Debug.Log(CurrentLane);
                     GetComponent<AIBrain>().CurrentLane = (int)CurrentLane;
                 }
 
@@ -211,6 +212,7 @@ public class RunnerPlayer : NetworkBehaviour
                     _moving = true;
                     gameObject.transform.position = new Vector3(gameObject.transform.position.x + _laneSize, gameObject.transform.position.y, gameObject.transform.position.z);
                     CurrentLane++;
+                    Debug.Log(CurrentLane);
                     GetComponent<AIBrain>().CurrentLane = (int)CurrentLane;
 
                 }
@@ -312,5 +314,12 @@ public class RunnerPlayer : NetworkBehaviour
                 Jump();
             }
         }
+    }
+
+    public void TestChangePos(int lane,int xPos)
+    {
+        gameObject.transform.position = new Vector3(xPos, gameObject.transform.position.y, gameObject.transform.position.z);
+        CurrentLane = lane;
+        GetComponent<AIBrain>().CurrentLane = (int)CurrentLane;
     }
 }
