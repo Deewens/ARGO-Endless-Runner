@@ -29,13 +29,13 @@ public class MultiplayerMenu : MonoBehaviour
     [Header("Scenes (MUST be added to build settings)")]
     [Scene] 
     [SerializeField] 
-    private string mainMenuScene = "";
+    private string _mainMenuScene = "";
 
     [SerializeField] private TMP_InputField _ipInputField;
 
     public void LoadMainMenuScene()
     {
-        SceneManager.LoadScene(mainMenuScene);
+        SceneManager.LoadScene(_mainMenuScene);
     }
 
     public void StartHostButton()
