@@ -124,7 +124,7 @@ public class ComboTests : BaseTest
         _player.transform.position = new Vector3(0, 0, 10);
         for (int i = 0; i < _coinArr.Length; i++)
         {
-            _coinArr[i].transform.position = new Vector3(0, 2, 11 + 1);
+            _coinArr[i].transform.position = new Vector3(0, 2, 11 + (i + 1));
         }
         yield return new WaitForSeconds(1f);
 
@@ -167,12 +167,13 @@ public class ComboTests : BaseTest
 
         _player.GetComponent<Score>().ResetCombo();
         _player.GetComponent<Score>().ResetScore();
-        _player.transform.position = new Vector3(0, 0, 10);
         for (int i = 0; i < _coinArr.Length; i++)
         {
-            _coinArr[i].transform.position = new Vector3(0, 2, 11 +1);
+            _coinArr[i].transform.position = new Vector3(0, 2, 11 + (i + 1f));
         }
-        yield return new WaitForSeconds(1f);
+        _player.transform.position = new Vector3(0, 0, 11);
+
+        yield return new WaitForSeconds(2f);
 
         int tempScore = _player.GetComponent<Score>().GetScore();
         int tempCombo = _player.GetComponent<Score>().GetCurrentCombo();
@@ -215,12 +216,13 @@ public class ComboTests : BaseTest
 
         _player.GetComponent<Score>().ResetCombo();
         _player.GetComponent<Score>().ResetScore();
-        _player.transform.position = new Vector3(0, 0, 10);
         for (int i = 0; i < _coinArr.Length; i++)
         {
-            _coinArr[i].transform.position = new Vector3(0, 2, 11 + 1);
+            _coinArr[i].transform.position = new Vector3(0, 2, 11 + (i +1f));
         }
-        yield return new WaitForSeconds(1f);
+        _player.transform.position = new Vector3(0, 0, 11);
+  
+        yield return new WaitForSeconds(3f);
 
         int tempScore = _player.GetComponent<Score>().GetScore();
         int tempCombo = _player.GetComponent<Score>().GetCurrentCombo();
@@ -264,12 +266,13 @@ public class ComboTests : BaseTest
 
         _player.GetComponent<Score>().ResetCombo();
         _player.GetComponent<Score>().ResetScore();
-        _player.transform.position = new Vector3(0, 0, 10);
         for (int i = 0; i < _coinArr.Length; i++)
         {
-            _coinArr[i].transform.position = new Vector3(0, 2, 11 + 1);
+            _coinArr[i].transform.position = new Vector3(0, 2, 11 + (i + 1f));
         }
-        yield return new WaitForSeconds(1f);
+        _player.transform.position = new Vector3(0, 0, 11);
+
+        yield return new WaitForSeconds(3f);
 
 
         int tempScore = _player.GetComponent<Score>().GetScore();

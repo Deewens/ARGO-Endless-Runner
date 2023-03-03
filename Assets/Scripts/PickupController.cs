@@ -124,12 +124,10 @@ public class PickupController : MonoBehaviour
 
     public void SpeedUp()
     {
-        if(_runner!=null)
         _runner.GetComponent<MoveForward>().SetSpeed(+2);
     }
     public void SpeedDown()
     {
-        if(_runner!=null)
         _runner.GetComponent<MoveForward>().SetSpeed(-2);
     }
 }
