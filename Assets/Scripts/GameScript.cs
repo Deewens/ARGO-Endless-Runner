@@ -19,20 +19,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using UnityEngine;
 
 /// <summary>
-/// 
+/// helps tests have access to the game features
 /// </summary>
 public class GameScript : MonoBehaviour
 {
     /// The instance of this script in the scene.
-    private static GameScript instance;
+    private static GameScript _instance;
 
     /// The runner player in the scene.
     [SerializeField]
-    private GameObject runner;
+    private GameObject _runner;
 
     /// The obstacle spawner in the scene.
     [SerializeField]
-    private GameObject obstacleSpawner;
+    private GameObject _obstacleSpawner;
 
     [SerializeField]
     private GameObject pickUpController;/// The god players in the scene.
@@ -41,14 +41,14 @@ public class GameScript : MonoBehaviour
     private GameObject goalController;/// The god players in the scene.
 
     [SerializeField]
-    private GameObject[] gods;
+    private GameObject[] _gods;
 
     /// <summary>
     /// Sets up this script to have an instance of itself.
     /// </summary>
     private void Start()
     {
-        instance = this;
+        _instance = this;
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ public class GameScript : MonoBehaviour
     /// <returns>The instance of the runner player script.</returns>
     public RunnerPlayer GetRunner()
     {
-        RunnerPlayer p = runner.GetComponent<RunnerPlayer>();
+        RunnerPlayer p = _runner.GetComponent<RunnerPlayer>();
 
         p.OnStartAuthority();
         p.GetComponent<MoveForward>().OnStartLocalPlayer();
@@ -72,7 +72,7 @@ public class GameScript : MonoBehaviour
     /// <returns>The instance of the runner's AI.</returns>
     public AIBrain GetRunnerAI()
     {
-        AIBrain p = runner.GetComponent<AIBrain>();
+        AIBrain p = _runner.GetComponent<AIBrain>();
 
         p.GetComponent<RunnerPlayer>().OnStartAuthority();
         p.GetComponent<MoveForward>().OnStartLocalPlayer();
@@ -86,7 +86,7 @@ public class GameScript : MonoBehaviour
     /// <returns>The instance of the obstacle spawner script.</returns>
     public ObstacleSpawner GetObstacleSpawner()
     {
-        return obstacleSpawner.GetComponent<ObstacleSpawner>();
+        return _obstacleSpawner.GetComponent<ObstacleSpawner>();
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public class GameScript : MonoBehaviour
     public RunnerHealthController GetHealthController()
     {
 
-        RunnerPlayer p = runner.GetComponent<RunnerPlayer>();
+        RunnerPlayer p = _runner.GetComponent<RunnerPlayer>();
 
         p.OnStartAuthority();
         p.GetComponent<MoveForward>().OnStartLocalPlayer();
@@ -133,7 +133,7 @@ public class GameScript : MonoBehaviour
     public MoveForward GetMoveForward()
     {
 
-        RunnerPlayer p = runner.GetComponent<RunnerPlayer>();
+        RunnerPlayer p = _runner.GetComponent<RunnerPlayer>();
 
         p.OnStartAuthority();
         p.GetComponent<MoveForward>().OnStartLocalPlayer();
@@ -147,11 +147,11 @@ public class GameScript : MonoBehaviour
 
     public GodPlayer GetGod()
     {
-        return gods[0].GetComponent<GodPlayer>();
+        return _gods[0].GetComponent<GodPlayer>();
     }
 
     public AIGod GetGodAI()
     {
-        return gods[0].GetComponent<AIGod>();
+        return _gods[0].GetComponent<AIGod>();
     }
 }
