@@ -243,5 +243,34 @@ public class RunnerTests : BaseTest
 
         x = Mathf.Round(runner.transform.position.x);
         Assert.IsTrue(oldX == Mathf.Round(runner.transform.position.x));
+	}
+    /// <summary>
+    /// Test to make sure the player health work as they should
+    /// </summary>
+    /// <returns></returns>
+    [UnityTest]
+    public IEnumerator HealthBarTest()
+    {
+        RunnerPlayer runner = game.GetRunner();
+        RunnerHealthController health = game.GetHealthController();
+        MoveForward moveF = game.GetMoveForward();
+
+        health.TestDamage(20);
+
+        Assert.IsTrue(health.GetCurrentHealth() < health.GetMaxHealth());
+        yield return new WaitForSeconds(0.5f);
+
+        health.TestMax();
+
+        Assert.IsTrue(health.GetCurrentHealth() == health.GetMaxHealth());
+        yield return new WaitForSeconds(0.5f);
+
+        health.TestDamage(20);
+        health.TestDamage(20);
+        int afterDamage = health.GetCurrentHealth();
+        health.TestPartial();
+
+        Assert.IsTrue(health.GetCurrentHealth() < health.GetMaxHealth());
+        Assert.IsTrue(health.GetCurrentHealth() > afterDamage);
     }
 }
