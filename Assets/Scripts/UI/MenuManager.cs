@@ -67,11 +67,17 @@ public class MenuManager : MonoBehaviour
         ArgoNetworkManager.singleton.StartHost();
     }
     
+    /// <summary>
+    /// Loads the multipplayer menu
+    /// </summary>
     public void LoadMultiplayerMenuScene()
     {
         SceneManager.LoadScene(multiplayerMenuScene);
     }
 
+    /// <summary>
+    /// Displays the leaderboard
+    /// </summary>
     public void DisplayLeaderboard()
     {
         GameObject title = mainMenuPanel.transform.GetChild(0).transform.Find("Title").gameObject;
@@ -91,6 +97,9 @@ public class MenuManager : MonoBehaviour
         leaderboardPanel.SetActive(true);
     }
 
+    /// <summary>
+    /// Hides the leaderboard
+    /// </summary>
     public void HideLeaderboard()
     {
         GameObject title = mainMenuPanel.transform.GetChild(0).transform.Find("Title").gameObject;

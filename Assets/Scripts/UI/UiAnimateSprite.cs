@@ -48,6 +48,10 @@ public class UiAnimateSprite : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays the menu animation
+    /// </summary>
+    /// <returns></returns>
     IEnumerator PlayAnimation()
     {
         yield return new WaitForSeconds(Speed);

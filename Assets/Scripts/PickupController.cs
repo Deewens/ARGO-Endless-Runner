@@ -112,6 +112,12 @@ public class PickupController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Activates the pick ups in the scene
+    /// </summary>
+    /// <param name="ChosenPickUp"></param>
+    /// <param name="XPos"></param>
+    /// <param name="ZPos"></param>
     public void ActivatePickUp(int ChosenPickUp, int XPos, float ZPos)
     {
         //Debug.Log(chosenPickUp);
@@ -122,10 +128,17 @@ public class PickupController : MonoBehaviour
         }
     }    
 
+    /// <summary>
+    /// Increases the players speed
+    /// </summary>
     public void SpeedUp()
     {
         _runner.GetComponent<MoveForward>().SetSpeed(+2);
     }
+
+    /// <summary>
+    /// Decreases the players speed
+    /// </summary>
     public void SpeedDown()
     {
         _runner.GetComponent<MoveForward>().SetSpeed(-2);

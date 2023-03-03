@@ -96,6 +96,10 @@ public class MoveForward : NetworkBehaviour
         _rb.MovePosition(_rb.position + moveForward);
     }
 
+    /// <summary>
+    /// Gets the distance the player has travelled
+    /// </summary>
+    /// <returns></returns>
     [Client]
     public int GetDistanceTravelled()
     {
@@ -108,6 +112,10 @@ public class MoveForward : NetworkBehaviour
         return _distanceTravelled;
     }
 
+    /// <summary>
+    /// Gets the speed the player is currently travelling at
+    /// </summary>
+    /// <returns></returns>
     [Client]
     public int GetSpeed()
     {
@@ -120,6 +128,10 @@ public class MoveForward : NetworkBehaviour
         return _speed;
     }
 
+    /// <summary>
+    /// Gets the playtime of the current run, survival time
+    /// </summary>
+    /// <returns></returns>
     [Client]
     public int GetPlayTime()
     {
@@ -157,6 +169,11 @@ public class MoveForward : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Used for tests to bypass the client functions
+    /// Sets the players speed
+    /// </summary>
+    /// <param name="speedChange"></param>
     public void TestSetSpeed(int speedChange)
     {
         if (speedChange < 0 && _speed > MinSpeed)
@@ -169,6 +186,11 @@ public class MoveForward : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Used for tests to bypass the client functions
+    /// Gets the distance travelled by the runner
+    /// </summary>
+    /// <param name="speedChange"></param>
     public int TestGetDistanceTravelled()
     {
         if (!isLocalPlayer)
@@ -180,11 +202,21 @@ public class MoveForward : NetworkBehaviour
         return _distanceTravelled;
     }
 
+    /// <summary>
+    /// Used for tests to bypass the client functions
+    /// Gets the players speed
+    /// </summary>
+    /// <param name="speedChange"></param>
     public int TestGetSpeed()
     {
         return _speed;
     }
 
+    /// <summary>
+    /// Used for tests to bypass the client functions
+    /// Gets the time of the player's current run, how long they survived
+    /// </summary>
+    /// <param name="speedChange"></param>
     public int TestGetPlayTime()
     {
         if (!isLocalPlayer)

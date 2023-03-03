@@ -44,6 +44,12 @@ public class CollectibleController : MonoBehaviour
     {
         _pointsForPickUp = 5;
     }
+
+    /// <summary>
+    /// Checks Collision between pick ups, solid objects and a collider offscreen.
+    /// Sets them to inactive if collision detected
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Inpenetrable" || other.tag == "JumpObstacle" || other.tag == "SlideObstacle")
@@ -55,6 +61,11 @@ public class CollectibleController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    /// <summary>
+    /// Checks Collision between the runner and pick ups
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (_runner == null)

@@ -37,6 +37,9 @@ public class Data
     public double timePlayed = 0;
 }
 
+/// <summary>
+/// Data specific to the leaderboard
+/// </summary>
 public class LeaderBoardData
 {
     public string username = " ";

@@ -19,8 +19,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
 /// <summary>
-/// Deals with randomising and completing runner goals
+/// Class Deals with randomising goals for the player to reach during their run
 /// </summary>
 public class GoalController : MonoBehaviour
 {
@@ -165,7 +166,7 @@ public class GoalController : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets all bools for goals
+    /// Resets the goals so a new one can be picked
     /// </summary>
     private void ResetGoals()
     {
@@ -205,6 +206,10 @@ public class GoalController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adds the number of pickups that need to be collected for the 
+    /// goal to be achieved to a list.
+    /// </summary>
     private void AddCollectionGoals()
     {
         _noToCollect.Add(2);
@@ -216,6 +221,9 @@ public class GoalController : MonoBehaviour
         _noToCollect.Add(10);
     }
 
+    /// <summary>
+    /// Keeps track of the apples collected and left to collect to reach the goal
+    /// </summary>
     public void AddApple()
     {
         _appleCount++;
@@ -224,6 +232,10 @@ public class GoalController : MonoBehaviour
             _leftToCollect--;
         }
     }
+
+    /// <summary>
+    /// Keeps track of the Poms collected and left to collect to reach the goal
+    /// </summary>
     public void AddPom()
     {
         _pomCount++;
@@ -232,6 +244,10 @@ public class GoalController : MonoBehaviour
             _leftToCollect--;
         }
     }
+
+    /// <summary>
+    /// Keeps track of the SpeedUp Potions collected and left to collect to reach the goal
+    /// </summary>
     public void AddSpeedUp()
     {
          _speedUpCount++;
@@ -240,6 +256,10 @@ public class GoalController : MonoBehaviour
             _leftToCollect--;
         }
     }
+
+    /// <summary>
+    /// Keeps track of the Speed Down Potions collected and left to collect to reach the goal
+    /// </summary>
     public void AddSpeedDown()
     {
         _speedDownCount++;
@@ -248,6 +268,10 @@ public class GoalController : MonoBehaviour
             _leftToCollect--;
         }
     }
+
+    /// <summary>
+    /// Keeps track of the Coins collected and left to collect to reach the goal
+    /// </summary>
     public void AddCoins()
     {
         _coinCount++;
@@ -256,6 +280,10 @@ public class GoalController : MonoBehaviour
             _leftToCollect--;
         }
     }
+
+    /// <summary>
+    /// Keeps track of the Max Health Potions collected and left to collect to reach the goal
+    /// </summary>
     public void AddMaxHealth()
     {
          _maxHealthCount++;
@@ -265,46 +293,79 @@ public class GoalController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets the number of pickups that need to be collected for the goal to be complete
+    /// </summary>
     public int GetCurrentCollectionGoal()
     {
         return _currentCollectionGoal;
     }
 
+    /// <summary>
+    /// Checks if the apple goal is active
+    /// </summary>
+    /// <returns></returns>
     public bool isAppleGoal()
     {
         if (_collectApples) { return _collectApples; }
         return false;
     }
+
+    /// <summary>
+    /// Checks if the Pom goal is active
+    /// </summary>
+    /// <returns></returns>
     public bool isPomGoal()
     {
         if (_collectPoms) { return _collectPoms; }
         return false;
     }
 
+    /// <summary>
+    /// Checks if the Coin goal is active
+    /// </summary>
+    /// <returns></returns>
     public bool isCoinGoal()
     {
         if (_collectCoins) { return _collectCoins; }
         return false;
     }
 
+    /// <summary>
+    /// Checks if the Max Health Potion goal is active
+    /// </summary>
+    /// <returns></returns>
     public bool isMaxHealthGoal()
     {
         if (_collectMaxHealthPotions) { return _collectMaxHealthPotions; }
         return false;
     }
 
+    /// <summary>
+    /// Checks if the Speed Down Potion goal is active
+    /// </summary>
+    /// <returns></returns>
     public bool isSpeedDownGoal()
     {
         if (_collectSpeedDownPotions) { return _collectSpeedDownPotions; }
         return false;
     }
 
+    /// <summary>
+    /// Checks if the Speed Up Potion goal is active
+    /// </summary>
+    /// <returns></returns>
     public bool isSpeedUpGoal()
     {
         if (_collectSpeedUpPotions) { return _collectSpeedUpPotions; }
         return false;
     }
 
+    /// <summary>
+    /// gets the goal multilier that will be used for points
+    /// calculation when a goal is achieved.
+    /// </summary>
+    /// <returns></returns>
     public int GetGoalMultiplier()
     {
         return _goalMultiplier;

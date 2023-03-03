@@ -20,6 +20,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using UnityEngine;
 
+/// <summary>
+/// Scroller to make the players light keep pace with them
+/// </summary>
 public class LightScroller : MonoBehaviour
 {
     private Transform _runner;

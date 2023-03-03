@@ -49,6 +49,11 @@ public class Leaderboard : MonoBehaviour
         return _database;
     }
 
+    /// <summary>
+    /// Gets data from the anvils server database
+    /// specifically the leaderboard data.
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator GetData()
     {
         string url = "https://TQLOBBSN2N5PMVQY.anvil.app/IANHMSZIEXYQHRVG3CB6WIA4/_/api/getleaderboard";
@@ -74,6 +79,11 @@ public class Leaderboard : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Parses the string of data to retrieve the scores
+    /// from the string
+    /// </summary>
+    /// <param name="TextData"></param>
     private void ParseScores(String TextData)
     {
         string score = "";
@@ -113,6 +123,11 @@ public class Leaderboard : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Parses the string of data  to retrieve the scores
+    /// from the string
+    /// </summary>
+    /// <param name="TextData"></param>
     private void ParseUsernames(String TextData)
     {
         string name = "";
